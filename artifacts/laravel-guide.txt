@@ -1,0 +1,28 @@
+# Development
+
+## Running server
+To run the server locally: 
+$php artisan serve
+
+## Autoloading
+Whenver there is new classes to be autoloaded (defined in composer.json)
+$php artisan dump-autoload
+
+
+## DB migration
+To create new DB migration:
+$php artisan migrate:make create_users_table
+
+To execute migration
+$php artisan migrate
+
+To run seeder
+$php artisan db:seed
+
+To rollback and seed:
+$php artisan migrate:refresh --seed
+
+# Resources
+List of countries & provinces
+https://github.com/umpirsky/country-list
+https://gist.github.com/zia-newversion/6755365

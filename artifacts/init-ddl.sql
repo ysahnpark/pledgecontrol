@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `accounts` (
-  `ID` int(10) unsigned NOT NULL,
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `Name` varchar(40) NOT NULL,
   `PledgeAmount` decimal(10,2) NOT NULL,
   `PledgeDate` date NOT NULL,
@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `PaidAmount` decimal(10,2) NOT NULL,
   `RemainingAmount` decimal(10,2) NOT NULL,
   `RemindLetterSent` tinyint(1) DEFAULT NULL,
+  `RemindLetterSentDate` date NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -45,10 +46,13 @@ CREATE TABLE IF NOT EXISTS `accounts` (
 
 CREATE TABLE IF NOT EXISTS `trans` (
   `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `AccountID` varchar(40) NOT NULL,
   `Name` varchar(40) NOT NULL,
-  `Amount` decimal(12,2) unsigned NOT NULL,
+  `Amount` decimal(12,2)  NOT NULL,
   `PaymentDate` date NOT NULL,
-  PRIMARY KEY (`ID`)
+  `Note` varchar(255) NULL,
+  PRIMARY KEY (`ID`),
+  FOREIGN KEY (`AccountID`) REFERENCES accounts(`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 --
@@ -58,7 +62,7 @@ DROP TRIGGER IF EXISTS `account_Update`;
 DELIMITER //
 CREATE TRIGGER `account_Update` AFTER INSERT ON `trans`
  FOR EACH ROW BEGIN
-    UPDATE `test`.`accounts` AS `ST`
+    UPDATE `accounts` AS `ST`
     SET `ST`.`PaidAmount` = `ST`.`PaidAmount` + NEW.`Amount`, `ST`.`lastPaymentDate` = NEW.`PaymentDate`, `ST`.`RemainingAmount` = `ST`.`RemainingAmount` - NEW.`Amount`
     WHERE `ST`.`Name` = NEW.`Name`;
 END

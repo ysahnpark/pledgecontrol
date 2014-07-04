@@ -78,4 +78,7 @@ App::down(function()
 |
 */
 
+// DataFlows' IOC registration
+require app_path().'/start/ioc.php';
+
 require app_path().'/filters.php';
