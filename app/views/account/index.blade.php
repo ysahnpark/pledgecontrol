@@ -1,15 +1,11 @@
 
 @section('content')
-<form class="form-inline" role="form" method="POST" action="">
+<form class="form-inline" role="form" mathod="GET" action="{{ URL::to(route('accounts.index')) }}">
   <div class="form-group">
-    <label class="sr-only" for="name">Name</label>
-    <input type="email" class="form-control" id="name" placeholder="Enter name">
+    <label class="sr-only" for="name-like">Name</label>
+    <input type="text" name="Name-like" class="form-control" id="Name" placeholder="Enter name" value="{{ $queryCtx->getQParamVal('Name-like') }}">
   </div>
-  <div class="form-group">
-    <label class="sr-only" for="name">Amount</label>
-    <input type="email" class="form-control" id="amount" placeholder="Enter amount">
-  </div>
-  <button type="submit" class="btn btn-default">Add Trans</button>
+  <button type="submit" class="btn btn-default">Search</button>
 </form>
 
 <table class="table table-striped">
@@ -30,7 +26,7 @@
 		<tr>
 			<td>{{ $account->Name }}</td>
 			<td>{{ $account->PledgeAmount }}</td>
-			<td>{{ $account->PledgeDate }}</td>
+			<td>{{ \DocuFlow\Helper\DfFormat::date($account->PledgeDate) }}</td>
 			<td>{{ $account->PaymentPeriod }}</td>
 			<td>{{ $account->PaidAmount }}</td>
 			<td>{{ $account->RemainingAmount }}</td>

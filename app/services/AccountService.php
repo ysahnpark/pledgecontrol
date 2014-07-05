@@ -19,7 +19,7 @@ class AccountService  {
         if (empty($criteria)) $criteria = array();
         $queryBuilder = new \DocuFlow\Helper\DfQueryBuilderEloquent();
         $query = \Account::query();
-        $query = $queryBuilder->buildQuery($criteria, $query);
+        $queryBuilder->buildQuery($criteria, $query);
         return $query; 
     }
 
@@ -35,6 +35,9 @@ class AccountService  {
     public function listAccounts($criteria, $sortParams = array(), $offset = 0, $limit=100)
     {
         $query = $this->buildQuery($criteria);
+        //$query = \Account::query();
+        //$query->where()
+
         $records = $query->skip($offset)->take($limit)->get();
 
         return $records;

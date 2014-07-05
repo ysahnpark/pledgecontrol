@@ -17,4 +17,6 @@ Route::get('/', function()
 });
 
 Route::resource('accounts', 'AccountController');
+Route::resource('api/accounts', 'AccountApiController');
+
 Route::resource('transactions', 'TransactionController');

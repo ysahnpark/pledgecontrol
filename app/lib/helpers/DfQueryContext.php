@@ -69,4 +69,12 @@ class DfQueryContext {
         $criteria = $criteriaBuilder->buildFromQueryParams($this->qparams);
         return $criteria;
 	}
+
+	/**
+	 * Return the value of a queryParam
+	 */
+	public function getQParamVal($name, $defVal = '')
+	{
+		return array_key_exists($name, $this->qparams) ? $this->qparams[$name] : $defVal;
+	}
 }

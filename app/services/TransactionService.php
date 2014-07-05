@@ -90,6 +90,7 @@ class TransactionService  {
             $now_str = $now->format('Y-m-d H:i:s');
             $record->PaymentDate = $now_str;
 
+            $record->save();
             return $record;
         } else {
             throw new ValidationException($validator);

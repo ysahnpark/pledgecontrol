@@ -32,57 +32,63 @@ class DfQueryBuilderEloquent {
         		if (is_array($val)) {
         			$compOp = array_keys($val)[0];
         			$compVal = array_values($val)[0];
-        			$this->handleCompOp($compOp, $compVal, $query);
+
+        			$this->handleCompOp($key, $compOp, $compVal, $query);
+
         		} else {
-        			$query->where($key, 'eq', $val);
+        			$query->where($key, '=', $val);
         		}
         	}
         }
-
+        //die();
         return $query;
 	}
 
-	private function handleLogicOp($op, $val, &$query)
+	private function handleCompOp($key, $op, $val, &$query)
 	{
 		switch ($op) {
-			case "$gt":
+			case '$gt':
 				$query->where($key, '>', $val);
 				break;
-			case "$gte":
+			case '$gte':
 				$query->where($key, '>=', $val);
 				break;
-			case "$in":
+			case '$in':
 				$query->whereIn($key, $val);
 				break;
-			case "$lt":
+			case '$lt':
 				$query->where($key, '<', $val);
 				break;
-			case "$lte":
+			case '$lte':
 				$query->where($key, '<=', $val);
 				break;
-			case "$ne":
+			case '$ne':
 				$query->where($key, '!=', $val);
 				break;
-			case "$nin":
+			case '$nin':
 				$query->whereNotIn($key, $val);
+				break;
+			case '$like':
+				$query->where($key, 'LIKE', $val);
 				break;
 		}
 		
 	}
 
-	private function handleCompOp($op, $criteria, &$query)
+	private function handleLogicOp($key, $op, $criteria, &$query)
 	{
+		// @todo - PENDING
 		switch ($op) {
-			case "$or":
+			case '$or':
 				$query->orWhere($key, '>', $val);
 				break;
-			case "$and":
+			case '$and':
 				$query->where($key, '>=', $val);
 				break;
-			case "$not":
+			case '$not':
 				$query->whereIn($key, $val);
 				break;
-			case "$nor":
+			case '$nor':
 				$query->where($key, '<', $val);
 				break;
 		}

@@ -25,6 +25,10 @@ class CreateAccountsTable extends Migration {
 			$table->boolean('RemindLetterSent')->nullable();
 			$table->dateTime('RemindLetterSentDate')->nullable();
 
+			$table->string('Address', 255)->nullable();
+			$table->string('City', 255)->nullable();
+			$table->string('PostalCode', 255)->nullable();
+
 			$table->index('Name');
 		});
 	}

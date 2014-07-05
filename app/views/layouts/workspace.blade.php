@@ -7,7 +7,7 @@
   <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title>DocuFlows | {{ $content_header }}</title>
+      <title>PC | {{ $content_header }}</title>
       <meta name="description" content="">
       <meta name="viewport" content="width=device-width">
       <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -34,17 +34,26 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
+      <div class="navbar navbar-default navbar-fixed-top">
+        <div class="navbar-header">
+        </div>
+        <div style="margin-left: 220px ;"><a href="http://stdaveluychurch.org/"><img src="org_logo.png" height="45" /></a></div>
+      </div>
+
     <div class="container-fluid">
       <div class="row">
         <!-- SIDE BAR { -->
         <div class="col-sm-3 col-md-2 sidebar fixed-left">
-          <h2>Pledge Control</h2>
+          <h3>Pledge Control</h3>
           @include('_partials.menu_side')
         </div>
         <!-- } SIDE BAR -->
 
         <!-- MAIN CONTENT { -->
+        
+
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
           @if (!empty($breadcrumb))
           <ol class="breadcrumb">
             @foreach ($breadcrumb as $bc_entry)

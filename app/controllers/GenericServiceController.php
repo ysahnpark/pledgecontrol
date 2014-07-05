@@ -57,6 +57,7 @@ class GenericServiceController extends \BaseController {
 
 		//die($this->moduleName );
 		$this->layout->content = View::make($this->moduleName . '.index')
+			->with('queryCtx', $queryCtx)
 			->with('auxdata', $this->indexAuxData())
 		    ->with('records', $records);
 	}
