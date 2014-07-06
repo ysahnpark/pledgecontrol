@@ -9,8 +9,8 @@
   <button id="btn_reset" class="btn btn-default">Reset</button>
 </form>
 
-<div class="pull-right"><a href="{{ URL::to(route('accounts.index')) }}?_format=csv&{{ $queryCtx->buildQueryString() }}">
-	<span class="glyphicon glyphicon-download-alt"></span> CSV
+<div class="pull-right"><a href="{{ URL::to(route('accounts.index')) }}?_format=xls&{{ $queryCtx->buildQueryString() }}">
+	<span class="glyphicon glyphicon-download-alt"></span> XLS
 	</a></div>
 <table class="table table-striped">
 	<thead> 
