@@ -37,7 +37,7 @@
       <div class="navbar navbar-default navbar-fixed-top">
         <div class="navbar-header">
         </div>
-        <div style="margin-left: 220px ;"><a href="http://stdaveluychurch.org/"><img src="org_logo.png" height="45" /></a></div>
+        <div style="margin-left: 220px ;"><a href="http://stdaveluychurch.org/"><img src="/org_logo.png" height="45" /></a></div>
       </div>
 
     <div class="container-fluid">

@@ -28,11 +28,11 @@
   </div>
 </div>
 
-
+<div class="pull-right"><a href=""><span class="glyphicon glyphicon-download-alt"></span> CSV</a></div>
 <table class="table table-striped">
 	<thead> 
 		<tr>
-			<td>Date</td>
+			<td class="col-date">Date</td>
 			<td>Name</td>
 			<td>Amount</td>
 			<td>Note</td>
@@ -42,15 +42,15 @@
 @foreach ($records as $tranaction)
 		<tr>
 			<td>{{ $tranaction->PaymentDate }}</td>
-			<td title="{{ $tranaction->AccountID }}">{{ $tranaction->Name }}</td>
-			<td>{{ $tranaction->Amount }}</td>
+			<td title="{{ $tranaction->AccountID }}"><a href="{{ URL::to(route('accounts.show', array($tranaction->AccountID))) }}">{{ $tranaction->Name }}</a></td>
+			<td class="col-amount">{{ $tranaction->Amount }}</td>
 			<td>{{ $tranaction->Note }}</td>
 		</tr>
 @endforeach
 	</tbody>
   <tfoot> 
     <tr>
-      <td colspan="4">Pagination</td>
+      <td colspan="4"><?php echo $records->links(); ?></td>
       </tr>    
   </tfoot> 
 </table>

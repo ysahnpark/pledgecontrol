@@ -52,14 +52,18 @@ class GenericServiceController extends \BaseController {
 		$queryCtx = new \DocuFlow\Helper\DfQueryContext(true);
 		$criteria = $queryCtx->buildCriteria();
 
-		$listMethod = 'list' . $this->modelNamePlural;
-		$records = $this->service->$listMethod($criteria, array(), $queryCtx->getOffset(), $queryCtx->limit);
+		$listMethod = 'paginate' . $this->modelNamePlural;
+		$records = $this->service->$listMethod($criteria, array(), /*$queryCtx->limit*/ 5);
 
-		//die($this->moduleName );
-		$this->layout->content = View::make($this->moduleName . '.index')
-			->with('queryCtx', $queryCtx)
-			->with('auxdata', $this->indexAuxData())
-		    ->with('records', $records);
+		if ($queryCtx->format === null || $queryCtx->format === 'html') {
+			// Default retun: 
+			$this->layout->content = View::make($this->moduleName . '.index')
+				->with('queryCtx', $queryCtx)
+				->with('auxdata', $this->indexAuxData())
+			    ->with('records', $records);
+		} else {
+			return $this->indexOfFormat($queryCtx->format, $records);
+		}
 	}
 
 	/**
@@ -115,7 +119,7 @@ class GenericServiceController extends \BaseController {
 		$this->setContentTitle(Lang::get($this->moduleName . '._name') . ' - ' .  $record->getName());
 
 		$this->layout->content = View::make($this->moduleName . '.show')
-			->with('auxdata', $this->showAuxData())
+			->with('auxdata', $this->showAuxData($record))
 			->with('record', $record);
 	}
 
@@ -130,11 +134,12 @@ class GenericServiceController extends \BaseController {
 		$findMethod = 'find' . $this->modelName . 'ByPK';
 	    $record = $this->service->$findMethod($id);
 
-		$this->addBreadcrumb([$record->getName(), Request::url()]);
+	    $showUrl = URL::to(route($this->moduleNamePlural . '.show', array($record->ID)));
+		$this->addBreadcrumb([$record->getName(), $showUrl]);
 		$this->setContentTitle(Lang::get($this->moduleName . '._name') . ' - ' .  $record->getName());
 
 		$this->layout->content = View::make($this->moduleName . '.edit')
-			->with('auxdata', $this->editAuxData())
+			->with('auxdata', $this->editAuxData($record))
 		    ->with('record', $record);
 	}
 
@@ -200,7 +205,7 @@ class GenericServiceController extends \BaseController {
 	 * Method to return values that 
 	 * Overridable 
 	 */
-	public function createAuxData() {
+	public function createAuxData($record) {
 		return null;
 	}
 
@@ -208,7 +213,7 @@ class GenericServiceController extends \BaseController {
 	 * Method to return values that 
 	 * Overridable 
 	 */
-	public function showAuxData() {
+	public function showAuxData($record) {
 		return null;
 	}
 
@@ -216,7 +221,7 @@ class GenericServiceController extends \BaseController {
 	 * Method to return values that 
 	 * Overridable 
 	 */
-	public function editAuxData() {
+	public function editAuxData($record) {
 		return null;
 	}
  

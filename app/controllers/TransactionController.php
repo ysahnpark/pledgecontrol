@@ -15,7 +15,7 @@ class TransactionController extends \GenericServiceController {
 		parent::__construct('layouts.workspace', 'svc:transaction', 'Transaction');
 	}
 
-	public function editAuxData() {
+	public function editAuxData($record) {
 		$auxdata = array();
 
 		return $auxdata;
@@ -25,5 +25,5 @@ class TransactionController extends \GenericServiceController {
 	{
 		return App::make('df_role_service');
 	}
-	
+
 }

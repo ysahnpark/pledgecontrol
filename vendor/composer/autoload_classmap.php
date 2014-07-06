@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Account' => $baseDir . '/app/models/Account.php',
+    'AccountApiController' => $baseDir . '/app/controllers/AccountApiController.php',
     'AccountController' => $baseDir . '/app/controllers/AccountController.php',
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
     'Boris\\Boris' => $vendorDir . '/d11wtq/boris/lib/Boris/Boris.php',
@@ -53,6 +54,7 @@ return array(
     'File_ASN1' => $vendorDir . '/phpseclib/phpseclib/phpseclib/File/ASN1.php',
     'File_ASN1_Element' => $vendorDir . '/phpseclib/phpseclib/phpseclib/File/ASN1.php',
     'File_X509' => $vendorDir . '/phpseclib/phpseclib/phpseclib/File/X509.php',
+    'GenericServiceApiController' => $baseDir . '/app/controllers/GenericServiceApiController.php',
     'GenericServiceController' => $baseDir . '/app/controllers/GenericServiceController.php',
     'HomeController' => $baseDir . '/app/controllers/HomeController.php',
     'IlluminateQueueClosure' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
@@ -874,6 +876,7 @@ return array(
     'Predis\\Session\\SessionHandler' => $vendorDir . '/predis/predis/lib/Predis/Session/SessionHandler.php',
     'Predis\\Transaction\\AbortedMultiExecException' => $vendorDir . '/predis/predis/lib/Predis/Transaction/AbortedMultiExecException.php',
     'Predis\\Transaction\\MultiExecContext' => $vendorDir . '/predis/predis/lib/Predis/Transaction/MultiExecContext.php',
+    'Providers\\PaginationServiceProvider' => $baseDir . '/app/lib/providers/PaginationServiceProvider.php',
     'Psr\\Log\\AbstractLogger' => $vendorDir . '/psr/log/Psr/Log/AbstractLogger.php',
     'Psr\\Log\\InvalidArgumentException' => $vendorDir . '/psr/log/Psr/Log/InvalidArgumentException.php',
     'Psr\\Log\\LogLevel' => $vendorDir . '/psr/log/Psr/Log/LogLevel.php',

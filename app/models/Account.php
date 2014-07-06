@@ -71,7 +71,7 @@ class Account extends Eloquent {
 
     public function transactions()
     {
-        return $this->hasMany('Transaction');
+        return $this->hasMany('Transaction', 'AccountID', 'ID');
     }
 
     public function getName()

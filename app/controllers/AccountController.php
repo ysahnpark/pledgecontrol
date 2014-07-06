@@ -15,7 +15,7 @@ class AccountController extends \GenericServiceController {
 		parent::__construct('layouts.workspace', 'svc:account', 'Account');
 	}
 
-	public function createAuxData() {
+	public function createAuxData($record) {
 		$auxdata = array();
 
 		$auxdata['opt_PaymentPeriod'] = array('monthly', 'bi-monthly');
@@ -23,9 +23,34 @@ class AccountController extends \GenericServiceController {
 		return $auxdata;
 	}
 
-	public function editAuxData() {
+	public function showAuxData($record) {
+		$auxdata = array();
 
-		return $this->createAuxData();
+		return $auxdata;
+	}
+
+	public function editAuxData($record) {
+
+		return $this->createAuxData($record);
+	}
+
+	public function indexOfFormat($format, $records) {
+
+		$csv_output = '';
+	    foreach ($records as $row) {
+	        $csv_output .= implode(',', $row->toArray()) . "\n";
+	    }
+	    $csv_output = rtrim($csv_output, "\n");
+	    //$output =  mb_convert_encoding($csv_output, 'UCS-2LE', 'UTF-8');
+	    $output =  $csv_output;
+
+	    $headers = array(
+	        'Content-Type' => 'text/csv',
+	        'charset' => 'utf-8',
+	        'Content-Disposition' => 'attachment; filename="account.csv"',
+	    );
+	 
+	    return Response::make($output, 200, $headers);
 	}
 
 }

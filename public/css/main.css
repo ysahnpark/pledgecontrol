@@ -186,13 +186,18 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
   border-radius: 50%;
 }
 
-.actions_col {
+td.col-date {
   width: 120px;
+}
+td.col-amount {
+  width: 120px;
+  text-align: right;
 }
 
 
 /*********
  * Typeahead
+ * https://github.com/bassjobsen/typeahead.js-bootstrap-css/blob/master/typeaheadjs.css
  */
 .tt-dropdown-menu {
   position: absolute;

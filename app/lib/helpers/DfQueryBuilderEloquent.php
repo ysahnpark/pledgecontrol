@@ -36,7 +36,9 @@ class DfQueryBuilderEloquent {
         			$this->handleCompOp($key, $compOp, $compVal, $query);
 
         		} else {
-        			$query->where($key, '=', $val);
+        			if (!empty($val)) {
+        				$query->where($key, '=', $val);
+        			}
         		}
         	}
         }

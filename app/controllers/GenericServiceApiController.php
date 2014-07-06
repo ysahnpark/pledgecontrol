@@ -32,9 +32,6 @@ class GenericServiceApiController extends \BaseController {
 		$queryCtx = new \DocuFlow\Helper\DfQueryContext(true);
 		$criteria = $queryCtx->buildCriteria();
 
-		//print_r($criteria);
-		//die();
-
 		$listMethod  = 'list' . $this->modelNamePlural;
 		$countMethod = 'count' . $this->modelNamePlural;
 
