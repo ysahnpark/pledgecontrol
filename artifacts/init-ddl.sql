@@ -63,7 +63,7 @@ DELIMITER //
 CREATE TRIGGER `account_Update` AFTER INSERT ON `trans`
  FOR EACH ROW BEGIN
     UPDATE `accounts` AS `ST`
-    SET `ST`.`PaidAmount` = `ST`.`PaidAmount` + NEW.`Amount`, `ST`.`lastPaymentDate` = NEW.`PaymentDate`, `ST`.`RemainingAmount` = `ST`.`RemainingAmount` - NEW.`Amount`
+    SET `ST`.`PaidAmount` = `ST`.`PaidAmount` + NEW.`Amount`, `ST`.`LastPaymentDate` = NEW.`PaymentDate`, `ST`.`RemainingAmount` = `ST`.`RemainingAmount` - NEW.`Amount`
     WHERE `ST`.`Name` = NEW.`Name`;
 END
 //

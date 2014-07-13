@@ -78,6 +78,8 @@ App::down(function()
 |
 */
 
+setlocale(LC_MONETARY, 'en_US');
+
 // DataFlows' IOC registration
 require app_path().'/start/ioc.php';
 

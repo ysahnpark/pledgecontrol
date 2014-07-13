@@ -86,6 +86,9 @@ class AccountService  {
             $record = new \Account();
             $record->fill($data);
 
+            // Compute the amount per period
+            $record->AmountPerPeriod = $record->PledgeAmount / ($record->Duration / $record->PaymentPeriod);
+
             /*
              * @todo: assign default values as needed
              */
@@ -154,6 +157,31 @@ class AccountService  {
             return $record;
         }
         return null;
+    }
+
+    public function listAccounts2($criteria, $sortParams = array(), $offset = 0, $limit=100)
+    {
+        $sql = "
+        (SELECT ID, Name, PledgeDate, PledgeAmount, Duration,
+            PaymentPeriod, PeriodUnit,  AmountPerPeriod,
+            LastPaymentDate, PaidAmount, RemainingAmount,
+            Phone, Address, City, PostalCode, RemindLetterSent, RemindLetterSentDate,
+            CEIL(TIMESTAMPDIFF(MONTH, PledgeDate, NOW()) / PaymentPeriod) as PeriodsPassed
+            FROM accounts WHERE PeriodUnit= 'm')
+        UNION
+        (SELECT ID, Name, PledgeDate, PledgeAmount, Duration,
+            PaymentPeriod, PeriodUnit,  AmountPerPeriod,
+            LastPaymentDate, PaidAmount, RemainingAmount,
+            Phone, Address, City, PostalCode, RemindLetterSent, RemindLetterSentDate,
+            CEIL(TIMESTAMPDIFF(WEEK, PledgeDate, NOW()) / PaymentPeriod) as PeriodsPassed
+            FROM accounts WHERE PeriodUnit= 'w')
+        ORDER BY Name;";
+
+        // AmountDueNowRaw =  PeriodsPassed * AmountPerPeriod;
+        // AmountDueNow =  (PeriodsPassed * AmountPerPeriod) - PaidAmount;
+        $result = \DB::select(\DB::raw($sql));
+        //print_r($result);
+        return $result;
     }
 
 }

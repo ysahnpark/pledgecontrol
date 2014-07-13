@@ -111,4 +111,20 @@ class AccountController extends \GenericServiceController {
 		}
 	}
 
+	public function report() {
+		$queryCtx = new \DocuFlow\Helper\DfQueryContext(true);
+		$criteria = $queryCtx->buildCriteria();
+
+		$records = $this->service->listAccounts2($criteria, array(), /*$queryCtx->limit*/ 5);
+
+		if ($queryCtx->format === null || $queryCtx->format === 'html') {
+			// Default retun: 
+			$this->layout->content = View::make($this->moduleName . '.report')
+				->with('queryCtx', $queryCtx)
+				->with('auxdata', $this->indexAuxData())
+			    ->with('records', $records);
+		} else {
+			return $this->indexOfFormat($queryCtx->format, $records);
+		}
+	}
 }

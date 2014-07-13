@@ -14,5 +14,7 @@ return array(
 	"PaidAmount" => "Paid Amount",
 	"RemainingAmount" => "Remaining Amount",
 	"RemindLetterSent" => "Remind Letter Sent",
-	"RemindLetterSentDate" => "Remind Letter Sent Date"
+	"RemindLetterSentDate" => "Remind Letter Sent Date",
+	"PeriodsPassed" => "Periods Passed",
+	"AmountDueNow" => "Amt Due Now"
 );

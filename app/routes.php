@@ -17,6 +17,7 @@ Route::get('/', function()
 });
 
 Route::resource('accounts', 'AccountController');
+Route::get('accounts_report', 'AccountController@report');
 
 Route::resource('api/accounts', 'AccountApiController');
 
