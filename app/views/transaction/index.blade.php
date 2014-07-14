@@ -48,11 +48,11 @@
 		</tr>
 @endforeach
 	</tbody>
-  <tfoot> 
+  <tfoot>
     <tr>
       <td colspan="4"><?php echo $records->links(); ?></td>
-      </tr>    
-  </tfoot> 
+    </tr>
+  </tfoot>
 </table>
 
 {{ HTML::script('js/typeahead.bundle.js') }}

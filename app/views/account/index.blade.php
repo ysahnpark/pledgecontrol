@@ -29,21 +29,21 @@
 @foreach ($records as $account)
 		<tr>
 			<td><a href="{{ URL::to(route('accounts.show', array($account->ID))) }}">{{ $account->Name }}</a></td>
-			<td class="col-amount">{{ $account->PledgeAmount }}</td>
+			<td class="col-amount">{{ \DocuFlow\Helper\DfFormat::currency($account->PledgeAmount) }}</td>
 			<td>{{ \DocuFlow\Helper\DfFormat::date($account->PledgeDate) }}</td>
 			<td>{{ $account->PaymentPeriod }}</td>
-			<td class="col-amount">{{ $account->PaidAmount }}</td>
-			<td class="col-amount">{{ $account->RemainingAmount }}</td>
+			<td class="col-amount">{{ \DocuFlow\Helper\DfFormat::currency($account->PaidAmount) }}</td>
+			<td class="col-amount">{{ \DocuFlow\Helper\DfFormat::currency($account->RemainingAmount) }}</td>
 			<td>{{ $account->RemindLetterSent }}</td>
 			<td>{{ \DocuFlow\Helper\DfFormat::date($account->RemindLetterSentDate) }}</td>
 		</tr>
 @endforeach
 	</tbody>
-  <tfoot> 
+  <tfoot>
     <tr>
-      <td colspan="8">Pagination</td>
-      </tr>    
-  </tfoot> 
+      <td colspan="8"><?php echo $records->links(); ?></td>
+    </tr>
+  </tfoot>
 </table>
 
 <script>

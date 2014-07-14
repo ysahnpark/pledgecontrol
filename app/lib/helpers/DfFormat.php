@@ -12,8 +12,14 @@ class DfFormat {
 	{
 		$formatted = '';
 		if (is_string($date)) {
-			$formatted = date("M d Y", strtotime($date));
+			$formatted = date("Y/m/d ", strtotime($date));
 		}
+		return $formatted;
+	}
+
+	public static function currency($amount)
+	{
+		$formatted = money_format('%(#10n', $amount);
 		return $formatted;
 	}
 }

@@ -26,4 +26,46 @@ class TransactionController extends \GenericServiceController {
 		return App::make('df_role_service');
 	}
 
+	public function report() {
+
+		$this->addBreadcrumb(['report']);
+		$this->setContentTitle(Lang::get($this->moduleName . '._name') . ' - Report' );
+
+
+		$queryCtx = new \DocuFlow\Helper\DfQueryContext(true);
+		$criteria = $queryCtx->buildCriteria();
+
+		$records = $this->service->report($criteria);
+
+		// More reports;
+		$report_data = array();
+		$report_data['regist_family'] = 200;
+		$report_data['participating_family'] = 170;
+
+		// Collection status
+		$report_data['pledge_total'] = 200;
+		$report_data['pledge_accumulated'] = 200;
+		$report_data['pledge_expected'] = 200;
+
+		// Plege Trend
+		// Query count(), group by (date), 
+		
+		// Distribution of Delinquent donors
+		// Query count(), group by (??) WHERE amountDue > 0
+
+		// Reminder Letter 
+
+
+
+		if ($queryCtx->format === null || $queryCtx->format === 'html') {
+			// Default retun: 
+			$this->layout->content = View::make($this->moduleName . '.report')
+				->with('queryCtx', $queryCtx)
+				->with('auxdata', $this->indexAuxData())
+			    ->with('records', $records);
+		} else {
+			return $this->indexOfFormat($queryCtx->format, $records);
+		}
+	}
+
 }

@@ -53,7 +53,6 @@ class AccountService  {
      */
     public function paginateAccounts($criteria, $sortParams = array(), $page_size = 20)
     {
-        // @TODO: pending
         $query = $this->buildQuery($criteria);
         $records = $query->paginate($page_size);
         return $records;
@@ -68,7 +67,7 @@ class AccountService  {
     public function countAccounts($criteria)
     {
         $query = $this->buildQuery($criteria);
-        $count = $query->query()->count();
+        $count = $query->count();
         return $count;
     }
 
@@ -180,8 +179,57 @@ class AccountService  {
         // AmountDueNowRaw =  PeriodsPassed * AmountPerPeriod;
         // AmountDueNow =  (PeriodsPassed * AmountPerPeriod) - PaidAmount;
         $result = \DB::select(\DB::raw($sql));
+
         //print_r($result);
         return $result;
     }
 
+    public function totals()
+    {
+        $records = $this->listAccounts2(array());
+
+        $total_PledgeAmount = 0; 
+        $total_AmountExpectedNow = 0;
+        $total_AmountDueNow = 0;
+        $total_PaidAmount = 0;
+        $total_RemainingAmount = 0;
+
+        foreach($records as $record)
+        {
+            $model = new \Account();
+            $model->fill( (array)$record);
+            //$amountExpectedNow = ($record->PeriodsPassed * $record->AmountPerPeriod) ;
+            //$amountDueNow = $amountExpectedNow - $record->PaidAmount ;
+            $total_PledgeAmount += $model->PledgeAmount;
+            $total_AmountExpectedNow += $model->getAmountExpectedNow();
+            $total_AmountDueNow += $model->getAmountDueNow();
+            $total_PaidAmount += $model->PaidAmount;
+            $total_RemainingAmount += $model->RemainingAmount;
+        }
+        $totals = array(
+            'TotalPledgeAmount' => $total_PledgeAmount,
+            'TotalAmountExpectedNow' => $total_AmountExpectedNow,
+            'TotalAmountDueNow' => $total_AmountDueNow,
+            'TotalPaidAmount'   => $total_PaidAmount,
+            'TotalRemainingAmount' => $total_RemainingAmount
+            );
+        return $totals;
+    }
+
+    /**
+     * Returns [{date, count}]
+     */
+    public function signupTrend()
+    {
+        $sql = "
+        SELECT YEAR(PledgeDate) AS PledgeDateYear, MONTH(PledgeDate) AS PledgeDateMonth, 
+            COUNT(ID) as SignupCount
+        FROM accounts
+        GROUP BY YEAR(PledgeDate), MONTH(PledgeDate)
+        ORDER BY PledgeDate;";
+
+        $result = \DB::select(\DB::raw($sql));
+
+        return $result;
+    }
 }

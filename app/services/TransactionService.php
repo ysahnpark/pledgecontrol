@@ -52,7 +52,7 @@ class TransactionService  {
     {
         // @TODO: pending
         $query = $this->buildQuery($criteria);
-        $records = $query->paginate($page_size);
+        $records = $query->orderBy('PaymentDate')->paginate($page_size);
         return $records;
     }
 
@@ -149,4 +149,21 @@ class TransactionService  {
         return null;
     }
 
+    public function report($criteria)
+    {
+        $sql = "
+        SELECT month(PaymentDate) AS Month,
+               year(PaymentDate) AS Year,
+               sum(Amount) AS MonthTotal,
+               count(Amount) AS TransCount
+        FROM trans
+        GROUP BY YEAR(PaymentDate), MONTH(PaymentDate)
+        ORDER BY PaymentDate;";
+
+        // AmountDueNowRaw =  PeriodsPassed * AmountPerPeriod;
+        // AmountDueNow =  (PeriodsPassed * AmountPerPeriod) - PaidAmount;
+        $result = \DB::select(\DB::raw($sql));
+        //print_r($result);
+        return $result;
+    }
 }

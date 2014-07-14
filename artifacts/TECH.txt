@@ -1,19 +1,39 @@
-
+-- Accounts with AmountDueNow
+-- Limitations: Pledge amount cannot change once started.
 (SELECT Name, PledgeDate, 
-	AmountPerPeriod,
-	PaymentPeriod,
-	CEIL(TIMESTAMPDIFF(MONTH, PledgeDate, NOW())  / PaymentPeriod) as PeriodsPassed,
-	CEIL(TIMESTAMPDIFF(MONTH, PledgeDate, NOW())  / PaymentPeriod) * AmountPerPeriod as  AmountDueNowRaw,
-	PaidAmount,
-	(CEIL(TIMESTAMPDIFF(MONTH, PledgeDate, NOW())  / PaymentPeriod) * AmountPerPeriod) - PaidAmount as AmountDueNow 
-	FROM accounts WHERE PeriodUnit= 'm')
+    AmountPerPeriod,
+    PaymentPeriod,
+    CEIL(TIMESTAMPDIFF(MONTH, PledgeDate, NOW())  / PaymentPeriod) as PeriodsPassed,
+    CEIL(TIMESTAMPDIFF(MONTH, PledgeDate, NOW())  / PaymentPeriod) * AmountPerPeriod as  AmountDueNowRaw,
+    PaidAmount,
+    (CEIL(TIMESTAMPDIFF(MONTH, PledgeDate, NOW())  / PaymentPeriod) * AmountPerPeriod) - PaidAmount as AmountDueNow 
+    FROM accounts WHERE PeriodUnit= 'm')
 UNION
 (SELECT Name, PledgeDate,  
-	AmountPerPeriod,
-	PaymentPeriod,
-	CEIL(TIMESTAMPDIFF(WEEK, PledgeDate, NOW())  / PaymentPeriod) as PeriodsPassed,
-	CEIL(TIMESTAMPDIFF(WEEK, PledgeDate, NOW())  / PaymentPeriod) * AmountPerPeriod as  AmountDueNowRaw,
-	PaidAmount,
-	(CEIL(TIMESTAMPDIFF(WEEK, PledgeDate, NOW())  / PaymentPeriod) * AmountPerPeriod) - PaidAmount as AmountDueNow 
-	FROM accounts WHERE PeriodUnit= 'w')
+    AmountPerPeriod,
+    PaymentPeriod,
+    CEIL(TIMESTAMPDIFF(WEEK, PledgeDate, NOW())  / PaymentPeriod) as PeriodsPassed,
+    CEIL(TIMESTAMPDIFF(WEEK, PledgeDate, NOW())  / PaymentPeriod) * AmountPerPeriod as  AmountDueNowRaw,
+    PaidAmount,
+    (CEIL(TIMESTAMPDIFF(WEEK, PledgeDate, NOW())  / PaymentPeriod) * AmountPerPeriod) - PaidAmount as AmountDueNow 
+    FROM accounts WHERE PeriodUnit= 'w')
 ORDER BY Name;
+
+-- Sum By Month --
+-- Limitations: Count also corrections, ie. negative amount tx.
+SELECT year(PaymentDate) AS Year,
+        month(PaymentDate) AS Month,
+        sum(Amount) AS MonthTotal,
+        count(Amount) AS TransCount
+FROM trans
+GROUP BY YEAR(PaymentDate), MONTH(PaymentDate)
+ORDER BY PaymentDate;
+
+-- Limitations: Count also corrections, ie. negative amount tx.
+SELECT year(PaymentDate) AS Year,
+        WEEK(PaymentDate) AS Week,
+        sum(Amount) AS MonthTotal,
+        count(Amount) AS TransCount
+FROM trans
+GROUP BY YEAR(PaymentDate), WEEK(PaymentDate)
+ORDER BY PaymentDate;

@@ -29,33 +29,58 @@
 		</tr>
 	</thead>
 	<tbody> 
+<?php
+	$total_PledgeAmount = 0; 
+	$total_AmountDueNow = 0;
+	$total_PaidAmount = 0;
+	$total_RemainingAmount = 0;
+?>
 @foreach ($records as $account)
+<?php 
+	$amountDueNow = ($account->PeriodsPassed * $account->AmountPerPeriod) - $account->PaidAmount ;
+	$pastDueStyle = '';
+	if ($amountDueNow > 1) {
+		$pastDueStyle = 'style="color:red"';
+	}
+	$total_PledgeAmount += $account->PledgeAmount;
+	$total_AmountDueNow += $amountDueNow;
+	$total_PaidAmount += $account->PaidAmount;
+	$total_RemainingAmount += $account->RemainingAmount;
+?>
 		<tr>
 			<td><a href="{{ URL::to(route('accounts.show', array($account->ID))) }}">{{ $account->Name }}</a></td>
-			<td class="col-amount">{{ money_format('%(#10n', $account->PledgeAmount) }}</td>
+			<td class="col-amount" title="{{ \DocuFlow\Helper\DfFormat::currency($account->AmountPerPeriod) }}">{{ \DocuFlow\Helper\DfFormat::currency($account->PledgeAmount) }}</td>
 			<td>{{ \DocuFlow\Helper\DfFormat::date($account->PledgeDate) }}</td>
-			<td>{{ $account->PaymentPeriod }}</td>
+			<td>{{ $account->PaymentPeriod }} {{ $account->PeriodUnit }} </td>
 			
 			<td>{{ $account->PeriodsPassed }}</td>
-			<?php 
-			$amountDueNow = ($account->PeriodsPassed * $account->AmountPerPeriod) - $account->PaidAmount ;
-			$pastDueStyle = '';
-			if ($amountDueNow > 1) {
-				$pastDueStyle = 'style="color:red"';
-			}
-			?>
 			
-			<td class="col-amount" {{ $pastDueStyle}} >{{ money_format('%(#10n', $amountDueNow ) }}</td>
+			<td class="col-amount" {{ $pastDueStyle}} >{{ \DocuFlow\Helper\DfFormat::currency( $amountDueNow ) }}</td>
 
-			<td class="col-amount">{{ money_format('%(#10n', $account->PaidAmount) }}</td>
-			<td class="col-amount">{{ money_format('%(#10n', $account->RemainingAmount ) }}</td>
+			<td class="col-amount">{{ \DocuFlow\Helper\DfFormat::currency( $account->PaidAmount) }}</td>
+			<td class="col-amount">{{ \DocuFlow\Helper\DfFormat::currency($account->RemainingAmount ) }}</td>
 			<td>{{ \DocuFlow\Helper\DfFormat::date($account->RemindLetterSentDate) }}</td>
 		</tr>
 @endforeach
+
+		<tr>
+			<td>TOTALS</td>
+			<td class="col-amount">{{ money_format('%(#10n', $total_PledgeAmount) }}</td>
+			<td></td>
+			<td></td>
+			
+			<td></td>
+			
+			<td class="col-amount" {{ $pastDueStyle}} >{{ money_format('%(#10n', $total_AmountDueNow ) }}</td>
+
+			<td class="col-amount">{{ money_format('%(#10n', $total_PaidAmount) }}</td>
+			<td class="col-amount">{{ money_format('%(#10n', $total_RemainingAmount ) }}</td>
+			<td>{{ \DocuFlow\Helper\DfFormat::date($account->RemindLetterSentDate) }}</td>
+		</tr>
 	</tbody>
   <tfoot> 
     <tr>
-      <td colspan="8">Pagination</td>
+      <td colspan="8"></td>
       </tr>    
   </tfoot> 
 </table>

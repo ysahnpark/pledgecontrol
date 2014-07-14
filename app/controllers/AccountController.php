@@ -15,7 +15,7 @@ class AccountController extends \GenericServiceController {
 		parent::__construct('layouts.workspace', 'svc:account', 'Account');
 	}
 
-	public function createAuxData($record) {
+	public function createAuxData() {
 		$auxdata = array();
 
 		$auxdata['opt_PaymentPeriod'] = array('monthly', 'bi-monthly');

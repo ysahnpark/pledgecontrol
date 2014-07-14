@@ -34,9 +34,11 @@ class Account extends Eloquent {
      *
      * @var array
      */
-    protected $fillable = array('ID', 'Name' ,'PledgeAmount'
-      ,'PledgeDate', 'PaymentPeriod' ,'LastPaymentDate', 'PaidAmount'
-      ,'RemainingAmount', 'RemindLetterSent', 'RemindLetterSentDate');
+    protected $fillable = array('ID', 'CreateDate', 'Name'
+      , 'PledgeDate', 'PledgeAmount', 'Duration', 'PaymentPeriod', 'PeriodUnit', 'AmountPerPeriod', 'PaidAmount'
+      , 'RemainingAmount', 'LastTransactionID', 'Status', 'ThankyouLetterSentDate'
+      , 'Email', 'Phone', 'Address', 'City', 'State', 'PostalCode', 'Note'
+      , 'PeriodsPassed');
 
     /**
      * Validation rules for creation
@@ -77,5 +79,14 @@ class Account extends Eloquent {
     public function getName()
     {
         return $this->Name;
+    }
+
+    public function getAmountExpectedNow()
+    {
+        return ($this->PeriodsPassed * $this->AmountPerPeriod);
+    }
+    public function getAmountDueNow()
+    {
+        return $this->getAmountExpectedNow() - $this->PaidAmount ;
     }
 }

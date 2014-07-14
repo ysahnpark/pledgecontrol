@@ -53,7 +53,7 @@ class GenericServiceController extends \BaseController {
 		$criteria = $queryCtx->buildCriteria();
 
 		$listMethod = 'paginate' . $this->modelNamePlural;
-		$records = $this->service->$listMethod($criteria, array(), /*$queryCtx->limit*/ 5);
+		$records = $this->service->$listMethod($criteria, array(), /*$queryCtx->limit*/ 10);
 
 		if ($queryCtx->format === null || $queryCtx->format === 'html') {
 			// Default retun: 
@@ -205,7 +205,7 @@ class GenericServiceController extends \BaseController {
 	 * Method to return values that 
 	 * Overridable 
 	 */
-	public function createAuxData($record) {
+	public function createAuxData() {
 		return null;
 	}
 

@@ -22,3 +22,6 @@ Route::get('accounts_report', 'AccountController@report');
 Route::resource('api/accounts', 'AccountApiController');
 
 Route::resource('transactions', 'TransactionController');
+Route::resource('transactions_report', 'TransactionController@report');
+
+Route::controller('report', 'ReportController');
