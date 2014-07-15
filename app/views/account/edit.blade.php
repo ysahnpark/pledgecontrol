@@ -14,6 +14,14 @@
     @todo: Remove non-editable fields.
            Add client-side validation.
 -->
+	<input type="hidden" id="PaymentPeriod" name="PaymentPeriod" value="{{$record->PaymentPeriod}}" />
+	<input type="hidden" id="PeriodUnit" name="PeriodUnit" value="{{$record->PeriodUnit}}" />
+	<div class="form-group">
+		{{ Form::label('SignupDate', Lang::get('account.SignupDate'), array('class' => 'col-sm-2 control-label')) }}
+		<div class="col-sm-10">
+		    {{ Form::text('SignupDate', null, array('class' => 'form-control date')) }}
+		</div>
+	</div>
 
 	<div class="form-group">
 		{{ Form::label('Name', Lang::get('account.Name'), array('class' => 'col-sm-2 control-label')) }}
@@ -30,43 +38,68 @@
 	<div class="form-group">
 		{{ Form::label('PledgeStartDate', Lang::get('account.PledgeStartDate'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
-		    {{ Form::text('PledgeStartDate', null, array('class' => 'form-control')) }}
+		    {{ Form::text('PledgeStartDate', null, array('class' => 'form-control date')) }}
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('PaymentPeriod', Lang::get('account.PaymentPeriod'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('Duration', Lang::get('account.Duration'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
-		    {{ Form::select('PaymentPeriod', $auxdata['opt_PaymentPeriod'], null, array('class' => 'form-control')) }}
+		    {{ Form::text('Duration', null, array('class' => 'form-control')) }}
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('LastPaymentDate', Lang::get('account.LastPaymentDate'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('PaymentCycle', Lang::get('account.PaymentCycle'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
-		    {{ Form::text('LastPaymentDate', null, array('class' => 'form-control')) }}
+		    {{ Form::select('PaymentCycle', $auxdata['opt_PaymentCycle'], null, array('class' => 'form-control')) }}
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('PaidAmount', Lang::get('account.PaidAmount'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('AmountPerPeriod', Lang::get('account.AmountPerPeriod'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
-		    {{ Form::text('PaidAmount', null, array('class' => 'form-control')) }}
+		    <input type="number" id="AmountPerPeriod" name="AmountPerPeriod" class="form-control" value="{{ $record->AmountPerPeriod }}" readonly/>
+		</div>
+	</div>
+
+	<div class="form-group">
+		{{ Form::label('Email', Lang::get('account.Email'), array('class' => 'col-sm-2 control-label')) }}
+		<div class="col-sm-10">
+		    {{ Form::text('Email', null, array('class' => 'form-control')) }}
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('RemainingAmount', Lang::get('account.RemainingAmount'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('Phone', Lang::get('account.Phone'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
-		    {{ Form::text('RemainingAmount', null, array('class' => 'form-control')) }}
+		    {{ Form::text('Phone', null, array('class' => 'form-control')) }}
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('RemindLetterSent', Lang::get('account.RemindLetterSent'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('Address', Lang::get('account.Address'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
-		    {{ Form::checkbox('RemindLetterSent', null, array('class' => 'form-control')) }}
+		    {{ Form::text('Address', null, array('class' => 'form-control')) }}
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('RemindLetterSentDate', Lang::get('account.RemindLetterSentDate'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('City', Lang::get('account.City'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
-		    {{ Form::text('RemindLetterSentDate', null, array('class' => 'form-control')) }}
+		    {{ Form::text('City', null, array('class' => 'form-control')) }}
+		</div>
+	</div>
+	<div class="form-group">
+		{{ Form::label('State', Lang::get('account.State'), array('class' => 'col-sm-2 control-label')) }}
+		<div class="col-sm-10">
+		    {{ Form::text('State', null, array('class' => 'form-control')) }}
+		</div>
+	</div>
+	<div class="form-group">
+		{{ Form::label('PostalCode', Lang::get('account.PostalCode'), array('class' => 'col-sm-2 control-label')) }}
+		<div class="col-sm-10">
+		    {{ Form::text('PostalCode', null, array('class' => 'form-control')) }}
+		</div>
+	</div>
+	<div class="form-group">
+		{{ Form::label('Note', Lang::get('account.Note'), array('class' => 'col-sm-2 control-label')) }}
+		<div class="col-sm-10">
+		    {{ Form::text('Note', null, array('class' => 'form-control')) }}
 		</div>
 	</div>
 
@@ -79,4 +112,40 @@
 {{ Form::close() }}
 
 </div> <!-- container -->
+
+{{ HTML::script('packages/datepicker/bootstrap-datepicker.js') }}
+{{ HTML::style('packages/datepicker/datepicker3.css') }}
+{{ HTML::script('js/view/account_form.js') }}
+<script>
+$(document).ready(function() {
+
+	selectPaymentCycle();
+
+	parsePaymentCycle();
+
+	$('.date').datepicker({
+		format: " yyyy-mm-dd",
+		autoclose: true
+	});
+
+	$('#PledgeAmount').change(function(){
+		calcAmountPerPeriod();
+	});
+
+	$('#Duration').change(function(){
+		calcAmountPerPeriod();
+	});
+
+	$('#PaymentCycle').change(function(){
+		parsePaymentCycle();
+		calcAmountPerPeriod();
+	});
+
+	function selectPaymentCycle()
+	{
+		$('#PaymentCycle').val( '{{$record->PeriodUnit}}-{{$record->PaymentPeriod}}')
+	}
+});
+</script>
+
 @show

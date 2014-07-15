@@ -1,0 +1,7 @@
+PENDING:
+1. Account adding/updating form (discrepancies with the table fields)
+2. Rest of the report
+3. Account, Transaction import from csv
+4. Account report export to XLS.
+5. Password protection
+6. Issue (delinquency) table

@@ -8,16 +8,24 @@
 
 <table>
 	<tr>
+		<td>{{ Lang::get('account.ID') }}</td>
+		<td>{{ $record->ID }}</td>
+	</tr>
+	<tr>
+		<td>{{ Lang::get('account.SignupDate') }}</td>
+		<td>{{ $record->SignupDate }}</td>
+	</tr>
+	<tr>
 		<td>{{ Lang::get('account.Name') }}</td>
 		<td>{{ $record->Name }}</td>
 	</tr>
 	<tr>
-		<td>{{ Lang::get('account.PledgeAmount') }}</td>
-		<td>{{ $record->PledgeAmount }}</td>
-	</tr>
-	<tr>
 		<td>{{ Lang::get('account.PledgeStartDate') }}</td>
 		<td>{{ \DocuFlow\Helper\DfFormat::date($record->PledgeStartDate) }}</td>
+	</tr>
+	<tr>
+		<td>{{ Lang::get('account.PledgeAmount') }}</td>
+		<td>{{ $record->PledgeAmount }}</td>
 	</tr>
 	<tr>
 		<td>{{ Lang::get('account.PaymentPeriod') }}</td>
@@ -40,9 +48,39 @@
 		<td>{{ $record->RemindLetterSent }}</td>
 	</tr>
 	<tr>
-		<td>{{ Lang::get('account.RemindLetterSentDate') }}</td>
-		<td>{{ $record->RemindLetterSentDate }}</td>
+		<td>{{ Lang::get('account.ThankyouLetterSentDate') }}</td>
+		<td>{{ $record->ThankyouLetterSentDate }}</td>
 	</tr>
+
+	<tr>
+		<td>{{ Lang::get('account.Email') }}</td>
+		<td>{{ $record->Email }}</td>
+	</tr>
+	<tr>
+		<td>{{ Lang::get('account.Phone') }}</td>
+		<td>{{ $record->Phone }}</td>
+	</tr>
+	<tr>
+		<td>{{ Lang::get('account.Address') }}</td>
+		<td>{{ $record->Address }}</td>
+	</tr>
+	<tr>
+		<td>{{ Lang::get('account.City') }}</td>
+		<td>{{ $record->City }}</td>
+	</tr>
+	<tr>
+		<td>{{ Lang::get('account.State') }}</td>
+		<td>{{ $record->State }}</td>
+	</tr>
+	<tr>
+		<td>{{ Lang::get('account.PostalCode') }}</td>
+		<td>{{ $record->PostalCode }}</td>
+	</tr>
+	<tr>
+		<td>{{ Lang::get('account.Note') }}</td>
+		<td>{{ $record->Note }}</td>
+	</tr>
+
 </table>
 
 <hr />

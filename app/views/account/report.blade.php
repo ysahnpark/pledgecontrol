@@ -25,7 +25,7 @@
 
 			<td>{{ Lang::get('account.PaidAmount') }}</td>
 			<td>{{ Lang::get('account.RemainingAmount') }}</td>
-			<td>{{ Lang::get('account.RemindLetterSentDate') }}</td>
+			<td>{{ Lang::get('account.ThankyouLetterSentDate') }}</td>
 		</tr>
 	</thead>
 	<tbody> 
@@ -59,7 +59,7 @@
 
 			<td class="col-amount">{{ \DocuFlow\Helper\DfFormat::currency( $account->PaidAmount) }}</td>
 			<td class="col-amount">{{ \DocuFlow\Helper\DfFormat::currency($account->RemainingAmount ) }}</td>
-			<td>{{ \DocuFlow\Helper\DfFormat::date($account->RemindLetterSentDate) }}</td>
+			<td>{{ \DocuFlow\Helper\DfFormat::date($account->ThankyouLetterSentDate) }}</td>
 		</tr>
 @endforeach
 
@@ -75,7 +75,7 @@
 
 			<td class="col-amount">{{ money_format('%(#10n', $total_PaidAmount) }}</td>
 			<td class="col-amount">{{ money_format('%(#10n', $total_RemainingAmount ) }}</td>
-			<td>{{ \DocuFlow\Helper\DfFormat::date($account->RemindLetterSentDate) }}</td>
+			<td></td>
 		</tr>
 	</tbody>
   <tfoot> 

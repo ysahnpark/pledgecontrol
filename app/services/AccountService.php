@@ -161,17 +161,17 @@ class AccountService  {
     public function listAccounts2($criteria, $sortParams = array(), $offset = 0, $limit=100)
     {
         $sql = "
-        (SELECT ID, Name, PledgeStartDate, PledgeAmount, Duration,
-            PaymentPeriod, PeriodUnit,  AmountPerPeriod,
-            LastPaymentDate, PaidAmount, RemainingAmount,
-            Phone, Address, City, PostalCode, RemindLetterSent, RemindLetterSentDate,
+        (SELECT ID, SignupDate, Name, PledgeStartDate, PledgeAmount, Duration,
+            PaymentPeriod, PeriodUnit, AmountPerPeriod, SparePeriod, 
+            PaidAmount, RemainingAmount, Status
+            Email, Phone, Address, City, State, PostalCode, ThankyouLetterSentDate, 
             CEIL(TIMESTAMPDIFF(MONTH, PledgeStartDate, NOW()) / PaymentPeriod) as PeriodsPassed
             FROM accounts WHERE PeriodUnit= 'm')
         UNION
-        (SELECT ID, Name, PledgeStartDate, PledgeAmount, Duration,
-            PaymentPeriod, PeriodUnit,  AmountPerPeriod,
-            LastPaymentDate, PaidAmount, RemainingAmount,
-            Phone, Address, City, PostalCode, RemindLetterSent, RemindLetterSentDate,
+        (SELECT ID, SignupDate, Name, PledgeStartDate, PledgeAmount, Duration,
+            PaymentPeriod, PeriodUnit, AmountPerPeriod, SparePeriod,
+            PaidAmount, RemainingAmount, Status
+            Email, Phone, Address, City, State, PostalCode, ThankyouLetterSentDate, 
             CEIL(TIMESTAMPDIFF(WEEK, PledgeStartDate, NOW()) / PaymentPeriod) as PeriodsPassed
             FROM accounts WHERE PeriodUnit= 'w')
         ORDER BY Name;";

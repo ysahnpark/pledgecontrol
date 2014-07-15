@@ -18,7 +18,6 @@ return array(
 	"LastTransaction" => "Last Transaction",
 
 	"ThankyouLetterSentDate" => "Thank You Letter Sent",
-	"RemindLetterSentDate" => "Remind Letter Sent Date",
 	"AmountPerPeriod" => "Amount Per Period",
 	"PeriodsPassed" => "Periods Passed",
 	"AmountDueNow" => "Amt Due Now",

@@ -21,8 +21,6 @@
 			<td>{{ Lang::get('account.PaymentPeriod') }}</td>
 			<td>{{ Lang::get('account.PaidAmount') }}</td>
 			<td>{{ Lang::get('account.RemainingAmount') }}</td>
-			<td>{{ Lang::get('account.RemindLetterSent') }}</td>
-			<td>{{ Lang::get('account.RemindLetterSentDate') }}</td>
 		</tr>
 	</thead>
 	<tbody> 
@@ -34,8 +32,6 @@
 			<td>{{ $account->PaymentPeriod }}</td>
 			<td class="col-amount">{{ \DocuFlow\Helper\DfFormat::currency($account->PaidAmount) }}</td>
 			<td class="col-amount">{{ \DocuFlow\Helper\DfFormat::currency($account->RemainingAmount) }}</td>
-			<td>{{ $account->RemindLetterSent }}</td>
-			<td>{{ \DocuFlow\Helper\DfFormat::date($account->RemindLetterSentDate) }}</td>
 		</tr>
 @endforeach
 	</tbody>

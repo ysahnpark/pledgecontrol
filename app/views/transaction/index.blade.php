@@ -12,15 +12,15 @@
    	  <input type="hidden" name="AccountID" id="AccountID" value="" />
 	  <div class="form-group" id="remote">
 	    <label class="sr-only" for="name">Name</label>
-	    <input type="text" class="form-control typeahead" name="Name" id="name" placeholder="Enter name">
+	    <input type="text" class="form-control typeahead" name="Name" id="Name" placeholder="Enter name">
 	  </div>
 	  <div class="form-group">
 	    <label class="sr-only" for="name">Amount</label>
-	    <input type="number" class="form-control" name="Amount" id="amount" placeholder="Enter amount">
+	    <input type="number" step="any" class="form-control" name="Amount" id="Amount" placeholder="Enter amount">
 	  </div>
 	  <div class="form-group">
 	    <label class="sr-only" for="name">Note</label>
-	    <input type="text" class="form-control" name="Note" id="amount" placeholder="Note">
+	    <input type="text" class="form-control" name="Note" id="Note" placeholder="Note">
 	  </div>
 	  <button type="submit" class="btn btn-default">Add Trans</button>
 	</form>
@@ -74,6 +74,7 @@ $(document).ready(function() {
 
 	$('#remote .typeahead').bind('typeahead:selected', function(obj, datum, name) {      
         $('#AccountID').val(datum.ID);
+        $('#Amount').val(datum.AmountPerPeriod);
 	});
 });
 </script>
