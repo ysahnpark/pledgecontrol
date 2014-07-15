@@ -16,8 +16,8 @@
 		<td>{{ $record->PledgeAmount }}</td>
 	</tr>
 	<tr>
-		<td>{{ Lang::get('account.PledgeDate') }}</td>
-		<td>{{ \DocuFlow\Helper\DfFormat::date($record->PledgeDate) }}</td>
+		<td>{{ Lang::get('account.PledgeStartDate') }}</td>
+		<td>{{ \DocuFlow\Helper\DfFormat::date($record->PledgeStartDate) }}</td>
 	</tr>
 	<tr>
 		<td>{{ Lang::get('account.PaymentPeriod') }}</td>

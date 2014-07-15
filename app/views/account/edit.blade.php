@@ -28,9 +28,9 @@
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('PledgeDate', Lang::get('account.PledgeDate'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('PledgeStartDate', Lang::get('account.PledgeStartDate'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
-		    {{ Form::text('PledgeDate', null, array('class' => 'form-control')) }}
+		    {{ Form::text('PledgeStartDate', null, array('class' => 'form-control')) }}
 		</div>
 	</div>
 	<div class="form-group">

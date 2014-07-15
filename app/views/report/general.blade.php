@@ -71,7 +71,7 @@
     <tbody>
 @foreach ($report_data['signup_trend'] as $signup_date)
       <tr>
-        <td>{{ $signup_date->PledgeDateYear }} / {{ $signup_date->PledgeDateMonth }}</td>
+        <td>{{ $signup_date->PledgeStartDateYear }} / {{ $signup_date->PledgeStartDateMonth }}</td>
         <td>{{ $signup_date->SignupCount }}</td>
       </tr>
 @endforeach

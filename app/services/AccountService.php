@@ -161,18 +161,18 @@ class AccountService  {
     public function listAccounts2($criteria, $sortParams = array(), $offset = 0, $limit=100)
     {
         $sql = "
-        (SELECT ID, Name, PledgeDate, PledgeAmount, Duration,
+        (SELECT ID, Name, PledgeStartDate, PledgeAmount, Duration,
             PaymentPeriod, PeriodUnit,  AmountPerPeriod,
             LastPaymentDate, PaidAmount, RemainingAmount,
             Phone, Address, City, PostalCode, RemindLetterSent, RemindLetterSentDate,
-            CEIL(TIMESTAMPDIFF(MONTH, PledgeDate, NOW()) / PaymentPeriod) as PeriodsPassed
+            CEIL(TIMESTAMPDIFF(MONTH, PledgeStartDate, NOW()) / PaymentPeriod) as PeriodsPassed
             FROM accounts WHERE PeriodUnit= 'm')
         UNION
-        (SELECT ID, Name, PledgeDate, PledgeAmount, Duration,
+        (SELECT ID, Name, PledgeStartDate, PledgeAmount, Duration,
             PaymentPeriod, PeriodUnit,  AmountPerPeriod,
             LastPaymentDate, PaidAmount, RemainingAmount,
             Phone, Address, City, PostalCode, RemindLetterSent, RemindLetterSentDate,
-            CEIL(TIMESTAMPDIFF(WEEK, PledgeDate, NOW()) / PaymentPeriod) as PeriodsPassed
+            CEIL(TIMESTAMPDIFF(WEEK, PledgeStartDate, NOW()) / PaymentPeriod) as PeriodsPassed
             FROM accounts WHERE PeriodUnit= 'w')
         ORDER BY Name;";
 
@@ -222,11 +222,11 @@ class AccountService  {
     public function signupTrend()
     {
         $sql = "
-        SELECT YEAR(PledgeDate) AS PledgeDateYear, MONTH(PledgeDate) AS PledgeDateMonth, 
+        SELECT YEAR(PledgeStartDate) AS PledgeStartDateYear, MONTH(PledgeStartDate) AS PledgeStartDateMonth, 
             COUNT(ID) as SignupCount
         FROM accounts
-        GROUP BY YEAR(PledgeDate), MONTH(PledgeDate)
-        ORDER BY PledgeDate;";
+        GROUP BY YEAR(PledgeStartDate), MONTH(PledgeStartDate)
+        ORDER BY PledgeStartDate;";
 
         $result = \DB::select(\DB::raw($sql));
 

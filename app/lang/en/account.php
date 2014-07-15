@@ -6,15 +6,29 @@ return array(
 	"_name_plural" => "Accounts",
 
 	"ID" => "ID",
+	"SignupDate" => "SignupDate",
 	"Name" => "Name",
 	"PledgeAmount" => "Pledge Amount",
-	"PledgeDate" => "Pledge Date",
+	"PaymentCycle" => "Payment Cycle",
+	"PledgeStartDate" => "Pledge Start Date",
+	"Duration" => "Duration",
 	"PaymentPeriod" => "Payment Period",
-	"LastPaymentDate" => "Last Payment Date",
 	"PaidAmount" => "Paid Amount",
 	"RemainingAmount" => "Remaining Amount",
-	"RemindLetterSent" => "Remind Letter Sent",
+	"LastTransaction" => "Last Transaction",
+
+	"ThankyouLetterSentDate" => "Thank You Letter Sent",
 	"RemindLetterSentDate" => "Remind Letter Sent Date",
+	"AmountPerPeriod" => "Amount Per Period",
 	"PeriodsPassed" => "Periods Passed",
-	"AmountDueNow" => "Amt Due Now"
+	"AmountDueNow" => "Amt Due Now",
+
+	"Email" => "Email",
+	"Phone" => "Phone",
+	"Address" => "Address",
+	"City" => "City",
+	"State" => "State",
+	"PostalCode" => "PostalCode",
+	"Note" => "Note"
+
 );

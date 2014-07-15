@@ -18,7 +18,12 @@ class AccountController extends \GenericServiceController {
 	public function createAuxData() {
 		$auxdata = array();
 
-		$auxdata['opt_PaymentPeriod'] = array('monthly', 'bi-monthly');
+		$auxdata['opt_PaymentCycle'] = array(
+			'w-2' => 'Bi-weekly',
+			'm-1' => 'Monthly',
+			'm-4' => '3 times per year',
+			'm-6' => '2 times per year',
+			'm-12' => 'Yearly');
 
 		return $auxdata;
 	}

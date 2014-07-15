@@ -34,8 +34,8 @@ class Account extends Eloquent {
      *
      * @var array
      */
-    protected $fillable = array('ID', 'CreateDate', 'Name'
-      , 'PledgeDate', 'PledgeAmount', 'Duration', 'PaymentPeriod', 'PeriodUnit', 'AmountPerPeriod', 'PaidAmount'
+    protected $fillable = array('ID', 'SignupDate', 'Name'
+      , 'PledgeStartDate', 'PledgeAmount', 'Duration', 'PaymentPeriod', 'PeriodUnit', 'AmountPerPeriod', 'PaidAmount'
       , 'RemainingAmount', 'LastTransactionID', 'Status', 'ThankyouLetterSentDate'
       , 'Email', 'Phone', 'Address', 'City', 'State', 'PostalCode', 'Note'
       , 'PeriodsPassed');
@@ -47,7 +47,9 @@ class Account extends Eloquent {
      */
     private static $validation_rules_create = array(
         'Name' => 'required|min:2',
-        'PledgeAmount' => 'min:1'
+        'PledgeAmount' => 'min:1',
+        'Duration' => 'min:1',
+        'Email' => 'email'
         );
 
     /**
@@ -57,7 +59,9 @@ class Account extends Eloquent {
      */
     private static $validation_rules_update = array(
         'Name' => 'required|min:2',
-        'PledgeAmount' => 'min:1'
+        'PledgeAmount' => 'min:1',
+        'Duration' => 'min:1',
+        'Email' => 'email'
         );
 
     /**

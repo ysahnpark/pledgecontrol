@@ -17,7 +17,7 @@
 		<tr>
 			<td>{{ Lang::get('account.Name') }}</td>
 			<td>{{ Lang::get('account.PledgeAmount') }}</td>
-			<td>{{ Lang::get('account.PledgeDate') }}</td>
+			<td>{{ Lang::get('account.PledgeStartDate') }}</td>
 			<td>{{ Lang::get('account.PaymentPeriod') }}</td>
 
 			<td>{{ Lang::get('account.PeriodsPassed') }}</td>
@@ -50,7 +50,7 @@
 		<tr>
 			<td><a href="{{ URL::to(route('accounts.show', array($account->ID))) }}">{{ $account->Name }}</a></td>
 			<td class="col-amount" title="{{ \DocuFlow\Helper\DfFormat::currency($account->AmountPerPeriod) }}">{{ \DocuFlow\Helper\DfFormat::currency($account->PledgeAmount) }}</td>
-			<td>{{ \DocuFlow\Helper\DfFormat::date($account->PledgeDate) }}</td>
+			<td>{{ \DocuFlow\Helper\DfFormat::date($account->PledgeStartDate) }}</td>
 			<td>{{ $account->PaymentPeriod }} {{ $account->PeriodUnit }} </td>
 			
 			<td>{{ $account->PeriodsPassed }}</td>
