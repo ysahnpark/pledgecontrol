@@ -57,7 +57,7 @@
 			
 			<td class="col-amount" {{ $pastDueStyle}} >{{ \DocuFlow\Helper\DfFormat::currency( $amountDueNow ) }}</td>
 
-			<td class="col-amount">{{ \DocuFlow\Helper\DfFormat::currency( $account->PaidAmount) }}</td>
+			<td class="col-amount" >{{ \DocuFlow\Helper\DfFormat::currency( $account->PaidAmount) }}</td>
 			<td class="col-amount">{{ \DocuFlow\Helper\DfFormat::currency($account->RemainingAmount ) }}</td>
 			<td>{{ \DocuFlow\Helper\DfFormat::date($account->ThankyouLetterSentDate) }}</td>
 		</tr>

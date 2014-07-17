@@ -6,26 +6,26 @@
 
 <div class="panel panel-info">
   <div class="panel-heading">
-    <h4 class="panel-title">Add New Transaction</h4>
+    <h4 class="panel-title">Add New Issue</h4>
   </div>
   <div class="panel-body">
   	<!-- PANE CONTENT { -->
-    <form id="TransactionForm" class="form-inline" role="form" method="POST" action="{{ URL::to(route('transactions.store')) }}">
-   	  <input type="hidden" name="_return_url" value="{{ URL::to(route('transactions.index')) }}" />
+    <form id="IssueForm" class="form-inline" role="form" method="POST" action="{{ URL::to(route('issues.store')) }}">
+   	  <input type="hidden" name="_return_url" value="{{ URL::to(route('issues.index')) }}" />
    	  <input type="hidden" name="AccountID" id="AccountID" value="" />
 	  <div class="form-group" id="remote">
 	    <label class="sr-only" for="name">Name</label>
 	    <input required type="text" class="form-control typeahead"  name="Name" id="Name" placeholder="Enter name">
 	  </div>
 	  <div class="form-group">
-	    <label class="sr-only" for="name">Amount</label>
-	    <input required type="number" step="any" min="1" class="form-control" name="Amount" id="Amount" placeholder="Enter amount">
+	    <label class="sr-only" for="name">Category</label>
+	    <input required type="text" class="form-control" name="Category" id="Amount" placeholder="Enter Category">
 	  </div>
 	  <div class="form-group">
 	    <label class="sr-only" for="name">Note</label>
 	    <input type="text" class="form-control" name="Note" id="Note" placeholder="Note">
 	  </div>
-	  <button type="submit" class="btn btn-default">Add Trans</button>
+	  <button type="submit" class="btn btn-default">Add issue</button>
 	</form>
 	<!-- } PANE CONTENT -->
   </div>
@@ -37,17 +37,17 @@
 		<tr>
 			<td class="col-date">Date</td>
 			<td>Name</td>
-			<td>Amount</td>
+			<td>Category</td>
 			<td>Note</td>
 		</tr>
 	</thead>
 	<tbody> 
-@foreach ($records as $tranaction)
+@foreach ($records as $issue)
 		<tr>
-			<td>{{ $tranaction->PaymentDate }}</td>
-			<td title="{{ $tranaction->AccountID }}"><a href="{{ URL::to(route('accounts.show', array($tranaction->AccountID))) }}">{{ $tranaction->Name }}</a></td>
-			<td class="col-amount">{{ $tranaction->Amount }}</td>
-			<td>{{ $tranaction->Note }}</td>
+			<td>{{ $issue->IssueDate }}</td>
+			<td title="{{ $issue->AccountID }}"><a href="{{ URL::to(route('accounts.show', array($issue->AccountID))) }}">{{ $issue->account->Name }}</a></td>
+			<td >{{ $issue->Category }}</td>
+			<td>{{ $issue->Note }}</td>
 		</tr>
 @endforeach
 	</tbody>
@@ -62,8 +62,8 @@
 <script>
 $(document).ready(function() {
 	
-	//$('#TransactionForm').parsley();
-	//$('#TransactionForm').bootstrapValidator({
+	//$('#IssueForm').parsley();
+	//$('#IssueForm').bootstrapValidator({
 
 	var accountName = new Bloodhound({
 	  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
@@ -81,7 +81,6 @@ $(document).ready(function() {
 
 	$('#remote .typeahead').bind('typeahead:selected', function(obj, datum, name) {      
         $('#AccountID').val(datum.ID);
-        $('#Amount').val(datum.AmountPerPeriod);
 	});
 });
 </script>

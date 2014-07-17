@@ -80,11 +80,20 @@ class Account extends Eloquent {
         return $this->hasMany('Transaction', 'AccountID', 'ID');
     }
 
+    public function lastTransaction()
+    {
+        return $this->hasOne('Transaction', 'ID', 'LastTransactionID');
+    }
+
     public function getName()
     {
         return $this->Name;
     }
 
+    public function getRemainingAmount()
+    {
+        return ($this->PledgeAmount - $this->PaidAmount);
+    }
     public function getAmountExpectedNow()
     {
         return ($this->PeriodsPassed * $this->AmountPerPeriod);

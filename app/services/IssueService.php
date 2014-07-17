@@ -9,9 +9,9 @@
 
 
 /**
- * Service class that provides business logic for Transaction
+ * Service class that provides business logic for Issue
  */
-class TransactionService  {
+class IssueService  {
 
     private $accountService = null;
 
@@ -19,7 +19,7 @@ class TransactionService  {
     {
         if (empty($criteria)) $criteria = array();
         $queryBuilder = new \DocuFlow\Helper\DfQueryBuilderEloquent();
-        $query = \Transaction::query();
+        $query = \Issue::query();
         $query = $queryBuilder->buildQuery($criteria, $query);
         return $query; 
     }
@@ -41,10 +41,10 @@ class TransactionService  {
      * @param int   $limit        Maximum number of records to retrieve
      * @return Response
      */
-    public function listTransactions($criteria, $sortParams = array(), $offset = 0, $limit=100)
+    public function listIssues($criteria, $sortParams = array(), $offset = 0, $limit=100)
     {
         $query = $this->buildQuery($criteria);
-        $records = $query->skip($offset)->take($limit)->orderBy('PaymentDate', 'desc')->get();
+        $records = $query->skip($offset)->take($limit)->orderBy('IssueDate', 'desc')->get();
 
         return $records;
     }
@@ -57,11 +57,11 @@ class TransactionService  {
      * @param int   $page_size    The max number of entries shown per page
      * @return Response
      */
-    public function paginateTransactions($criteria, $sortParams = array(), $page_size = 20)
+    public function paginateIssues($criteria, $sortParams = array(), $page_size = 20)
     {
         // @TODO: pending
         $query = $this->buildQuery($criteria);
-        $records = $query->orderBy('PaymentDate', 'desc')->paginate($page_size);
+        $records = $query->orderBy('IssueDate', 'desc')->paginate($page_size);
         return $records;
     }
 
@@ -71,7 +71,7 @@ class TransactionService  {
      * @param array $queryParams  Parameters used for querying
      * @return int number of records that satisfied the criteria
      */
-    public function countTransactions($criteria)
+    public function countIssues($criteria)
     {
         $query = $this->buildQuery($criteria);
         $count = $query->query()->count();
@@ -85,32 +85,21 @@ class TransactionService  {
      * @param array $data  Parameters used for creating a new record
      * @return mixed  null if successful, validation object validation fails
      */
-    public function createTransaction($data)
+    public function createIssue($data)
     {
-        $validator = \Transaction::validator($data);
+        $validator = \Issue::validator($data);
         if ($validator->passes()) {
 
-            $record = new \Transaction();
+            $record = new \Issue();
             $record->fill($data);
 
             $now = new \DateTime;
             $now_str = $now->format('Y-m-d H:i:s');
-            $record->PaymentDate = $now_str;
+            $record->IssueDate = $now_str;
+            $record->Status = 'Created';
 
-            // Update account 
-            $account = $this->getAcountService()->findAccountByPK($record->AccountID);
-            if ($account === null) {
-                throw new ServiceException('Account of ID [' . $record->AccountID .'] Not found.', 404);
-            }
+            $record->save();
 
-            $account->PaidAmount += $record->Amount;
-            $account->RemainingAmount = $account->PledgeAmount - $account->PaidAmount;
-
-            \DB::beginTransaction();
-                $record->save();
-                $account->LastTransactionID = $record->ID;
-                $account->save();
-            \DB::commit();
             return $record;
         } else {
             throw new ValidationException($validator);
@@ -121,11 +110,11 @@ class TransactionService  {
      * Retrieves a single record.
      *
      * @param  int $pk  The primary key for the search
-     * @return Transaction
+     * @return Issue
      */
-    public function findTransactionByPK($pk)
+    public function findIssueByPK($pk)
     {
-        $record = \Transaction::find($pk);
+        $record = \Issue::find($pk);
 
         return $record;
     }
@@ -137,12 +126,12 @@ class TransactionService  {
      * @param  array $data  The data of the update
      * @return mixed null if successful, validation if validation error
      */
-    public function updateTransaction($pk, $data)
+    public function updateIssue($pk, $data)
     {
         
-        $validator = \Transaction::validator($data, false);
+        $validator = \Issue::validator($data, false);
         if ($validator->passes()) {
-            $record = \Transaction::find($pk);
+            $record = \Issue::find($pk);
             $record->fill($data);
             $record->save();
             return $record;
@@ -158,10 +147,10 @@ class TransactionService  {
      * @param  int  $pk
      * @return Object the object that was deleted, null if not found
      */
-    public function destroyTransaction($pk)
+    public function destroyIssue($pk)
     {
         // delete
-        $record = \Transaction::find($pk);
+        $record = \Issue::find($pk);
         if (!empty($record)) {
             $record->delete();
             return $record;

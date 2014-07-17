@@ -5,14 +5,14 @@
  *
  */
 
-class Transaction extends Eloquent {
+class Issue extends Eloquent {
 
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'trans';
+    protected $table = 'issues';
 
     /**
      * The primary key column name.
@@ -34,8 +34,8 @@ class Transaction extends Eloquent {
      *
      * @var array
      */
-    protected $fillable = array('ID', 'AccountID', 'Name',
-        'Amount', 'PaymentDate', 'Note');
+    protected $fillable = array('ID', 'IssueDate', 'AccountID',
+        'HandledBy', 'Category', 'Description', 'Status', 'Log', 'Result', 'NotificationSentDate', 'CompletionDate', 'Note');
 
     /**
      * Validation rules for creation
@@ -43,7 +43,8 @@ class Transaction extends Eloquent {
      * @var array
      */
     private static $validation_rules_create = array(
-        'Amount' => 'numeric'
+        'AccountID' => 'required',
+        'Category' => 'required'
         );
 
     /**
@@ -52,7 +53,9 @@ class Transaction extends Eloquent {
      * @var array
      */
     private static $validation_rules_udpate = array(
-        'Amount' => 'numeric'
+        'AccountID' => 'required',
+        'Category' => 'required',
+        'Status' => 'required'
         );
 
     /**
@@ -73,6 +76,6 @@ class Transaction extends Eloquent {
     
     public function getName()
     {
-        return $this->Amount;
+        return $this->Category;
     }
 }

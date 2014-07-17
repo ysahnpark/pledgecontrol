@@ -160,20 +160,25 @@ class AccountService  {
 
     public function listAccounts2($criteria, $sortParams = array(), $offset = 0, $limit=100)
     {
+        $queryBuilder = new \DocuFlow\Helper\DfQueryBuilderSql();
+        $sqlCriteria = $queryBuilder->buildQuery($criteria);
+        if (!empty($sqlCriteria)) {
+            $sqlCriteria = ' AND ' . $sqlCriteria;
+        }
         $sql = "
         (SELECT ID, SignupDate, Name, PledgeStartDate, PledgeAmount, Duration,
             PaymentPeriod, PeriodUnit, AmountPerPeriod, SparePeriod, 
             PaidAmount, RemainingAmount, Status
             Email, Phone, Address, City, State, PostalCode, ThankyouLetterSentDate, 
             CEIL(TIMESTAMPDIFF(MONTH, PledgeStartDate, NOW()) / PaymentPeriod) as PeriodsPassed
-            FROM accounts WHERE PeriodUnit= 'm')
+            FROM accounts WHERE PeriodUnit= 'm' " . $sqlCriteria . ")
         UNION
         (SELECT ID, SignupDate, Name, PledgeStartDate, PledgeAmount, Duration,
             PaymentPeriod, PeriodUnit, AmountPerPeriod, SparePeriod,
             PaidAmount, RemainingAmount, Status
             Email, Phone, Address, City, State, PostalCode, ThankyouLetterSentDate, 
             CEIL(TIMESTAMPDIFF(WEEK, PledgeStartDate, NOW()) / PaymentPeriod) as PeriodsPassed
-            FROM accounts WHERE PeriodUnit= 'w')
+            FROM accounts WHERE PeriodUnit= 'w' " . $sqlCriteria . ")
         ORDER BY Name;";
 
         // AmountDueNowRaw =  PeriodsPassed * AmountPerPeriod;

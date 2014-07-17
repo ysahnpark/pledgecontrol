@@ -21,11 +21,6 @@ class TransactionController extends \GenericServiceController {
 		return $auxdata;
 	}
 
-	private function getRoleService()
-	{
-		return App::make('df_role_service');
-	}
-
 	public function report() {
 
 		$this->addBreadcrumb(['report']);

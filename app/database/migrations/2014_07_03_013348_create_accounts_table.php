@@ -27,8 +27,8 @@ class CreateAccountsTable extends Migration {
 			
 			$table->decimal('PaidAmount', 10, 2); // calculated - Accumulated Payments
 			$table->decimal('RemainingAmount', 10, 2); // calculated
-			$table->dateTime('LastTransactionID')->nullable(); // Derived
-			$table->string('Status'); // Deriveved
+			$table->bigInteger('LastTransactionID')->nullable(); // Derived
+			$table->string('Status', 32); // Deriveved
 			$table->dateTime('ThankyouLetterSentDate')->nullable();
 
 			$table->string('Email', 255)->nullable();
