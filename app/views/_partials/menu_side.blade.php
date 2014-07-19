@@ -4,6 +4,7 @@
 <ul>
 	<li><a href="{{ URL::to(route('accounts.index')) }}">Accounts</a></li>
 	<li><a href="{{ URL::to(route('transactions.index')) }}">Transactions</a></li>
+	<li><a href="{{ URL::to(route('issues.index')) }}">Issues</a></li>
 </ul>
 
 <h5>Reports<h5>
