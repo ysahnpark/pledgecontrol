@@ -75,7 +75,7 @@ class GenericServiceController extends \BaseController {
 	{
 		$this->addBreadcrumb(['new']);
 		$this->setContentTitle('New ' . Lang::get($this->moduleName . '._name') );
-
+		
 		$this->layout->content = View::make($this->moduleName . '.create')
 			->with('auxdata', $this->createAuxData());
 	}

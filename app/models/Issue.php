@@ -52,7 +52,7 @@ class Issue extends Eloquent {
      *
      * @var array
      */
-    private static $validation_rules_udpate = array(
+    private static $validation_rules_update = array(
         'AccountID' => 'required',
         'Category' => 'required',
         'Status' => 'required'

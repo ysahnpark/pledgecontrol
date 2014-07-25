@@ -27,6 +27,9 @@ class CreateIssuesTable extends Migration {
 			$table->dateTime('CompletionDate')->nullable();
 			$table->string('Note', 255)->nullable();
 
+			$table->index('AccountID');
+			$table->index('Category');
+			$table->index('Status');
 			//$table->foreign('AccountID')->references('ID')->on('accounts');
 		});
 	}

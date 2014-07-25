@@ -38,22 +38,28 @@
 			<td class="col-date">Date</td>
 			<td>Name</td>
 			<td>Category</td>
-			<td>Note</td>
+			<td>Status</td>
+			<td>Result</td>
+			<td>Action</td>
 		</tr>
 	</thead>
 	<tbody> 
 @foreach ($records as $issue)
 		<tr>
 			<td>{{ $issue->IssueDate }}</td>
-			<td title="{{ $issue->AccountID }}"><a href="{{ URL::to(route('accounts.show', array($issue->AccountID))) }}">{{ $issue->account->Name }}</a></td>
+			<td title="{{ $issue->AccountID }}"><a href="{{ URL::to(route('accounts.show', array($issue->AccountID))) }}">{{  $issue->account->Name }}</a></td>
 			<td >{{ $issue->Category }}</td>
-			<td>{{ $issue->Note }}</td>
+			<td>{{ $issue->Status }}</td>
+			<td>{{ $issue->Result }}</td>
+			<td>
+				<a class="btn btn-warning" href="{{ URL::to(route('issues.edit', array($issue->ID))) }}">Details</a>
+			</td>
 		</tr>
 @endforeach
 	</tbody>
   <tfoot>
     <tr>
-      <td colspan="4"><?php echo $records->links(); ?></td>
+      <td colspan="6"><?php echo $records->links(); ?></td>
     </tr>
   </tfoot>
 </table>

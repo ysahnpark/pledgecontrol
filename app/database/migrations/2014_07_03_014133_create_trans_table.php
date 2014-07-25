@@ -21,6 +21,7 @@ class CreateTransTable extends Migration {
 			$table->dateTime('PaymentDate');
 			$table->string('Note', 255);
 
+			$table->index('AccountID');
 			//$table->foreign('AccountID')->references('ID')->on('accounts');
 		});
 	}

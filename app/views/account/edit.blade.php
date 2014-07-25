@@ -105,7 +105,8 @@
 
 	<div class="form-group">
     	<div class="col-sm-offset-2 col-sm-10">
-	{{ Form::submit('Update', array('class' => 'btn btn-primary')) }}
+			<button name="_submit" type="submit" value="save" class="btn btn-primary">{{ Lang::get('common.save') }}</button>
+    		<button name="_submit" type="submit" value="save_return" class="btn btn-primary">{{ Lang::get('common.save_return') }}</button>
 	    </div>
 	</div>
 

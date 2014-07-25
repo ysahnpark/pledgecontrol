@@ -22,6 +22,7 @@
 
 			<td>{{ Lang::get('account.PeriodsPassed') }}</td>
 			<td>{{ Lang::get('account.AmountDueNow') }}</td>
+			<td><!-- CREATE ISSUE --></td>
 
 			<td>{{ Lang::get('account.PaidAmount') }}</td>
 			<td>{{ Lang::get('account.RemainingAmount') }}</td>
@@ -56,6 +57,10 @@
 			<td>{{ $account->PeriodsPassed }}</td>
 			
 			<td class="col-amount" {{ $pastDueStyle}} >{{ \DocuFlow\Helper\DfFormat::currency( $amountDueNow ) }}</td>
+			<td>@if ($amountDueNow > 1) 
+				<a title="Create reminter ticket" class="btn btn-warning" href="{{ URL::to(route('issues.create', array('AccountID' => $account->ID, 'Category' => 'OD'))) }}">I</a>
+				@endif
+			</td>
 
 			<td class="col-amount" >{{ \DocuFlow\Helper\DfFormat::currency( $account->PaidAmount) }}</td>
 			<td class="col-amount">{{ \DocuFlow\Helper\DfFormat::currency($account->RemainingAmount ) }}</td>
@@ -72,6 +77,7 @@
 			<td></td>
 			
 			<td class="col-amount" {{ $pastDueStyle}} >{{ money_format('%(#10n', $total_AmountDueNow ) }}</td>
+			<td></td>
 
 			<td class="col-amount">{{ money_format('%(#10n', $total_PaidAmount) }}</td>
 			<td class="col-amount">{{ money_format('%(#10n', $total_RemainingAmount ) }}</td>

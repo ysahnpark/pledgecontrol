@@ -80,6 +80,11 @@ class Account extends Eloquent {
         return $this->hasMany('Transaction', 'AccountID', 'ID');
     }
 
+    public function issues()
+    {
+        return $this->hasMany('Issue', 'AccountID', 'ID');
+    }
+
     public function lastTransaction()
     {
         return $this->hasOne('Transaction', 'ID', 'LastTransactionID');

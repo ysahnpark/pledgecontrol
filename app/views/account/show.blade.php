@@ -32,8 +32,8 @@
 		<td>{{ $record->PaymentPeriod }}</td>
 	</tr>
 	<tr>
-		<td>{{ Lang::get('account.LastPaymentDate') }}</td>
-		<td>{{ \DocuFlow\Helper\DfFormat::date($record->LastPaymentDate) }}</td>
+		<td>{{ Lang::get('account.LastTransaction') }}</td>
+		<td>{{ \DocuFlow\Helper\DfFormat::date($record->LastTransaction) }}</td>
 	</tr>
 	<tr>
 		<td>{{ Lang::get('account.PaidAmount') }}</td>
@@ -42,10 +42,6 @@
 	<tr>
 		<td>{{ Lang::get('account.RemainingAmount') }}</td>
 		<td>{{ $record->RemainingAmount }}</td>
-	</tr>
-	<tr>
-		<td>{{ Lang::get('account.RemindLetterSent') }}</td>
-		<td>{{ $record->RemindLetterSent }}</td>
 	</tr>
 	<tr>
 		<td>{{ Lang::get('account.ThankyouLetterSentDate') }}</td>
@@ -106,10 +102,43 @@
 	</tbody>
   <tfoot> 
     <tr>
-      <td colspan="4">Pagination</td>
+      <td colspan="4"></td>
       </tr>    
   </tfoot> 
 </table>
+
+<hr />
+<?php $issues = $record->issues; 
+if (!empty($issues)) {
+?>
+<h3>Issues</h3>
+
+<table class="table table-striped">
+	<thead> 
+		<tr>
+			<td class="col-date">Date</td>
+			<td>Category</td>
+			<td>Status</td>
+			<td>Result</td>
+		</tr>
+	</thead>
+	<tbody> 
+@foreach ($issues as $issue)
+		<tr>
+			<td>{{ \DocuFlow\Helper\DfFormat::date($issue->IssueDate) }}</td>
+			<td>{{ $issue->Category }}</td>
+			<td>{{ $issue->Status }}</td>
+			<td>{{ $issue->Result }}</td>
+		</tr>
+@endforeach
+	</tbody>
+  <tfoot> 
+    <tr>
+      <td colspan="4"></td>
+      </tr>    
+  </tfoot> 
+</table>
+<?php } ?>
 
 </div> <!-- container -->
 

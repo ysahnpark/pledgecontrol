@@ -40,6 +40,7 @@ class CreateAccountsTable extends Migration {
 			$table->mediumText('Note')->nullable();
 
 			$table->index('Name');
+			$table->unique('Email');
 		});
 	}
 

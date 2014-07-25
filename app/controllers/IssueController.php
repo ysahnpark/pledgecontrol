@@ -15,11 +15,41 @@ class IssueController extends \GenericServiceController {
 		parent::__construct('layouts.workspace', 'svc:issue', 'Issue');
 	}
 
+	public function createAuxData() {
+		$auxdata = $this->editAuxData(null);
+
+		$accountID  = \Input::get('AccountID');
+		$accountName = '';
+		if (!empty($accountID)) {
+			$account = $this->service->getAcountService()->findAccountByPK($accountID);
+			$accountName = $account->Name;
+		}
+
+		$auxdata['field'] = array(
+			'AccountID' => $accountID,
+			'AccountName' => $accountName,
+			'Category' => \Input::get('Category'));
+
+		
+		return $auxdata;
+	}
+
 	public function editAuxData($record) {
 		$auxdata = array();
+
+		$auxdata['opt_Category'] = array(
+			'FPR' => 'First Payment Request',
+			'OD' => 'Over Due');
+
+		$auxdata['opt_Status'] = array(
+			'created' => 'Created',
+			'notified' => 'Notified',
+			'resolved' => 'Resolved',
+			'dropped' => 'Dropped');
 
 		return $auxdata;
 	}
 
+	
 
 }
