@@ -52,7 +52,11 @@ class ReportController extends BaseController {
 		$report_data['signup_trend'] = $this->getAccountService()->signupTrend();
 		
 		// Distribution of Delinquent donors
-		// Query count(), group by (??) WHERE amountDue > 0
+		$amountDueSql = '(CEIL(TIMESTAMPDIFF({INTER_UNIT}, PledgeStartDate, NOW())  / PaymentPeriod) * AmountPerPeriod) - PaidAmount';
+		$criteria = array( $amountDueSql => array('$gt' => 1));
+		$accountsOverDue = $this->getAccountService()->listAccounts2($criteria);
+		$histogram = $this->histogram($accountsOverDue, 'PledgeAmount');
+		$report_data['overdue_histogram'] = $histogram;
 
 		// Reminder Letter 
 
@@ -65,6 +69,21 @@ class ReportController extends BaseController {
 		} else {
 			return $this->indexOfFormat($queryCtx->format, $report_data);
 		}
+	}
+
+	public function histogram($list, $pivotField)
+	{
+		$histogram = array();
+		foreach($list as $record)
+		{
+			if (array_key_exists($record->$pivotField, $histogram)) {
+				$histogram[$record->$pivotField] += 1;
+			} else {
+				$histogram[$record->$pivotField] = 1;
+			}
+		}
+		ksort($histogram);
+		return $histogram;
 	}
 
 }

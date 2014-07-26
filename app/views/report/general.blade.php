@@ -1,7 +1,7 @@
 
 @section('content')
 
-<h2  style="color: green">Pledge</h2>
+<h2 class="section-header">Pledge</h2>
 <h4>Participation</h4>
   <table class="table table-striped">
     <thead>
@@ -79,7 +79,7 @@
   </table>
 
 
-<h2>Delinquents</h2>
+<h2 class="section-header">Delinquents</h2>
 <!-- -->
 <h4>Distribution of Delinquent Donors</h4>
   <table class="table table-striped">
@@ -89,14 +89,12 @@
       </tr>
     </thead>
     <tbody>
+@foreach ($report_data['overdue_histogram'] as $histogram_key => $histogram_val)
       <tr>
-        <td>Category</td>
-        <td>num</td>
+        <td>{{ $histogram_key }}</td>
+        <td>{{ $histogram_val }}</td>
       </tr>
-      <tr>
-        <td>Category</td>
-        <td>num</td>
-      </tr>
+@endforeach
     </tbody>
   </table>
 
@@ -132,7 +130,7 @@
 <!-- -->
 <h4>Thank You Letter</h4>
 
-<h2>Monthly Graph</h2>
+<h2 class="section-header">Monthly Graph</h2>
 
 <h4>Amount per month</h4>
 <div id="chart_amount">

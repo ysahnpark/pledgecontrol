@@ -16,9 +16,10 @@
 	<thead> 
 		<tr>
 			<td>{{ Lang::get('account.Name') }}</td>
-			<td>{{ Lang::get('account.PledgeAmount') }}</td>
 			<td>{{ Lang::get('account.PledgeStartDate') }}</td>
+			<td>{{ Lang::get('account.PledgeAmount') }}</td>
 			<td>{{ Lang::get('account.PaymentPeriod') }}</td>
+			<td>{{ Lang::get('account.AmountPerPeriod') }}</td>
 			<td>{{ Lang::get('account.PaidAmount') }}</td>
 			<td>{{ Lang::get('account.RemainingAmount') }}</td>
 		</tr>
@@ -27,9 +28,10 @@
 @foreach ($records as $account)
 		<tr>
 			<td><a href="{{ URL::to(route('accounts.show', array($account->ID))) }}">{{ $account->Name }}</a></td>
-			<td class="col-amount">{{ \DocuFlow\Helper\DfFormat::currency($account->PledgeAmount) }}</td>
 			<td>{{ \DocuFlow\Helper\DfFormat::date($account->PledgeStartDate) }}</td>
-			<td>{{ $account->PaymentPeriod }}</td>
+			<td class="col-amount">{{ \DocuFlow\Helper\DfFormat::currency($account->PledgeAmount) }}</td>
+			<td>{{ $account->PaymentPeriod }} {{ $account->PeriodUnit }} for {{ $account->Duration }} {{ $account->PeriodUnit }}</td>
+			<td class="col-amount">{{ \DocuFlow\Helper\DfFormat::currency($account->AmountPerPeriod) }}</td>
 			<td class="col-amount">{{ \DocuFlow\Helper\DfFormat::currency($account->PaidAmount) }}</td>
 			<td class="col-amount">{{ \DocuFlow\Helper\DfFormat::currency($account->RemainingAmount) }}</td>
 		</tr>

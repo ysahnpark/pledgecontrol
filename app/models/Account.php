@@ -48,6 +48,7 @@ class Account extends Eloquent {
     private static $validation_rules_create = array(
         'Name' => 'required|min:2',
         'PledgeAmount' => 'min:1',
+        'PeriodUnit' => 'in:m,w',
         'Duration' => 'min:1',
         'Email' => 'email'
         );
@@ -58,8 +59,9 @@ class Account extends Eloquent {
      * @var array
      */
     private static $validation_rules_update = array(
-        'Name' => 'required|min:2',
+        'Name' => 'required|min:1',
         'PledgeAmount' => 'min:1',
+        'PeriodUnit' => 'in:m,w',
         'Duration' => 'min:1',
         'Email' => 'email'
         );

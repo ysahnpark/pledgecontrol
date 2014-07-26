@@ -28,4 +28,6 @@ Route::resource('issues', 'IssueController');
 
 Route::controller('report', 'ReportController');
 
+Route::controller('import', 'ImportController');
+
 

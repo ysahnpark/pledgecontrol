@@ -1,7 +1,7 @@
 PENDING:
 OK - Account adding/updating form (discrepancies with the table fields)
 OK - Transaction Create logic: update Account info
-- Issue (delinquency) table
+OK - Issue (delinquency) table
 - Rest of the report
 - Account report search
 - Account report export to XLS.

@@ -165,20 +165,24 @@ class AccountService  {
         if (!empty($sqlCriteria)) {
             $sqlCriteria = ' AND ' . $sqlCriteria;
         }
+
+        $sqlCriteriaMonth = str_replace('{INTER_UNIT}', 'MONTH', $sqlCriteria);
+        $sqlCriteriaWeek = str_replace('{INTER_UNIT}', 'WEEK', $sqlCriteria);
+
         $sql = "
         (SELECT ID, SignupDate, Name, PledgeStartDate, PledgeAmount, Duration,
             PaymentPeriod, PeriodUnit, AmountPerPeriod, SparePeriod, 
             PaidAmount, RemainingAmount, Status
             Email, Phone, Address, City, State, PostalCode, ThankyouLetterSentDate, 
             CEIL(TIMESTAMPDIFF(MONTH, PledgeStartDate, NOW()) / PaymentPeriod) as PeriodsPassed
-            FROM accounts WHERE PeriodUnit= 'm' " . $sqlCriteria . ")
+            FROM accounts WHERE PeriodUnit= 'm' " . $sqlCriteriaMonth . ")
         UNION
         (SELECT ID, SignupDate, Name, PledgeStartDate, PledgeAmount, Duration,
             PaymentPeriod, PeriodUnit, AmountPerPeriod, SparePeriod,
             PaidAmount, RemainingAmount, Status
             Email, Phone, Address, City, State, PostalCode, ThankyouLetterSentDate, 
             CEIL(TIMESTAMPDIFF(WEEK, PledgeStartDate, NOW()) / PaymentPeriod) as PeriodsPassed
-            FROM accounts WHERE PeriodUnit= 'w' " . $sqlCriteria . ")
+            FROM accounts WHERE PeriodUnit= 'w' " . $sqlCriteriaWeek . ")
         ORDER BY Name;";
 
         // AmountDueNowRaw =  PeriodsPassed * AmountPerPeriod;

@@ -58,7 +58,12 @@
 			
 			<td class="col-amount" {{ $pastDueStyle}} >{{ \DocuFlow\Helper\DfFormat::currency( $amountDueNow ) }}</td>
 			<td>@if ($amountDueNow > 1) 
-				<a title="Create reminter ticket" class="btn btn-warning" href="{{ URL::to(route('issues.create', array('AccountID' => $account->ID, 'Category' => 'OD'))) }}">I</a>
+				<?php 
+				$category = 'OD';
+				if ($account->PaidAmount == 0) {
+					$category = 'FPR';
+				}?>
+				<a title="Create Issue Ticket" class="btn btn-warning" href="{{ URL::to(route('issues.create', array('AccountID' => $account->ID, 'Category' => $category))) }}">I</a>
 				@endif
 			</td>
 

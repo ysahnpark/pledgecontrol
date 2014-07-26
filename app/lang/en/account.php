@@ -11,6 +11,7 @@ return array(
 	"PledgeAmount" => "Pledge Amount",
 	"PaymentCycle" => "Payment Cycle",
 	"PledgeStartDate" => "Pledge Start Date",
+	"ExpectedEndDate" => "Exp. End Date",
 	"Duration" => "Duration",
 	"PaymentPeriod" => "Payment Period",
 	"PaidAmount" => "Paid Amount",
