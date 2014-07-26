@@ -63,7 +63,7 @@
 				if ($account->PaidAmount == 0) {
 					$category = 'FPR';
 				}?>
-				<a title="Create Issue Ticket" class="btn btn-warning" href="{{ URL::to(route('issues.create', array('AccountID' => $account->ID, 'Category' => $category))) }}">I</a>
+				<a title="Create Issue Ticket" class="btn btn-warning" href="{{ URL::to(route('tickets.create', array('AccountID' => $account->ID, 'Category' => $category))) }}">I</a>
 				@endif
 			</td>
 

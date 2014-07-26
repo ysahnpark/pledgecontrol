@@ -95,7 +95,9 @@ class TransactionService  {
 
             $now = new \DateTime;
             $now_str = $now->format('Y-m-d H:i:s');
-            $record->PaymentDate = $now_str;
+            if (!isset($record->PaymentDate)) {
+                $record->PaymentDate = $now_str;
+            }
 
             // Update account 
             $account = $this->getAcountService()->findAccountByPK($record->AccountID);

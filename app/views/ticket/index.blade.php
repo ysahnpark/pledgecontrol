@@ -6,12 +6,12 @@
 
 <div class="panel panel-info">
   <div class="panel-heading">
-    <h4 class="panel-title">Add New Issue</h4>
+    <h4 class="panel-title">Add New {{Lang::get('ticket._name')}}</h4>
   </div>
   <div class="panel-body">
   	<!-- PANE CONTENT { -->
-    <form id="IssueForm" class="form-inline" role="form" method="POST" action="{{ URL::to(route('issues.store')) }}">
-   	  <input type="hidden" name="_return_url" value="{{ URL::to(route('issues.index')) }}" />
+    <form id="IssueForm" class="form-inline" role="form" method="POST" action="{{ URL::to(route('tickets.store')) }}">
+   	  <input type="hidden" name="_return_url" value="{{ URL::to(route('tickets.index')) }}" />
    	  <input type="hidden" name="AccountID" id="AccountID" value="" />
 	  <div class="form-group" id="remote">
 	    <label class="sr-only" for="name">Name</label>
@@ -25,7 +25,7 @@
 	    <label class="sr-only" for="name">Note</label>
 	    <input type="text" class="form-control" name="Note" id="Note" placeholder="Note">
 	  </div>
-	  <button type="submit" class="btn btn-default">Add issue</button>
+	  <button type="submit" class="btn btn-default">Add {{Lang::get('ticket._name')}}</button>
 	</form>
 	<!-- } PANE CONTENT -->
   </div>
@@ -44,15 +44,15 @@
 		</tr>
 	</thead>
 	<tbody> 
-@foreach ($records as $issue)
+@foreach ($records as $ticket)
 		<tr>
-			<td>{{ $issue->IssueDate }}</td>
-			<td title="{{ $issue->AccountID }}"><a href="{{ URL::to(route('accounts.show', array($issue->AccountID))) }}">{{  $issue->account->Name }}</a></td>
-			<td >{{ $issue->Category }}</td>
-			<td>{{ $issue->Status }}</td>
-			<td>{{ $issue->Result }}</td>
+			<td>{{ $ticket->IssueDate }}</td>
+			<td title="{{ $ticket->AccountID }}"><a href="{{ URL::to(route('accounts.show', array($ticket->AccountID))) }}">{{  $ticket->account->Name }}</a></td>
+			<td >{{ $ticket->Category }}</td>
+			<td>{{ $ticket->Status }}</td>
+			<td>{{ $ticket->Result }}</td>
 			<td>
-				<a class="btn btn-warning" href="{{ URL::to(route('issues.edit', array($issue->ID))) }}">Details</a>
+				<a class="btn btn-warning" href="{{ URL::to(route('tickets.edit', array($ticket->ID))) }}">Details</a>
 			</td>
 		</tr>
 @endforeach

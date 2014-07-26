@@ -16,6 +16,7 @@ class ServiceException extends \Exception {
 
 	const CODE_VALIDATION = 10;
 	const CODE_DATA_ACCESS = 20;
+	const CODE_DATA_STATE = 30;
 
 	// Object that 
 	private $object = null;

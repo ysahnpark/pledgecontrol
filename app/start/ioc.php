@@ -20,8 +20,7 @@ App::singleton('svc:transaction', function()
     return new \Service\TransactionService();
 });
 
-
-App::singleton('svc:issue', function()
+App::singleton('svc:ticket', function()
 {
-    return new \Service\IssueService();
+    return new \Service\TicketService();
 });

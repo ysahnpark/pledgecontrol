@@ -22,7 +22,7 @@
 	<div class="form-group">
     	<div class="col-sm-offset-2 col-sm-10">
 			<button type="submit" name="mode" value="validate" class="btn btn-primary">{{ Lang::get('import.validate') }}</button>
-@if (isset($isvalid) && !$isvalid )
+@if (isset($isvalid) && $isvalid )
     		<button type="submit" name="mode" value="process" class="btn btn-primary">{{ Lang::get('import.process') }}</button>
 @endif
 	    </div>
@@ -51,10 +51,11 @@
 </table>
 @endif
 
-@if (isset($isvalid) && !$isvalid )
+@if (isset($result) )
+	@if (!$isvalid )
 <h4>Errors</h4>
 <ul>
-@foreach ($dataerrors as $error)
+@foreach ($result['errors'] as $error)
 	<li>Line {{ $error['line'] }}: 
 		@foreach ($error['message'] as $field => $detail)
 		[{{ $field }}] - <?php print_r($detail) ?>
@@ -62,6 +63,12 @@
 	</li>
 @endforeach
 <ul>
+	@else
+<dt>Total count</dt>
+<dd>{{ $result['items_count'] }}</dd>
+<dt>Items processed</dt>
+<dd>{{ $result['items_processed'] }}</dd>
+	@endif
 @endif
 
 </div> <!-- container -->

@@ -2,9 +2,9 @@
 
 return array(
 
-	"_name" => "Issue",
-	"_name_plural" => "Issues",
-	"IssueDate" => "Date",
+	"_name" => "Ticket",
+	"_name_plural" => "Tickets",
+	"TicketDate" => "Date",
 	"HandledBy" => "HandledBy",
 	"Category" => "Category",
 	"Description" => "Description",

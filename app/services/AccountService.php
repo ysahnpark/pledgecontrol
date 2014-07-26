@@ -35,8 +35,6 @@ class AccountService  {
     public function listAccounts($criteria, $sortParams = array(), $offset = 0, $limit=100)
     {
         $query = $this->buildQuery($criteria);
-        //$query = \Account::query();
-        //$query->where()
 
         $records = $query->skip($offset)->take($limit)->get();
 
@@ -118,6 +116,22 @@ class AccountService  {
 
         return $record;
     }
+    /**
+     * Retrieves a single record.
+     *
+     * @param  int $name  The primary key for the search
+     * @return Account
+     */
+    public function findAccountByName($name)
+    {
+        $record = \Account::where('Name', '=', $name)->get();
+
+        if(count($record) > 1) {
+            throw new ServiceException('More than one entry found with name ' . $name, \Service\ServiceException::CODE_DATA_STATE);
+        }
+
+        return $record[0];
+    }
 
     /**
      * Update the specified resource in storage.
@@ -128,7 +142,6 @@ class AccountService  {
      */
     public function updateAccount($pk, $data)
     {
-        
         $validator = \Account::validator($data, false);
         if ($validator->passes()) {
             $record = \Account::find($pk);

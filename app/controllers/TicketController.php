@@ -9,10 +9,10 @@
 /**
  * Controller class that provides REST API to User resource
  */
-class IssueController extends \GenericServiceController {
+class TicketController extends \GenericServiceController {
 
 	public function __construct() {
-		parent::__construct('layouts.workspace', 'svc:issue', 'Issue');
+		parent::__construct('layouts.workspace', 'svc:ticket', 'Ticket');
 	}
 
 	public function createAuxData() {

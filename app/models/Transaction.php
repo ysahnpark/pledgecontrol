@@ -43,6 +43,7 @@ class Transaction extends Eloquent {
      * @var array
      */
     private static $validation_rules_create = array(
+        'AccountID' => 'required',
         'Amount' => 'numeric'
         );
 
@@ -52,6 +53,7 @@ class Transaction extends Eloquent {
      * @var array
      */
     private static $validation_rules_udpate = array(
+        'AccountID' => 'required',
         'Amount' => 'numeric'
         );
 

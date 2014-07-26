@@ -7,7 +7,7 @@
 {{ HTML::ul($errors->all()) }}
 
 <!-- @todo: Make sure that the primaryKey column name is sid -->
-{{ Form::open(array('route' => array('issues.store'), 'class' => 'form-horizontal')) }}
+{{ Form::open(array('route' => array('tickets.store'), 'class' => 'form-horizontal')) }}
 
 <!--
     @todo: Remove non-editable fields.
@@ -37,49 +37,49 @@
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('HandledBy', Lang::get('issue.HandledBy'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('HandledBy', Lang::get('ticket.HandledBy'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
 		    {{ Form::text('HandledBy', Input::old('HandledBy'), array('class' => 'form-control')) }}
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('Category', Lang::get('issue.Category'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('Category', Lang::get('ticket.Category'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
 		    {{ Form::select('Category', $auxdata['opt_Category'], $categoryVal, array('class' => 'form-control')) }}
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('Description', Lang::get('issue.Description'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('Description', Lang::get('ticket.Description'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
 		    {{ Form::textarea('Description', Input::old('Description'), array('class' => 'form-control', 'size' => '50x5')) }}
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('Status', Lang::get('issue.Status'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('Status', Lang::get('ticket.Status'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
 		    {{ Form::select('Status', $auxdata['opt_Status'], Input::old('Status'), array('class' => 'form-control')) }}
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('Log', Lang::get('issue.Log'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('Log', Lang::get('ticket.Log'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
 		    {{ Form::textarea('Log', Input::old('Log'), array('class' => 'form-control', 'size' => '50x5')) }}
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('Result', Lang::get('issue.Result'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('Result', Lang::get('ticket.Result'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
 		    {{ Form::textarea('Result', Input::old('Result'), array('class' => 'form-control', 'size' => '50x5')) }}
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('NotificationSentDate', Lang::get('issue.NotificationSentDate'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('NotificationSentDate', Lang::get('ticket.NotificationSentDate'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
 		    {{ Form::text('NotificationSentDate', Input::old('NotificationSentDate'), array('class' => 'form-control date')) }}
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('Note', Lang::get('issue.Note'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('Note', Lang::get('ticket.Note'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
 		    {{ Form::textarea('Note', Input::old('Note'), array('class' => 'form-control', 'size' => '50x5')) }}
 		</div>

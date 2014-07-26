@@ -5,14 +5,14 @@
  *
  */
 
-class Issue extends Eloquent {
+class Ticket extends Eloquent {
 
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'issues';
+    protected $table = 'tickets';
 
     /**
      * The primary key column name.
@@ -34,7 +34,7 @@ class Issue extends Eloquent {
      *
      * @var array
      */
-    protected $fillable = array('ID', 'IssueDate', 'AccountID',
+    protected $fillable = array('ID', 'TicketDate', 'AccountID',
         'HandledBy', 'Category', 'Description', 'Status', 'Log', 'Result', 'NotificationSentDate', 'CompletionDate', 'Note');
 
     /**

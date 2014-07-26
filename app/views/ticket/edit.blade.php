@@ -8,7 +8,7 @@
 {{ HTML::ul($errors->all()) }}
 
 <!-- @todo: Make sure that the primaryKey column name is sid -->
-{{ Form::model($record, array('route' => array('issues.update', $record->ID), 'method' => 'PUT', 'class' => 'form-horizontal')) }}
+{{ Form::model($record, array('route' => array('tickets.update', $record->ID), 'method' => 'PUT', 'class' => 'form-horizontal')) }}
 
 <!--
     @todo: Remove non-editable fields.
@@ -16,7 +16,7 @@
 -->
 	<input type="hidden" id="AccountID" name="AccountID" value="{{ $record->account->ID }}" />
 	<div class="form-group">
-		{{ Form::label('IssueDate', Lang::get('issue.IssueDate'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('IssueDate', Lang::get('ticket.IssueDate'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
 		    {{ $record->IssueDate }}
 		</div>
@@ -29,49 +29,49 @@
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('HandledBy', Lang::get('issue.HandledBy'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('HandledBy', Lang::get('ticket.HandledBy'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
 		    {{ Form::text('HandledBy', null, array('class' => 'form-control')) }}
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('Category', Lang::get('issue.Category'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('Category', Lang::get('ticket.Category'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
 		    {{ Form::select('Category', $auxdata['opt_Category'], null, array('class' => 'form-control')) }}
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('Description', Lang::get('issue.Description'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('Description', Lang::get('ticket.Description'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
 		    {{ Form::textarea('Description', null, array('class' => 'form-control', 'size' => '50x5')) }}
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('Status', Lang::get('issue.Status'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('Status', Lang::get('ticket.Status'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
 		    {{ Form::select('Status', $auxdata['opt_Status'], null, array('class' => 'form-control')) }}
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('Log', Lang::get('issue.Log'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('Log', Lang::get('ticket.Log'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
 		    {{ Form::textarea('Log', null, array('class' => 'form-control', 'size' => '50x5')) }}
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('Result', Lang::get('issue.Result'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('Result', Lang::get('ticket.Result'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
 		    {{ Form::textarea('Result', null, array('class' => 'form-control', 'size' => '50x5')) }}
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('NotificationSentDate', Lang::get('issue.NotificationSentDate'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('NotificationSentDate', Lang::get('ticket.NotificationSentDate'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
 		    {{ Form::text('NotificationSentDate', null, array('class' => 'form-control date')) }}
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('Note', Lang::get('issue.Note'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('Note', Lang::get('ticket.Note'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
 		    {{ Form::textarea('Note', null, array('class' => 'form-control', 'size' => '50x5')) }}
 		</div>

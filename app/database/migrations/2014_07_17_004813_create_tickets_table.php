@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIssuesTable extends Migration {
+class CreateTicketsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,10 @@ class CreateIssuesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('issues', function(Blueprint $table)
+		Schema::create('tickets', function(Blueprint $table)
 		{
 			$table->bigIncrements('ID');
-			$table->dateTime('IssueDate');
+			$table->dateTime('TicketDate');
 			$table->bigInteger('AccountID');
 			$table->string('HandledBy', 128)->nullable();
 			$table->string('Category', 12); // "FPR = First payment request", "OD = Overdue"
@@ -41,7 +41,7 @@ class CreateIssuesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('issues');
+		Schema::dropIfExists('tickets');
 	}
 
 }

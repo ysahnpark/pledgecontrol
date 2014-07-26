@@ -9,9 +9,9 @@
 
 
 /**
- * Service class that provides business logic for Issue
+ * Service class that provides business logic for Ticket
  */
-class IssueService  {
+class TicketService  {
 
     private $accountService = null;
 
@@ -19,7 +19,7 @@ class IssueService  {
     {
         if (empty($criteria)) $criteria = array();
         $queryBuilder = new \DocuFlow\Helper\DfQueryBuilderEloquent();
-        $query = \Issue::query();
+        $query = \Ticket::query();
         $query = $queryBuilder->buildQuery($criteria, $query);
         return $query; 
     }
@@ -41,10 +41,10 @@ class IssueService  {
      * @param int   $limit        Maximum number of records to retrieve
      * @return Response
      */
-    public function listIssues($criteria, $sortParams = array(), $offset = 0, $limit=100)
+    public function listTickets($criteria, $sortParams = array(), $offset = 0, $limit=100)
     {
         $query = $this->buildQuery($criteria);
-        $records = $query->skip($offset)->take($limit)->orderBy('IssueDate', 'desc')->get();
+        $records = $query->skip($offset)->take($limit)->orderBy('TicketDate', 'desc')->get();
 
         return $records;
     }
@@ -57,11 +57,11 @@ class IssueService  {
      * @param int   $page_size    The max number of entries shown per page
      * @return Response
      */
-    public function paginateIssues($criteria, $sortParams = array(), $page_size = 20)
+    public function paginateTickets($criteria, $sortParams = array(), $page_size = 20)
     {
         // @TODO: pending
         $query = $this->buildQuery($criteria);
-        $records = $query->orderBy('IssueDate', 'desc')->paginate($page_size);
+        $records = $query->orderBy('TicketDate', 'desc')->paginate($page_size);
         return $records;
     }
 
@@ -71,7 +71,7 @@ class IssueService  {
      * @param array $queryParams  Parameters used for querying
      * @return int number of records that satisfied the criteria
      */
-    public function countIssues($criteria)
+    public function countTickets($criteria)
     {
         $query = $this->buildQuery($criteria);
         $count = $query->query()->count();
@@ -85,17 +85,17 @@ class IssueService  {
      * @param array $data  Parameters used for creating a new record
      * @return mixed  null if successful, validation object validation fails
      */
-    public function createIssue($data)
+    public function createTicket($data)
     {
-        $validator = \Issue::validator($data);
+        $validator = \Ticket::validator($data);
         if ($validator->passes()) {
 
-            $record = new \Issue();
+            $record = new \Ticket();
             $record->fill($data);
 
             $now = new \DateTime;
             $now_str = $now->format('Y-m-d H:i:s');
-            $record->IssueDate = $now_str;
+            $record->TicketDate = $now_str;
             $record->Status = 'Created';
 
             $record->save();
@@ -110,11 +110,11 @@ class IssueService  {
      * Retrieves a single record.
      *
      * @param  int $pk  The primary key for the search
-     * @return Issue
+     * @return Ticket
      */
-    public function findIssueByPK($pk)
+    public function findTicketByPK($pk)
     {
-        $record = \Issue::find($pk);
+        $record = \Ticket::find($pk);
 
         return $record;
     }
@@ -126,12 +126,12 @@ class IssueService  {
      * @param  array $data  The data of the update
      * @return mixed null if successful, validation if validation error
      */
-    public function updateIssue($pk, $data)
+    public function updateTicket($pk, $data)
     {
         
-        $validator = \Issue::validator($data, false);
+        $validator = \Ticket::validator($data, false);
         if ($validator->passes()) {
-            $record = \Issue::find($pk);
+            $record = \Ticket::find($pk);
             $record->fill($data);
             $record->save();
             return $record;
@@ -147,10 +147,10 @@ class IssueService  {
      * @param  int  $pk
      * @return Object the object that was deleted, null if not found
      */
-    public function destroyIssue($pk)
+    public function destroyTicket($pk)
     {
         // delete
-        $record = \Issue::find($pk);
+        $record = \Ticket::find($pk);
         if (!empty($record)) {
             $record->delete();
             return $record;

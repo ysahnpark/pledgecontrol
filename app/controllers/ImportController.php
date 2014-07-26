@@ -26,9 +26,9 @@ class ImportController extends BaseController {
 	public function auxdata()
 	{
 		$auxdata['opt_Type'] = array(
-			'account' => Lang::get('account._name'),
-			'transaction' => Lang::get('transaction._name'),
-			'issue' => Lang::get('issue._name')
+			'Account' => Lang::get('account._name'),
+			'Transaction' => Lang::get('transaction._name'),
+			'Ticket' => Lang::get('ticket._name')
 			);
 		return $auxdata;
 	}
@@ -49,30 +49,67 @@ class ImportController extends BaseController {
 
 		$records = DocuFlow\Helper\CsvUtil::toAssociativeArray($data);
 
-		$errors = array();
-		$linenum = 0;
-		if ($type === 'account') {
-			foreach ($records as $record) {
-				$linenum++;
-				$validator = \Account::validator($record);
-		        if (!$validator->passes()) {
-		        	$errors[] = array('line' => $linenum, 'message' => $validator->messages()->toArray());
-				} else {
-					if ($mode == 'process') {
-						$this->getAccountService()->createAccount();
-					}
-				}
-			}
-		}
+		$result = $this->processRecords($type, $mode, $records);
 
 		$this->layout->content = View::make('import.form')
 			->with('mode', $mode)
-			->with('data', $data)
+			->with('type', $type)
 			->with('data', $data)
 			->with('records', $records)
-			->with('isvalid', empty($errors))
-			->with('dataerrors', $errors)
+			->with('isvalid', empty($result['errors']))
+			->with('result', $result)
 			->with('auxdata', $this->auxdata());
+	}
+
+	private function processRecords($type, $mode, &$records) {
+		$result = array(
+			'errors' => array(),
+			'items_count' => 0,
+			'items_processed' => 0,
+			'items_skipped' => 0
+			);
+		$errors = array();
+		$modelName = '\\' . $type;
+		$serviceGetterMethod = 'get' . $type . 'Service';
+		$service = $this->$serviceGetterMethod();
+		$createMethod = 'create' . $type;
+
+		$linenum = 0;
+		foreach ($records as &$record) {
+			$linenum++;
+			
+			//try {
+				$this->preProcess($type, $record, $errors);
+			//} catch ( $ex) {
+			//	$errors[] = array('line' => $linenum, 'message' => $ex->getMessage());
+			//}
+			$validator = $modelName::validator($record);
+
+	        if (!$validator->passes()) {
+	        	$errors[] = array('line' => $linenum, 'message' => $validator->messages()->toArray());
+			} else {
+				if ($mode == 'process') {
+					$service->$createMethod($record);
+					$result['items_processed']++;
+				}
+			}
+		}
+		$result['errors'] = $errors;
+		$result['items_count'] = count($records);
+
+		return $result;
+	}
+
+	private function preProcess($type, &$record)
+	{
+		if ($type === 'Transaction') {
+			if (!array_key_exists('AccountID', $record) && array_key_exists('Name', $record)) {
+				$account = $this->getAccountService()->findAccountByName($record['Name']);
+				if (!empty($account)) {
+					$record['AccountID'] = $account->ID;
+				}
+			}
+		}
 	}
 
 }
