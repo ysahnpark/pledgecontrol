@@ -124,8 +124,6 @@
     </tbody>
   </table>
 
-<!-- -->
-<h4>Delinquent</h4>
 
 <!-- -->
 <h4>Thank You Letter</h4>

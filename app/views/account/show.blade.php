@@ -111,7 +111,7 @@
 <?php $issues = $record->issues; 
 if (!empty($issues)) {
 ?>
-<h3>Issues</h3>
+<h3>Tickets</h3>
 
 <table class="table table-striped">
 	<thead> 
@@ -125,7 +125,7 @@ if (!empty($issues)) {
 	<tbody> 
 @foreach ($issues as $issue)
 		<tr>
-			<td>{{ \DocuFlow\Helper\DfFormat::date($issue->IssueDate) }}</td>
+			<td>{{ \DocuFlow\Helper\DfFormat::date($issue->TicketDate) }}</td>
 			<td>{{ $issue->Category }}</td>
 			<td>{{ $issue->Status }}</td>
 			<td>{{ $issue->Result }}</td>

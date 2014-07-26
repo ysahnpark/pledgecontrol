@@ -158,16 +158,12 @@ class TicketService  {
         return null;
     }
 
-    public function report($criteria)
+    public function reportOnCategory($criteria)
     {
         $sql = "
-        SELECT month(PaymentDate) AS Month,
-               year(PaymentDate) AS Year,
-               sum(Amount) AS MonthTotal,
-               count(Amount) AS TransCount
-        FROM trans
-        GROUP BY YEAR(PaymentDate), MONTH(PaymentDate)
-        ORDER BY PaymentDate DESC;";
+        SELECT Category, count(Category) AS CategoryCount, count(Status) AS StatusCount
+        FROM tickets
+        GROUP BY Category, Status;";
 
         // AmountDueNowRaw =  PeriodsPassed * AmountPerPeriod;
         // AmountDueNow =  (PeriodsPassed * AmountPerPeriod) - PaidAmount;

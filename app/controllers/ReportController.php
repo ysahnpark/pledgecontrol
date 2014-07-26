@@ -22,6 +22,11 @@ class ReportController extends BaseController {
 	{
 		return App::make('svc:transaction');
 	}
+
+	private function getTicketService()
+	{
+		return App::make('svc:ticket');
+	}
 	
 	public function getGeneral() {
 		$this->setContentTitle( 'Summary' );
@@ -58,8 +63,9 @@ class ReportController extends BaseController {
 		$histogram = $this->histogram($accountsOverDue, 'PledgeAmount');
 		$report_data['overdue_histogram'] = $histogram;
 
-		// Reminder Letter 
-
+		// Tickets
+		$ticketCategories = $this->getTicketService()->reportOnCategory(null);
+		$report_data['ticket_categories'] = $ticketCategories;
 
 		if ($queryCtx->format === null || $queryCtx->format === 'html') {
 			// Default retun: 

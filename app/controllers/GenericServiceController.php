@@ -99,7 +99,7 @@ class GenericServiceController extends \BaseController {
             	route($this->moduleNamePlural . '.index')
             	);
         } catch (Service\ValidationException $ve) {
-            return Redirect::to( $this->moduleNamePlural . '/create')
+            return Redirect::to( route($this->moduleNamePlural . '.create'))
                 ->withErrors($ve->getObject());
         } 
 	}
@@ -164,7 +164,7 @@ class GenericServiceController extends \BaseController {
             	route($this->moduleNamePlural . '.index')
             	);
         } catch (Service\ValidationException $ve) {
-            return Redirect::to($this->moduleNamePlural . '/' . $id . '/edit')
+            return Redirect::to(route($this->moduleNamePlural . '.edit', array($id)))
                 ->withErrors($ve->getObject());
         } /* catch (Exception $e) {
             return Redirect::to('users/' . $id . '/edit')
