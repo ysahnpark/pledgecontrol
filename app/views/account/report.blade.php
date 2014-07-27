@@ -43,6 +43,7 @@
 ?>
 @foreach ($records as $account)
 <?php 
+	$pastDueStyle = '';
 	$amountDueNow = ($account->PeriodsPassed * $account->AmountPerPeriod) - $account->PaidAmount ;
 	if ($amountDueNow > 1) {
 		$pastDueStyle = 'style="color:red"';
@@ -67,7 +68,7 @@
 				if ($account->PaidAmount == 0) {
 					$category = 'FPR';
 				}?>
-				<a title="Create Issue Ticket" class="btn btn-warning" href="{{ URL::to(route('tickets.create', array('AccountID' => $account->ID, 'Category' => $category))) }}">I</a>
+				<a title="Create Issue Ticket" class="btn btn-warning" href="{{ URL::to(route('tickets.create', array('AccountID' => $account->ID, 'Category' => $category))) }}">T</a>
 				@endif
 			</td>
 

@@ -10,7 +10,7 @@
 
 <h5>Reports<h5>
 <ul>
-	<li><a href="{{ URL::to('accounts_report') }}">Account</a></li>
+	<li><a href="{{ URL::to('accounts_report') }}">Accounts</a></li>
 	<li><a href="{{ URL::to('report/general') }}">General</a></li>
 </ul>
 </div>
