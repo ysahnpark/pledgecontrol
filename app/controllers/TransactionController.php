@@ -15,6 +15,46 @@ class TransactionController extends \GenericServiceController {
 		parent::__construct('layouts.workspace', 'svc:transaction', 'Transaction');
 	}
 
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
+		$data = Input::all();
+
+		try {
+			$createMethod = 'create' . $this->modelName;
+            $record = $this->service->$createMethod($data);
+            Session::flash('message', 'Successfully created!');
+            
+            return $this->redirectAfterPost(
+            	array('save' => route($this->moduleNamePlural . '.edit', array($record->ID))),
+            	route($this->moduleNamePlural . '.index')
+            	);
+        } catch (Service\ValidationException $ve) {
+            return Redirect::to( route($this->moduleNamePlural . '.index'))
+                ->withErrors($ve->getObject());
+        }
+	}
+
+	/**
+	 * Method to return values that 
+	 * Overridable 
+	 */
+	public function indexAuxData() {
+		$auxdata = array();
+		$auxdata['opt_Method'] = array(
+			'cash' => 'Cash', 
+			'check' => 'Check', 
+			'creditcard' => 'Credit Card', 
+			'transfer' => 'Transfer', 
+			'other' => 'Other'
+			);
+		return $auxdata;
+	}
+
 	public function editAuxData($record) {
 		$auxdata = array();
 

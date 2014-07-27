@@ -31,7 +31,6 @@ class ReportController extends BaseController {
 	public function getGeneral() {
 		$this->setContentTitle( 'Summary' );
 
-
 		$queryCtx = new \DocuFlow\Helper\DfQueryContext(true);
 		$criteria = $queryCtx->buildCriteria();
 
@@ -65,7 +64,7 @@ class ReportController extends BaseController {
 
 		// Tickets
 		$ticketCategories = $this->getTicketService()->reportOnCategory(null);
-		$report_data['ticket_categories'] = $ticketCategories;
+		$report_data['ticket_bycategory'] = $ticketCategories;
 
 		if ($queryCtx->format === null || $queryCtx->format === 'html') {
 			// Default retun: 
@@ -88,7 +87,7 @@ class ReportController extends BaseController {
 				$histogram[$record->$pivotField] = 1;
 			}
 		}
-		ksort($histogram);
+		krsort($histogram);
 		return $histogram;
 	}
 

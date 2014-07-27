@@ -35,7 +35,7 @@ class Transaction extends Eloquent {
      * @var array
      */
     protected $fillable = array('ID', 'AccountID', 'Name',
-        'Amount', 'PaymentDate', 'Note');
+        'Amount', 'Method', 'PaymentDate', 'Note');
 
     /**
      * Validation rules for creation

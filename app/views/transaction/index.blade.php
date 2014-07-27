@@ -9,6 +9,10 @@
     <h4 class="panel-title">Add New Transaction</h4>
   </div>
   <div class="panel-body">
+
+<!-- if there are creation errors, they will show here -->
+{{ HTML::ul($errors->all()) }}
+
   	<!-- PANE CONTENT { -->
     <form id="TransactionForm" class="form-inline" role="form" method="POST" action="{{ URL::to(route('transactions.store')) }}">
    	  <input type="hidden" name="_return_url" value="{{ URL::to(route('transactions.index')) }}" />
@@ -20,6 +24,12 @@
 	  <div class="form-group">
 	    <label class="sr-only" for="name">Amount</label>
 	    <input required type="number" step="any" min="1" class="form-control" name="Amount" id="Amount" placeholder="Enter amount">
+	  </div>
+	  <div class="form-group">
+	  	<label class="sr-only" for="name">Lang::get('transaction.Method')</label>
+		<div class="col-sm-10">
+		    {{ Form::select('Method', $auxdata['opt_Method'], null, array('class' => 'form-control')) }}
+		</div>
 	  </div>
 	  <div class="form-group">
 	    <label class="sr-only" for="name">Note</label>
@@ -36,24 +46,26 @@
 	<thead> 
 		<tr>
 			<td class="col-date">Date</td>
-			<td>Name</td>
-			<td>Amount</td>
-			<td>Note</td>
+			<td>{{Lang::get('transaction.Name')}}</td>
+			<td>{{Lang::get('transaction.Amount')}}</td>
+			<td>{{Lang::get('transaction.Method')}}</td>
+			<td>{{Lang::get('transaction.Note')}}</td>
 		</tr>
 	</thead>
 	<tbody> 
-@foreach ($records as $tranaction)
+@foreach ($records as $transaction)
 		<tr>
-			<td>{{ $tranaction->PaymentDate }}</td>
-			<td title="{{ $tranaction->AccountID }}"><a href="{{ URL::to(route('accounts.show', array($tranaction->AccountID))) }}">{{ $tranaction->Name }}</a></td>
-			<td class="col-amount">{{ $tranaction->Amount }}</td>
-			<td>{{ $tranaction->Note }}</td>
+			<td>{{ $transaction->PaymentDate }}</td>
+			<td title="{{ $transaction->AccountID }}"><a href="{{ URL::to(route('accounts.show', array($transaction->AccountID))) }}">{{ $transaction->Name }}</a></td>
+			<td class="col-amount">{{ \DocuFlow\Helper\DfFormat::currency($transaction->Amount) }}</td>
+			<td >{{ $transaction->Method }}</td>
+			<td>{{ $transaction->Note }}</td>
 		</tr>
 @endforeach
 	</tbody>
   <tfoot>
     <tr>
-      <td colspan="4"><?php echo $records->links(); ?></td>
+      <td colspan="5"><?php echo $records->links(); ?></td>
     </tr>
   </tfoot>
 </table>

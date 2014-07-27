@@ -23,7 +23,7 @@ class CreateTicketsTable extends Migration {
 			$table->string('Status', 32); // "Created, Notified, Resolved, Dropped"
 			$table->mediumText('Log')->nullable(); // "Follow-up"
 			$table->mediumText('Result')->nullable(); // "Result"
-			$table->dateTime('NotificationSentDate')->nullable();
+			$table->dateTime('NotificationDate')->nullable();
 			$table->dateTime('CompletionDate')->nullable();
 			$table->string('Note', 255)->nullable();
 

@@ -91,7 +91,7 @@
     <tbody>
 @foreach ($report_data['overdue_histogram'] as $histogram_key => $histogram_val)
       <tr>
-        <td>{{ $histogram_key }}</td>
+        <td class="col-amount">{{ \DocuFlow\Helper\DfFormat::currency($histogram_key) }}</td>
         <td>{{ $histogram_val }}</td>
       </tr>
 @endforeach
@@ -99,28 +99,20 @@
   </table>
 
 <!-- -->
-<h4>Reminder Letter Delivery</h4>
+<h4>Ticket categories</h4>
   <table class="table table-striped">
     <thead>
       <tr>
-        <th></th><th></th><th>Letter sent</th><th>No letter</th><th>Response</th>
+        <th>Category</th><th>Count</th>
       </tr>
     </thead>
     <tbody>
+@foreach ($report_data['ticket_bycategory'] as $ticket_cate)
       <tr>
-        <td>No Date set</td>
-        <td>10</td>
-        <td>9</td>
-        <td>3</td>
-        <td></td>
+        <td class="col-amount">{{ $ticket_cate->Category }} - {{ $ticket_cate->Status }}</td>
+        <td>{{ $ticket_cate->StatusCount }}</td>
       </tr>
-      <tr>
-        <td>Missed first payment</td>
-        <td>10</td>
-        <td>9</td>
-        <td>3</td>
-        <td></td>
-      </tr>
+@endforeach
     </tbody>
   </table>
 
@@ -135,7 +127,7 @@
 	<svg></svg>
 </div>
 
-<h4>Transactions per month</h4>
+<h4>Number of transactions per month</h4>
 <div id="chart_count">
 	<svg></svg>
 </div>

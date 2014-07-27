@@ -15,6 +15,19 @@ class TicketController extends \GenericServiceController {
 		parent::__construct('layouts.workspace', 'svc:ticket', 'Ticket');
 	}
 
+	public function indexAuxData() {
+		$auxdata = array();
+		$auxdata['opt_Category'] = array(
+			'FPR' => 'First Payment Request',
+			'OD' => 'Over Due');
+		$auxdata['opt_Status'] = array(
+			'created' => 'Created',
+			'notified' => 'Notified',
+			'resolved' => 'Resolved',
+			'dropped' => 'Dropped');
+		return $auxdata;
+	}
+
 	public function createAuxData() {
 		$auxdata = $this->editAuxData(null);
 
@@ -35,17 +48,7 @@ class TicketController extends \GenericServiceController {
 	}
 
 	public function editAuxData($record) {
-		$auxdata = array();
-
-		$auxdata['opt_Category'] = array(
-			'FPR' => 'First Payment Request',
-			'OD' => 'Over Due');
-
-		$auxdata['opt_Status'] = array(
-			'created' => 'Created',
-			'notified' => 'Notified',
-			'resolved' => 'Resolved',
-			'dropped' => 'Dropped');
+		$auxdata = $this->indexAuxData();
 
 		return $auxdata;
 	}

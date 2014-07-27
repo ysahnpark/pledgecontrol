@@ -11,8 +11,8 @@ return array(
 	"Status" => "Status",
 	"Log" => "Log",
 	"Result" => "Result",
-	"NotificationSentDate" => "NotificationSentDate",
-	"CompletionDate" => "CompletionDate",
+	"NotificationDate" => "Notification Date",
+	"CompletionDate" => "Completion Date",
 	"Note" => "Note",
 
 );

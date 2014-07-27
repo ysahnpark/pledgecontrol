@@ -73,9 +73,9 @@
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('NotificationSentDate', Lang::get('ticket.NotificationSentDate'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('NotificationDate', Lang::get('ticket.NotificationDate'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
-		    {{ Form::text('NotificationSentDate', Input::old('NotificationSentDate'), array('class' => 'form-control date')) }}
+		    {{ Form::text('NotificationDate', Input::old('NotificationDate'), array('class' => 'form-control date')) }}
 		</div>
 	</div>
 	<div class="form-group">

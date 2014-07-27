@@ -1,9 +1,13 @@
 
 @section('content')
-<form class="form-inline" role="form" mathod="GET" action="{{ URL::to(route('accounts.index')) }}">
+<form class="form-inline" role="form" mathod="GET" action="{{ URL::to('accounts_report') }}">
   <div class="form-group">
     <label class="sr-only" for="name-like">Name</label>
     <input type="text" name="Name-like" class="form-control" id="Name" placeholder="Enter name" value="{{ $queryCtx->getQParamVal('Name-like') }}">
+  </div>
+  <div class="form-group">
+    <label class="sr-only" for="name-like">Amount Due</label>
+    <input type="text" name="AmountDueNow-gt" class="form-control" id="AmountDueNow" placeholder="Amount Due >" value="{{ $queryCtx->getQParamVal('AmountDueNow-gt') }}">
   </div>
   <button type="submit" class="btn btn-default">Search</button>
   <button id="btn_reset" class="btn btn-default">Reset</button>
@@ -31,6 +35,7 @@
 	</thead>
 	<tbody> 
 <?php
+	$pastDueStyle = '';
 	$total_PledgeAmount = 0; 
 	$total_AmountDueNow = 0;
 	$total_PaidAmount = 0;
@@ -39,7 +44,6 @@
 @foreach ($records as $account)
 <?php 
 	$amountDueNow = ($account->PeriodsPassed * $account->AmountPerPeriod) - $account->PaidAmount ;
-	$pastDueStyle = '';
 	if ($amountDueNow > 1) {
 		$pastDueStyle = 'style="color:red"';
 	}
@@ -91,7 +95,7 @@
 	</tbody>
   <tfoot> 
     <tr>
-      <td colspan="8"></td>
+      <td colspan="10"></td>
       </tr>    
   </tfoot> 
 </table>

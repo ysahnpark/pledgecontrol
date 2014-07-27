@@ -96,7 +96,6 @@ class TicketService  {
             $now = new \DateTime;
             $now_str = $now->format('Y-m-d H:i:s');
             $record->TicketDate = $now_str;
-            $record->Status = 'Created';
 
             $record->save();
 
@@ -133,6 +132,8 @@ class TicketService  {
         if ($validator->passes()) {
             $record = \Ticket::find($pk);
             $record->fill($data);
+            if (empty($record->NotificationDate))
+                $record->NotificationDate = null;
             $record->save();
             return $record;
         } else {
@@ -161,9 +162,9 @@ class TicketService  {
     public function reportOnCategory($criteria)
     {
         $sql = "
-        SELECT Category, count(Category) AS CategoryCount, count(Status) AS StatusCount
+        SELECT Category, Status, count(ID) AS StatusCount
         FROM tickets
-        GROUP BY Category, Status;";
+        GROUP BY Category, Status ORDER BY Category;";
 
         // AmountDueNowRaw =  PeriodsPassed * AmountPerPeriod;
         // AmountDueNow =  (PeriodsPassed * AmountPerPeriod) - PaidAmount;

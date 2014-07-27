@@ -26,6 +26,11 @@ class DfQueryBuilderSql {
 	{
 		$query = '';
         foreach ($criteria as $key => $val) {
+        	
+        	if (!empty($query)) {
+        		$query .= ' AND ';
+        	}
+
         	// the key can either be a property or logical op.
         	if ($key[0] == '$') {
         		$this->handleLogicOp($key, $val, $query);
@@ -34,10 +39,18 @@ class DfQueryBuilderSql {
         			$compOp = array_keys($val)[0];
         			$compVal = array_values($val)[0];
 
+        			// enclose in quotes if non-numeric
+        			if (!is_numeric($compVal)) {
+        				$compVal = '\''. mysql_real_escape_string($compVal) . '\'';
+        			}
+
         			$this->handleCompOp($key, $compOp, $compVal, $query);
 
         		} else {
-        			if (!empty($val)) {
+        			if ($val !== '') {
+        				if (!is_numeric($val)) {
+	        				$val = '\''. mysql_real_escape_string($val) . '\'';
+	        			}
         				$query .= $key . '=' . $val;
         			}
         		}

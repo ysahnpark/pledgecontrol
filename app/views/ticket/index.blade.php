@@ -10,8 +10,9 @@
   </div>
   <div class="panel-body">
   	<!-- PANE CONTENT { -->
-    <form id="IssueForm" class="form-inline" role="form" method="POST" action="{{ URL::to(route('tickets.store')) }}">
+    <form id="TicketForm" class="form-inline" role="form" method="POST" action="{{ URL::to(route('tickets.store')) }}">
    	  <input type="hidden" name="_return_url" value="{{ URL::to(route('tickets.index')) }}" />
+   	  <input type="hidden" name="Status" id="Status" value="{{ array_keys($auxdata['opt_Status'])[0] }}" />
    	  <input type="hidden" name="AccountID" id="AccountID" value="" />
 	  <div class="form-group" id="remote">
 	    <label class="sr-only" for="name">Name</label>
@@ -19,7 +20,7 @@
 	  </div>
 	  <div class="form-group">
 	    <label class="sr-only" for="name">Category</label>
-	    <input required type="text" class="form-control" name="Category" id="Amount" placeholder="Enter Category">
+	    {{ Form::select('Category', $auxdata['opt_Category'], null, array('class' => 'form-control')) }}
 	  </div>
 	  <div class="form-group">
 	    <label class="sr-only" for="name">Note</label>
@@ -36,20 +37,22 @@
 	<thead> 
 		<tr>
 			<td class="col-date">Date</td>
-			<td>Name</td>
-			<td>Category</td>
-			<td>Status</td>
-			<td>Result</td>
+			<td>{{Lang::get('ticket.Name')}}</td>
+			<td>{{Lang::get('ticket.Category')}}</td>
+			<td>{{Lang::get('ticket.Status')}}</td>
+			<td>{{Lang::get('ticket.NotificationDate')}}</td>
+			<td>{{Lang::get('ticket.Result')}}</td>
 			<td>Action</td>
 		</tr>
 	</thead>
 	<tbody> 
 @foreach ($records as $ticket)
 		<tr>
-			<td>{{ $ticket->IssueDate }}</td>
+			<td>{{ $ticket->TicketDate }}</td>
 			<td title="{{ $ticket->AccountID }}"><a href="{{ URL::to(route('accounts.show', array($ticket->AccountID))) }}">{{  $ticket->account->Name }}</a></td>
 			<td >{{ $ticket->Category }}</td>
 			<td>{{ $ticket->Status }}</td>
+			<td>{{ $ticket->NotificationDate }}</td>
 			<td>{{ $ticket->Result }}</td>
 			<td>
 				<a class="btn btn-warning" href="{{ URL::to(route('tickets.edit', array($ticket->ID))) }}">Details</a>
@@ -67,9 +70,9 @@
 {{ HTML::script('js/typeahead.bundle.js') }}
 <script>
 $(document).ready(function() {
-	
-	//$('#IssueForm').parsley();
-	//$('#IssueForm').bootstrapValidator({
+	$('.page-header').append(' <a class="btn btn-small btn-info" href="{{ URL::to(route('tickets.create')) }}"><span class="glyphicon glyphicon-plus"></span> New</a>')
+	//$('#TicketForm').parsley();
+	//$('#TicketForm').bootstrapValidator({
 
 	var accountName = new Bloodhound({
 	  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),

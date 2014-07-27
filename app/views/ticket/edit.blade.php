@@ -16,9 +16,9 @@
 -->
 	<input type="hidden" id="AccountID" name="AccountID" value="{{ $record->account->ID }}" />
 	<div class="form-group">
-		{{ Form::label('IssueDate', Lang::get('ticket.IssueDate'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('TicketDate', Lang::get('ticket.TicketDate'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
-		    {{ $record->IssueDate }}
+		    {{ $record->TicketDate }}
 		</div>
 	</div>
 
@@ -65,9 +65,9 @@
 		</div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('NotificationSentDate', Lang::get('ticket.NotificationSentDate'), array('class' => 'col-sm-2 control-label')) }}
+		{{ Form::label('NotificationDate', Lang::get('ticket.NotificationDate'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
-		    {{ Form::text('NotificationSentDate', null, array('class' => 'form-control date')) }}
+		    {{ Form::text('NotificationDate', null, array('class' => 'form-control date')) }}
 		</div>
 	</div>
 	<div class="form-group">
@@ -79,8 +79,8 @@
 
 	<div class="form-group">
     	<div class="col-sm-offset-2 col-sm-10">
-			<button type="submit" value="save" class="btn btn-primary">{{ Lang::get('common.save') }}</button>
-    		<button type="submit" value="save_return" class="btn btn-primary">{{ Lang::get('common.save_return') }}</button>
+			<button name="_submit" type="submit" value="save" class="btn btn-primary">{{ Lang::get('common.save') }}</button>
+    		<button name="_submit" type="submit" value="save_return" class="btn btn-primary">{{ Lang::get('common.save_return') }}</button>
 	    </div>
 	</div>
 

@@ -56,7 +56,7 @@ class DfQueryContext {
 		$this->qparams = array();
 		foreach(\Input::all() as $name => $val)
 		{
-			if ($name[0] !== '_' && !empty($val) ) {
+			if ($name[0] !== '_' && trim($val) !== '' ) {
 				$this->qparams[$name] = $val;
 			}
 		}

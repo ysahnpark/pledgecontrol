@@ -1,21 +1,21 @@
 -- Accounts with AmountDueNow
 -- Limitations: Pledge amount cannot change once started.
-(SELECT Name, PledgeDate, 
+(SELECT Name, PledgeStartDate, 
     AmountPerPeriod,
     PaymentPeriod,
-    CEIL(TIMESTAMPDIFF(MONTH, PledgeDate, NOW())  / PaymentPeriod) as PeriodsPassed,
-    CEIL(TIMESTAMPDIFF(MONTH, PledgeDate, NOW())  / PaymentPeriod) * AmountPerPeriod as  AmountDueNowRaw,
+    CEIL(TIMESTAMPDIFF(MONTH, PledgeStartDate, NOW())  / PaymentPeriod) as PeriodsPassed,
+    CEIL(TIMESTAMPDIFF(MONTH, PledgeStartDate, NOW())  / PaymentPeriod) * AmountPerPeriod as  AmountDueNowRaw,
     PaidAmount,
-    (CEIL(TIMESTAMPDIFF(MONTH, PledgeDate, NOW())  / PaymentPeriod) * AmountPerPeriod) - PaidAmount as AmountDueNow 
+    (CEIL(TIMESTAMPDIFF(MONTH, PledgeStartDate, NOW())  / PaymentPeriod) * AmountPerPeriod) - PaidAmount as AmountDueNow 
     FROM accounts WHERE PeriodUnit= 'm')
 UNION
-(SELECT Name, PledgeDate,  
+(SELECT Name, PledgeStartDate,  
     AmountPerPeriod,
     PaymentPeriod,
-    CEIL(TIMESTAMPDIFF(WEEK, PledgeDate, NOW())  / PaymentPeriod) as PeriodsPassed,
-    CEIL(TIMESTAMPDIFF(WEEK, PledgeDate, NOW())  / PaymentPeriod) * AmountPerPeriod as  AmountDueNowRaw,
+    CEIL(TIMESTAMPDIFF(WEEK, PledgeStartDate, NOW())  / PaymentPeriod) as PeriodsPassed,
+    CEIL(TIMESTAMPDIFF(WEEK, PledgeStartDate, NOW())  / PaymentPeriod) * AmountPerPeriod as  AmountDueNowRaw,
     PaidAmount,
-    (CEIL(TIMESTAMPDIFF(WEEK, PledgeDate, NOW())  / PaymentPeriod) * AmountPerPeriod) - PaidAmount as AmountDueNow 
+    (CEIL(TIMESTAMPDIFF(WEEK, PledgeStartDate, NOW())  / PaymentPeriod) * AmountPerPeriod) - PaidAmount as AmountDueNow 
     FROM accounts WHERE PeriodUnit= 'w')
 ORDER BY Name;
 

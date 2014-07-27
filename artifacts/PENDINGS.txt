@@ -2,9 +2,9 @@ PENDING:
 OK - Account adding/updating form (discrepancies with the table fields)
 OK - Transaction Create logic: update Account info
 OK - Issue (delinquency) table
-(OK) - Account, Transaction import from csv
+OK - Account, Transaction import from csv
+OK - Account report search
+OK - SQL injection
 - Rest of the report
-- Account report search
 - Account report export to XLS.
 - Password protection
-- SQL injection

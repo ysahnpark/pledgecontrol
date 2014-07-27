@@ -101,7 +101,7 @@ class GenericServiceController extends \BaseController {
         } catch (Service\ValidationException $ve) {
             return Redirect::to( route($this->moduleNamePlural . '.create'))
                 ->withErrors($ve->getObject());
-        } 
+        }
 	}
 
 	/**
