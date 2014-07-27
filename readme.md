@@ -9,14 +9,17 @@ Web application that facilitates pledge control for Church and other charitative
 If you do not have a git client yet, download and insall one first. You can get the console git client from [github][1].
 
 If you have git, go to the directory where you want to install the application and clone from git repo.
+
 `git clone https://github.com/ysahnpark/pledgecontrol.git`
 
 ## Prepare database ##
 The PledgeControl requires [MySQL 5.x][2].
 Open MySQL console and create a database:
+
 `CREATE DATABASE pledgecontrol DEFAULT CHARACTER SET utf8;`
 
 Then grant privileges to the application user
+
 `GRANT ALL PRIVILEGES ON pledgecontrol.* to pcapp@localhost IDENTIFIED by 'pcapp';`
 
 ## Prepare application ##
