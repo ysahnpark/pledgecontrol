@@ -23,8 +23,8 @@
 	    {{ Form::select('Category', $auxdata['opt_Category'], null, array('class' => 'form-control')) }}
 	  </div>
 	  <div class="form-group">
-	    <label class="sr-only" for="name">Note</label>
-	    <input type="text" class="form-control" name="Note" id="Note" placeholder="Note">
+	    <label class="sr-only" for="name">Description</label>
+	    <input type="text" class="form-control" name="Description" id="Description" placeholder="Description">
 	  </div>
 	  <button type="submit" class="btn btn-default">Add {{Lang::get('ticket._name')}}</button>
 	</form>
@@ -37,10 +37,11 @@
 	<thead> 
 		<tr>
 			<td class="col-date">Date</td>
-			<td>{{Lang::get('ticket.Name')}}</td>
+			<td>{{Lang::get('account.Name')}}</td>
 			<td>{{Lang::get('ticket.Category')}}</td>
 			<td>{{Lang::get('ticket.Status')}}</td>
 			<td>{{Lang::get('ticket.NotificationDate')}}</td>
+			<td>Days passed</td>
 			<td>{{Lang::get('ticket.Result')}}</td>
 			<td>Action</td>
 		</tr>
@@ -48,11 +49,22 @@
 	<tbody> 
 @foreach ($records as $ticket)
 		<tr>
-			<td>{{ $ticket->TicketDate }}</td>
+			<td>{{ \Altenia\Ecofy\Util\DataFormat::date($ticket->TicketDate) }}</td>
 			<td title="{{ $ticket->AccountID }}"><a href="{{ URL::to(route('accounts.show', array($ticket->AccountID))) }}">{{  $ticket->account->Name }}</a></td>
 			<td >{{ $ticket->Category }}</td>
 			<td>{{ $ticket->Status }}</td>
-			<td>{{ $ticket->NotificationDate }}</td>
+			<td>{{ \Altenia\Ecofy\Util\DataFormat::date($ticket->NotificationDate) }}</td>
+<?php 
+$daysDiff = null;
+if (isset($ticket->NotificationDate)) {
+	$notifDate = new DateTime($ticket->NotificationDate);
+	$today = new DateTime();
+	$interval = $notifDate->diff($today);
+	$daysDiff = $interval->format('%a');
+}
+?>
+
+			<td>{{ $daysDiff }}</td>
 			<td>{{ $ticket->Result }}</td>
 			<td>
 				<a class="btn btn-warning" href="{{ URL::to(route('tickets.edit', array($ticket->ID))) }}">Details</a>

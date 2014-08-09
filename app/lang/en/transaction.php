@@ -7,6 +7,6 @@ return array(
 	"Name" => "Name",
 	"Amount" => "Amount",
 	"Method" => "Method",
-	"PaymentDate" => "PaymentDate",
+	"PaymentDate" => "Payment Date",
 	"Note" => "Note"
 );

@@ -17,12 +17,16 @@
     <form id="TransactionForm" class="form-inline" role="form" method="POST" action="{{ URL::to(route('transactions.store')) }}">
    	  <input type="hidden" name="_return_url" value="{{ URL::to(route('transactions.index')) }}" />
    	  <input type="hidden" name="AccountID" id="AccountID" value="" />
+	  <div class="form-group " id="remote">
+	    <label class="sr-only" for="name">{{ Lang::get('transaction.PaymentDate') }}</label>
+	    <input required type="text" class="form-control date"  name="PaymentDate" id="PaymentDate" placeholder="Payment Date" value="{{ $auxdata['PaymentDate'] }}">
+	  </div>
 	  <div class="form-group" id="remote">
-	    <label class="sr-only" for="name">Name</label>
+	    <label class="sr-only" for="name">{{ Lang::get('transaction.Name') }}</label>
 	    <input required type="text" class="form-control typeahead"  name="Name" id="Name" placeholder="Enter name">
 	  </div>
 	  <div class="form-group">
-	    <label class="sr-only" for="name">Amount</label>
+	    <label class="sr-only" for="name">{{ Lang::get('transaction.Amount') }}</label>
 	    <input required type="number" step="any" min="1" class="form-control" name="Amount" id="Amount" placeholder="Enter amount">
 	  </div>
 	  <div class="form-group">
@@ -35,7 +39,7 @@
 	    <label class="sr-only" for="name">Note</label>
 	    <input type="text" class="form-control" name="Note" id="Note" placeholder="Note">
 	  </div>
-	  <button type="submit" class="btn btn-default">Add Trans</button>
+	  <button type="submit" class="btn btn-default">Add</button>
 	</form>
 	<!-- } PANE CONTENT -->
   </div>
@@ -70,6 +74,8 @@
   </tfoot>
 </table>
 
+{{ HTML::script('packages/datepicker/bootstrap-datepicker.js') }}
+{{ HTML::style('packages/datepicker/datepicker3.css') }}
 {{ HTML::script('js/typeahead.bundle.js') }}
 <script>
 $(document).ready(function() {
@@ -94,6 +100,11 @@ $(document).ready(function() {
 	$('#remote .typeahead').bind('typeahead:selected', function(obj, datum, name) {      
         $('#AccountID').val(datum.ID);
         $('#Amount').val(datum.AmountPerPeriod);
+	});
+
+	$('.date').datepicker({
+		format: " yyyy-mm-dd",
+		autoclose: true
 	});
 });
 </script>

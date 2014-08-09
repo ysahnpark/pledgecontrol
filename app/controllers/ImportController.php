@@ -149,6 +149,8 @@ class ImportController extends BaseController {
 			}
 			$row['SignupDate'] = $this->dateToIso($row['SignupDate'], 'Y-m-d');
 			$row['PledgeStartDate'] = $row['SignupDate'];
+			$row['ThankyouLetterSentDate'] = $this->dateToIso($row['ThankyouLetterSentDate'], 'Y-m-d');
+			
 		}
 	}
 
@@ -176,7 +178,8 @@ class ImportController extends BaseController {
 			{
 				$ticket = array('AccountID' => $record->ID,
 					'TicketDate' => $this->dateToIso($row['TicketDate'], 'Y-m-d'),
-					'Category' => $row['TicketCategory']
+					'Category' => $row['TicketCategory'],
+					'Status' => array_keys(TicketController::$STATUS_OPTS)[0]
 					);
 				$this->getService('ticket')->createTicket($ticket);
 			}

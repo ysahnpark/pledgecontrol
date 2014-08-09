@@ -11,6 +11,12 @@
  */
 class TicketController extends \GenericServiceController {
 
+	public static $STATUS_OPTS = array(
+			'created' => 'Created',
+			'notified' => 'Notified',
+			'resolved' => 'Resolved',
+			'dropped' => 'Dropped');
+
 	public function __construct() {
 		parent::__construct('layouts.workspace', 'svc:ticket', 'Ticket');
 	}
@@ -20,11 +26,7 @@ class TicketController extends \GenericServiceController {
 		$auxdata['opt_Category'] = array(
 			'FPR' => 'First Payment Request',
 			'OD' => 'Over Due');
-		$auxdata['opt_Status'] = array(
-			'created' => 'Created',
-			'notified' => 'Notified',
-			'resolved' => 'Resolved',
-			'dropped' => 'Dropped');
+		$auxdata['opt_Status'] = self::$STATUS_OPTS;
 		return $auxdata;
 	}
 

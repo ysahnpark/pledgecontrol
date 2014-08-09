@@ -10,6 +10,8 @@
 
 use Illuminate\Auth\Guard;
 
+\Altenia\Ecofy\Util\DataFormat::$defaultDateFormat = 'Y-m-d';
+
 App::singleton('svc:account', function()
 {
     return new \Service\AccountService();

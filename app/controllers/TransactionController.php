@@ -52,6 +52,7 @@ class TransactionController extends \GenericServiceController {
 			'transfer' => 'Transfer', 
 			'other' => 'Other'
 			);
+		$auxdata['PaymentDate'] = (new \DateTime)->format('Y-m-d');;
 		return $auxdata;
 	}
 

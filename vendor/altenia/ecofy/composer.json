@@ -1,0 +1,12 @@
+{
+    "name": "altenia/ecofy",
+    "autoload": {
+        "psr-0" : {
+            "Altenia\\Ecofy" : "src"
+        }
+    },
+
+    "require": {
+        "laravel/framework": "4.2.*"
+    }
+}

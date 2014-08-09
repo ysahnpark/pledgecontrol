@@ -5,9 +5,11 @@ OK - Issue (delinquency) table
 OK - Account, Transaction import from csv
 OK - Account report search
 OK - SQL injection
-OK - Add pledge number column (AccountNum)
-- Import from custom Account table
+
+OK - Account: Add pledge number column (AccountNum)
+OK - Transaction: Explicit date
+OK - ticket report: column for dates passed from notification date.
+OK(TEST PENDING)- Import from custom Account table
 - Password protection: two - book keeper & admin
-- ticket report: column for dates passed from notification date.
 - Rest of the report
 - Account report export to XLS.
