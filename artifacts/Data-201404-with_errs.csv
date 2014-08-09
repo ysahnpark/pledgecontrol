@@ -1,0 +1,4 @@
+AccountNum,Name,PledgeAmount,Duration,PaymentPeriod,LastTransactionDate,NextExpectedPayment,AccumulatedAmout,RemainingAmount,WeeksLeft,SignupDate,ThankyouLetterSentDate,NA,NotificationDate,TicketDate,TicketCategory,TicketResult
+34,034,10000,3y,?,,1900/1/1,-,10000.00,,11/20/13,11/21/13,1,,2/3/14,FPR,
+39,039,5000,,,2013/12/1,2014/1/30,200.00,4800.00,-11,11/20/13,11/21/13,1,,4/10/14,OD,
+53,053,10000,5y,,,1900/1/1,-,10000.00,,11/20/13,11/21/13,1,,2/3/14,FPR,
