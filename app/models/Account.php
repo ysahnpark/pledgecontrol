@@ -48,7 +48,7 @@ class Account extends Eloquent {
     private static $validation_rules_create = array(
         'Name' => 'required|min:1',
         'PledgeAmount' => 'min:1',
-        'PeriodUnit' => 'in:m,w',
+        'PeriodUnit' => 'required|in:m,w',
         'Duration' => 'min:1',
         //'PledgeStartDate' => 'date_format:Y-D',
         'Email' => 'email'

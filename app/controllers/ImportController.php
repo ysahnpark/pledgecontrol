@@ -138,14 +138,17 @@ class ImportController extends BaseController {
 				$row['PeriodUnit'] = substr($row['PaymentPeriod'], -1);
 				$row['PaymentPeriod'] = substr($row['PaymentPeriod'], 0, -1);
 			} else {
-				$row['PeriodUnit'] = '';
-				$row['PaymentPeriod'] = 'm';
+				$row['PeriodUnit'] = 'm';
+				$row['PaymentPeriod'] = 0;
 			}
 			// Convert years to months
 			if (ends_with($row['Duration'], 'y')) {
 				$row['Duration'] = substr($row['Duration'], 0, -1) * 12;
+			} else if (ends_with($row['Duration'], 'm')) {
+				$row['Duration'] = substr($row['Duration'], 0, -1) * 1;
 			}
-			
+			$row['SignupDate'] = $this->dateToIso($row['SignupDate'], 'Y-m-d');
+			$row['PledgeStartDate'] = $row['SignupDate'];
 		}
 	}
 
@@ -162,7 +165,7 @@ class ImportController extends BaseController {
 			if (isset($row['AccumulatedAmout']) && $row['AccumulatedAmout'] > 0) 
 			{
 				$trans = array('AccountID' => $record->ID, 'Name' => $record->Name,
-					'PaymentDate' => $row['LastTransactionDate'],
+					'PaymentDate' => $this->dateToIso($row['LastTransactionDate'], 'Y-m-d', 'Y/m/d'),
 					'Amount' => $row['AccumulatedAmout'],
 					);
 				$this->getTransactionService()->createTransaction($trans);
@@ -172,12 +175,20 @@ class ImportController extends BaseController {
 			if (isset($row['TicketCategory']) && !empty($row['TicketCategory']))
 			{
 				$ticket = array('AccountID' => $record->ID,
-					'TicketDate' => $row['TicketDate'],
+					'TicketDate' => $this->dateToIso($row['TicketDate'], 'Y-m-d'),
 					'Category' => $row['TicketCategory']
 					);
 				$this->getService('ticket')->createTicket($ticket);
 			}
 		}
+	}
+
+	public function dateToIso($time_val, $outputFormat = 'Y-m-d H:i:s', $inputFormat = 'm/d/y')
+	{
+		$time = DateTime::createFromFormat($inputFormat, $time_val);
+		//$time = new DateTime($time_val);
+        $time_str = $time->format($outputFormat);
+        return $time_str;
 	}
 
 }
