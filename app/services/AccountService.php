@@ -84,15 +84,23 @@ class AccountService  {
             $record->fill($data);
 
             // Compute the amount per period
-            $record->AmountPerPeriod = $record->PledgeAmount / ($record->Duration / $record->PaymentPeriod);
+            if (!isset($record->AmountPerPeriod)) 
+            {
+                if (isset($record->PledgeAmount) && $record->PledgeAmount > 0 &&
+                    isset($record->Duration) && $record->Duration > 0 &&
+                    isset($record->PaymentPeriod) && $record->PaymentPeriod > 0) 
+                {
+                    $record->AmountPerPeriod = $record->PledgeAmount / ($record->Duration / $record->PaymentPeriod);
+                }
+            }
 
             /*
              * @todo: assign default values as needed
              */
             $now = new \DateTime;
             $now_str = $now->format('Y-m-d H:i:s');
-            //$record->PaymentDate = $now_str;
 
+//print_r($record);
             $record->save();
 
             //print_r($record);

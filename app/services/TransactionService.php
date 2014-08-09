@@ -44,7 +44,7 @@ class TransactionService  {
     public function listTransactions($criteria, $sortParams = array(), $offset = 0, $limit=100)
     {
         $query = $this->buildQuery($criteria);
-        $records = $query->skip($offset)->take($limit)->orderBy('PaymentDate', 'desc')->get();
+        $records = $query->skip($offset)->take($limit)->get(); //->orderBy('PaymentDate', 'desc')->get();
 
         return $records;
     }

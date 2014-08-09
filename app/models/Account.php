@@ -34,7 +34,7 @@ class Account extends Eloquent {
      *
      * @var array
      */
-    protected $fillable = array('ID', 'SignupDate', 'Name'
+    protected $fillable = array('ID', 'AccountNum', 'SignupDate', 'Name'
       , 'PledgeStartDate', 'PledgeAmount', 'Duration', 'PaymentPeriod', 'PeriodUnit', 'AmountPerPeriod', 'PaidAmount'
       , 'RemainingAmount', 'LastTransactionID', 'Status', 'ThankyouLetterSentDate'
       , 'Email', 'Phone', 'Address', 'City', 'State', 'PostalCode', 'Note'

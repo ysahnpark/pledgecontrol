@@ -95,7 +95,9 @@ class TicketService  {
 
             $now = new \DateTime;
             $now_str = $now->format('Y-m-d H:i:s');
-            $record->TicketDate = $now_str;
+            if (!isset($record->TicketDate)) {
+                $record->TicketDate = $now_str;
+            }
 
             $record->save();
 

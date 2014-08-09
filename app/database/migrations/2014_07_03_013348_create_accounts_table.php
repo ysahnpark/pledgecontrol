@@ -15,12 +15,13 @@ class CreateAccountsTable extends Migration {
 		Schema::create('accounts', function(Blueprint $table)
 		{
 			$table->bigIncrements('ID');
+			$table->string('AccountNum')->nullable();
 			$table->dateTime('SignupDate'); // Same as Signup Date
 			$table->string('Name', 128);
-			$table->dateTime('PledgeStartDate'); // Pledge start 
+			$table->dateTime('PledgeStartDate')->nullable(); // Pledge start 
 			$table->decimal('PledgeAmount', 10, 2); 
-			$table->integer('Duration'); // Number of perdiod units in which this pledge ends
-			$table->integer('PaymentPeriod');
+			$table->integer('Duration')->nullable(); // Number of perdiod units in which this pledge ends
+			$table->integer('PaymentPeriod')->nullable(); // Number of weeks or months interval for payment
 			$table->string('PeriodUnit'); // 'w=week | m=month'
 			$table->integer('SparePeriod')->default(0); // spare period, e.g. the partipant had certain circumstance and asked to sper a period 
 			$table->decimal('AmountPerPeriod', 10, 2); // Calculated as (PledgeAmount / (Duration / PaymentPeriod))

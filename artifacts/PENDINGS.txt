@@ -7,4 +7,6 @@ OK - Account report search
 OK - SQL injection
 - Rest of the report
 - Account report export to XLS.
-- Password protection
+- Password protection: two - book keeper & admin
+- ticket -> column for notificaiton & date.
+- Add pledge number column

@@ -30,19 +30,19 @@
 
 {{ Form::close() }}
 
-@if (!empty($records))
+@if (!empty($rows))
 <table class="table table-striped">
 	<thead> 
 		<tr>
-@foreach ($records[0] as $header => $dummy)
+@foreach ($rows[0] as $header => $dummy)
 			<th>{{ $header }}</th>
 @endforeach
 		</tr>
 	</thead>
 	<tbody> 
-@foreach ($records as $record)
+@foreach ($rows as $row)
 		<tr>
-@foreach ($record as $name => $val)
+@foreach ($row as $name => $val)
 			<td>{{ $val }}</td>
 @endforeach
 		</tr>
@@ -57,9 +57,13 @@
 <ul>
 @foreach ($result['errors'] as $error)
 	<li>Line {{ $error['line'] }}: 
-		@foreach ($error['message'] as $field => $detail)
-		[{{ $field }}] - <?php print_r($detail) ?>
-		@endforeach
+		@if (is_array($error['message'])):
+			@foreach ($error['message'] as $field => $detail)
+			[{{ $field }}] - <?php print_r($detail) ?>
+			@endforeach
+		@else
+			{{ $error['message'] }}
+		@endif
 	</li>
 @endforeach
 <ul>

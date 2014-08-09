@@ -2,8 +2,15 @@ PledgeControl
 =============
 Web application that facilitates pledge control for Church and other charitative organizations.
 
+The application is implemented in PHP using Laravel Framework.
 
 #Installation#
+
+# Requirements #
+Requirements are:
+- PHP 5.4+
+- MySQL 5.x
+
 
 ##Get it from git##
 If you do not have a git client yet, download and insall one first. You can get the console git client from [github][1].
