@@ -35,27 +35,36 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th></th><th>Amount</th><th>Goal</th><th>Diff</th>
+        <th></th><th>Amount</th><th></th><th>Percentage</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>Total Pledge</td>
         <td>{{ \DocuFlow\Helper\DfFormat::currency($report_data['totals']['TotalPledgeAmount']) }}</td>
-        <td>xx</td>
-        <td>xx</td>
+        <td>%Accumulated / Total</td>
+        <?php
+
+          $accumOverTotal = $report_data['totals']['TotalPledgeAmount'] > 0 ? 
+            $report_data['totals']['TotalPaidAmount'] / $report_data['totals']['TotalPledgeAmount'] * 100 : 'N/A'; 
+        ?>
+        <td>{{ $accumOverTotal }} %</td>
       </tr>
       <tr>
         <td>Accumulated</td>
         <td>{{ \DocuFlow\Helper\DfFormat::currency($report_data['totals']['TotalPaidAmount']) }}</td>
-        <td>xx</td>
-        <td>xx</td>
+        <td>%Accumulated / Expected</td>
+        <?php 
+          $accumOverExpected = $report_data['totals']['TotalAmountExpectedNow'] > 0 ?
+            $report_data['totals']['TotalPaidAmount'] / $report_data['totals']['TotalAmountExpectedNow'] * 100 : 'N/A'; 
+        ?>
+        <td>{{ $accumOverExpected }} %</td>
       </tr>
       <tr>
         <td>Expected</td>
         <td>{{ \DocuFlow\Helper\DfFormat::currency($report_data['totals']['TotalAmountExpectedNow']) }}</td>
-        <td>xx</td>
-        <td>xx</td>
+        <td>%Not collected / Expected</td>
+        <td></td>
       </tr>
     </tbody>
   </table>

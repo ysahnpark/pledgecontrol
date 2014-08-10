@@ -15,6 +15,8 @@ class TicketService  {
 
     private $accountService = null;
 
+    private $closingStatuses = array('closed');
+
     public function buildQuery($criteria)
     {
         if (empty($criteria)) $criteria = array();
@@ -30,6 +32,11 @@ class TicketService  {
             $this->accountService = \App::make('svc:account');
         }
         return $this->accountService;
+    }
+
+    public function setClosingStatuses($closingStatuses)
+    {
+        $this->closingStatuses = $closingStatuses;
     }
 
     /**
@@ -129,10 +136,17 @@ class TicketService  {
      */
     public function updateTicket($pk, $data)
     {
-        
         $validator = \Ticket::validator($data, false);
         if ($validator->passes()) {
             $record = \Ticket::find($pk);
+
+            $now = new \DateTime;
+            $now_str = $now->format('Y-m-d H:i:s');
+            if ( in_array ($data['Status'], $this->closingStatuses) )
+            {
+                $data['CloseDate'] = $now_str;
+            }
+
             $record->fill($data);
             if (empty($record->NotificationDate))
                 $record->NotificationDate = null;

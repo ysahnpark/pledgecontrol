@@ -4,7 +4,7 @@ Web application that facilitates pledge control for Church and other charitative
 
 The application is implemented in PHP using Laravel Framework.
 
-#Installation#
+# Installation #
 
 # Requirements #
 Requirements are:
@@ -17,27 +17,30 @@ If you do not have a git client yet, download and insall one first. You can get 
 
 If you have git, go to the directory where you want to install the application and clone from git repo.
 
-`git clone https://github.com/ysahnpark/pledgecontrol.git`
+  `git clone https://github.com/ysahnpark/pledgecontrol.git`
 
 ## Prepare database ##
 The PledgeControl requires [MySQL 5.x][2].
 Open MySQL console and create a database:
 
-`CREATE DATABASE pledgecontrol DEFAULT CHARACTER SET utf8;`
+  `CREATE DATABASE pledgecontrol DEFAULT CHARACTER SET utf8;`
 
 Then grant privileges to the application user
 
-`GRANT ALL PRIVILEGES ON pledgecontrol.* to pcapp@localhost IDENTIFIED by 'pcapp';`
+  `GRANT ALL PRIVILEGES ON pledgecontrol.* to pcapp@localhost IDENTIFIED by 'pcapp';`
 
 ## Prepare application ##
 From the installation directory run
 `php artisan migrate`
 (If you get error about php not found, then you will need to add the php executable to the path.)
 
-Now the tables in the `pledgecontrol` database should have been created.
+By now, all the required tables should have been successfully created in the `pledgecontrol` database.
 
-now you can start the server by running:
-`php artisan serve`
+The following command will create default users `admin` and `keeper` in the users table.
+  `php artisan db:seed`
+
+Now you can start the server by running:
+  `php artisan serve`
 
 
   [1]: http://git-scm.com/downloads

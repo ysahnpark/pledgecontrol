@@ -31,7 +31,9 @@ App::singleton('svc:transaction', function()
 
 App::singleton('svc:ticket', function()
 {
-    return new \Service\TicketService();
+    $svc = new \Service\TicketService();
+    $svc->setClosingStatuses(array('resolved', 'dropped'));
+    return $svc ;
 });
 
 

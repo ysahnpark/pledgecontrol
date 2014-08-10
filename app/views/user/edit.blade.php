@@ -70,7 +70,7 @@
 	<div class="form-group">
 		{{ Form::label('type', Lang::get('user.type'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
-		    {{ Form::text('type', null, array('class' => 'form-control')) }}
+		    {{ Form::select('type', $auxdata['opt_type'], null, array('class' => 'form-control')) }}
 		</div>
 	</div>
 

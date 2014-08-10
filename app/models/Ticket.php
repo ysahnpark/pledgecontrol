@@ -35,7 +35,7 @@ class Ticket extends Eloquent {
      * @var array
      */
     protected $fillable = array('ID', 'TicketDate', 'AccountID',
-        'HandledBy', 'Category', 'Description', 'Status', 'Log', 'Result', 'NotificationDate', 'CompletionDate', 'Note');
+        'HandledBy', 'Category', 'Description', 'Status', 'Log', 'Result', 'NotificationDate', 'CloseDate', 'Note');
 
     /**
      * Validation rules for creation

@@ -19,7 +19,9 @@ class UserController extends GenericServiceController {
 
 	public function editAuxData($record) {
 		$auxdata = array();
-
+		$auxdata['opt_type'] = array(
+			'admin' => 'admin', 'keeper' => 'keeper'
+			);
 		return $auxdata;
 	}
 

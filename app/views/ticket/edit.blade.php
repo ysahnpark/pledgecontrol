@@ -49,6 +49,11 @@
 	<div class="form-group">
 		{{ Form::label('Status', Lang::get('ticket.Status'), array('class' => 'col-sm-2 control-label')) }}
 		<div class="col-sm-10">
+			<ul><li>Created = Created, pending to be handled.</li>
+				<li>Notified = Notified to the person,</li>
+				<li>Resolved = Completed successfully (closed),</li>
+				<li>Dropped = Case dropped (closed)</li>
+			</ul>
 		    {{ Form::select('Status', $auxdata['opt_Status'], null, array('class' => 'form-control')) }}
 		</div>
 	</div>

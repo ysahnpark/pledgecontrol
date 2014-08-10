@@ -24,7 +24,7 @@ class CreateTicketsTable extends Migration {
 			$table->mediumText('Log')->nullable(); // "Follow-up"
 			$table->mediumText('Result')->nullable(); // "Result"
 			$table->dateTime('NotificationDate')->nullable();
-			$table->dateTime('CompletionDate')->nullable();
+			$table->dateTime('CloseDate')->nullable();
 			$table->string('Note', 255)->nullable();
 
 			$table->index('AccountID');

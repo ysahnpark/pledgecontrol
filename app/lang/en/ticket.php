@@ -12,7 +12,7 @@ return array(
 	"Log" => "Log",
 	"Result" => "Result",
 	"NotificationDate" => "Notification Date",
-	"CompletionDate" => "Completion Date",
+	"CloseDate" => "Close Date",
 	"Note" => "Note",
 
 );

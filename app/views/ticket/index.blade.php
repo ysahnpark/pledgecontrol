@@ -42,6 +42,7 @@
 			<td>{{Lang::get('ticket.Status')}}</td>
 			<td>{{Lang::get('ticket.NotificationDate')}}</td>
 			<td>Days passed</td>
+			<td>{{Lang::get('ticket.CloseDate')}}</td>
 			<td>{{Lang::get('ticket.Result')}}</td>
 			<td>Action</td>
 		</tr>
@@ -58,13 +59,14 @@
 $daysDiff = null;
 if (isset($ticket->NotificationDate)) {
 	$notifDate = new DateTime($ticket->NotificationDate);
-	$today = new DateTime();
-	$interval = $notifDate->diff($today);
+	$compDate = !empty($ticket->CloseDate) ? new DateTime($ticket->CloseDate) : new DateTime();
+	$interval = $notifDate->diff($compDate);
 	$daysDiff = $interval->format('%a');
 }
 ?>
 
 			<td>{{ $daysDiff }}</td>
+			<td>{{ $ticket->CloseDate }}</td>
 			<td>{{ $ticket->Result }}</td>
 			<td>
 				<a class="btn btn-warning" href="{{ URL::to(route('tickets.edit', array($ticket->ID))) }}">Details</a>
