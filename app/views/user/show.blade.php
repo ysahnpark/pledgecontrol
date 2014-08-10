@@ -7,8 +7,6 @@
 <!-- @todo - the field to be displayed as title -->
 
 <dl class="dl-horizontal">
-    <dt>{{ Lang::get('user.org_name') }}</dt>
-    <dd>{{ $record->org_name }}</dd>
     <dt>{{ Lang::get('user.created_dt') }}</dt>
     <dd>{{ $record->created_dt }}</dd>
     <dt>{{ Lang::get('user.updated_dt') }}</dt>

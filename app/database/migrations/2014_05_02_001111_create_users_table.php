@@ -53,6 +53,8 @@ class CreateUsersTable extends Migration {
 			$table->string('default_lang_cd', 3)->nullable();
 			$table->dateTime('expiry_dt')->nullable();
 			$table->text('params_text')->nullable();
+			$table->string('remember_token', 100)->nullable();
+			
 		    $table->index('uuid');
 		    $table->index('domain_id');
 		    $table->index('created_by');

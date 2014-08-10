@@ -1,0 +1,130 @@
+
+<!doctype html>
+<html >
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>PC | Signin</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width">
+      <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+      
+      <script src="http://localhost:8000/js/jquery-2.1.0.min.js"></script>
+      <script src="http://localhost:8000/js/jquery-ui-1.10.4.min.js"></script>
+      
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.6/angular.min.js"></script>
+
+      <link media="all" type="text/css" rel="stylesheet" href="http://localhost:8000/bootstrap/css/bootstrap.css">
+      <link media="all" type="text/css" rel="stylesheet" href="http://localhost:8000/css/main.css">
+      <script src="http://localhost:8000/bootstrap/js/bootstrap.js"></script>
+      <script src="http://localhost:8000/js/lodash.min.js"></script>
+
+      <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+      <link href='http://fonts.googleapis.com/css?family=Questrial|Dosis|ABeeZee|Poiret+One|Quicksand|Source+Code+Pro|Nunito|Varela+Round|Actor|Milonga|Anonymous+Pro' rel='stylesheet' type='text/css'>
+
+      <!-- endbuild 
+      <script src="bower_components/modernizr/modernizr.js"></script>
+      -->
+  </head>
+  <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div class="navbar navbar-default navbar-fixed-top">
+        <div class="navbar-header">
+        </div>
+        <div style="margin-left: 220px ;"><a href="http://stdaveluychurch.org/"><img src="/org_logo.png" height="45" /></a></div>
+      </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <!-- SIDE BAR { -->
+        <div class="col-sm-3 col-md-2 sidebar fixed-left">
+          <h3>Pledge Control</h3>
+          <div>
+
+
+<h5>Book keeping<h5>
+<ul>
+	<li><a href="http://localhost:8000/accounts">Accounts</a></li>
+	<li><a href="http://localhost:8000/transactions">Transactions</a></li>
+	<li><a href="http://localhost:8000/tickets">Tickets</a></li>
+	<li><a href="http://localhost:8000/import/form">Import</a></li>
+</ul>
+
+        </div>
+        <!-- } SIDE BAR -->
+
+        <!-- MAIN CONTENT { -->
+        
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+                    <ol class="breadcrumb">
+                                          <li>Siginin</li>
+                                    </ol>
+                              <h2 class="page-header"> Signin</h2>
+          
+          <!-- CONTENT-BEGIN -->
+              <div class="container">
+      <!-- title row -->
+      <div class="col-md-12" style="text-align: center">
+        <h3>site.signin</h3>
+      </div>
+
+      <!-- if there are creation errors, they will show here -->
+
+      <!-- Row of columns -->
+      <div class="col-md-12 " >
+      	<form method="POST" action="http://localhost:8000/auth/signin" accept-charset="UTF-8" class="form-horizontal form-signin"><input name="_token" type="hidden" value="hzqWwqBHCTbZNWZpD9XRZdlpyRNPSecg8BLazeDo">
+          <div class="form-group">
+            <label for="loginId" class="col-sm-2 control-label">ID or email</label>
+            <div class="col-sm-10">
+              <input class="form-control" placeholder="ID or Email" name="login_id" type="text">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+            	<input class="form-control" placeholder="Password" name="password" type="text" id="password">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Remember me
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+            	<input class="btn btn-primary" type="submit" value="site.signin">
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div> <!-- /container -->
+          <!-- CONTENT-END -->
+          
+        </div>
+        <!-- } MAIN CONTENT -->
+      </div>
+
+      <footer>
+        <p></p>
+      </footer>
+
+    </div> <!-- /container -->
+
+  
+
+  </body>
+</html>

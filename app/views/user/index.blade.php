@@ -4,7 +4,7 @@
 <form class="form-inline" role="form" mathod="GET" action="{{ URL::to(route('users.index')) }}">
   <div class="form-group">
     <label class="sr-only" for="name-like">Name</label>
-    <input type="text" name="Name-like" class="form-control" id="Name" placeholder="Enter name" value="{{ $queryCtx->getQParamVal('Name-like') }}">
+    <input type="text" name="first_name-like" class="form-control" id="Name" placeholder="Enter name" value="{{ $queryCtx->getQParamVal('first_name-like') }}">
   </div>
   <button type="submit" class="btn btn-default">Search</button>
   <button id="btn_reset" class="btn btn-default">Reset</button>
@@ -19,28 +19,30 @@
 			<td>{{ Lang::get('user.name') }}</td>
 			<td>{{ Lang::get('user.email') }}</td>
 			<td>{{ Lang::get('user.status') }}</td>
-			<td>{{ Lang::get('user.role') }}</td>
+			<td>{{ Lang::get('user.type') }}</td>
 			<td class="actions_col">{{ Lang::get('common.actions') }}</td>
 		</tr>
 	</thead>
 	<tbody>
 @foreach ($records as $record)
 		<tr>
-			<td title="Updated: {{ $record->updated_dt }}">{{ $record->created_dt}}</td>
+			<td title="Updated: {{ $record->updated_dt }}">{{ \Altenia\Ecofy\Util\DataFormat::date($record->created_dt) }}</td>
 			<td><a href="users/{{ $record->sid }}">{{ $record->id }}</a></td>
 			<td>{{ $record->first_name }} {{ $record->middle_name }} {{ $record->last_name }}</td>
 			<td>{{ $record->email }}</td>
 			<td>{{ $record->status }}</td>
-			<td>{{ $record->role_name }}</td>
+			<td>{{ $record->type }}</td>
 
 			<!-- we will also add show, edit, and delete buttons -->
 			<td>
-				<a class="btn btn-small btn-info" href="{{ URL::to('users/' . $record->sid . '/edit') }}">Edit</a>
+				<a class="btn btn-small btn-info" href="{{ URL::to('users/' . $record->sid . '/edit') }}"><span class="glyphicon glyphicon-pencil"></span></a>
 
 				<!-- delete the record (uses the destroy method DESTROY /nerds/{id} -->
 				{{ Form::open(array('url' => 'users/' . $record->sid, 'class' => 'pull-right')) }}
 					{{ Form::hidden('_method', 'DELETE') }}
-					{{ Form::submit('Delete', array('class' => 'btn btn-warning')) }}
+					<button title="Delete" type="button" class="btn btn-small btn-danger">
+					  <span class="glyphicon glyphicon-trash"></span>
+					</button>
 				{{ Form::close() }}
 			</td>
 		</tr>
@@ -48,7 +50,7 @@
 	</tbody>
 	<tfoot>
     <tr>
-      <td colspan="6"><?php echo $records->links(); ?></td>
+      <td colspan="7"><?php echo $records->links(); ?></td>
     </tr>
   </tfoot>
 </table>

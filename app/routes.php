@@ -16,21 +16,28 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
-Route::resource('api/users', 'UserApiController');
-Route::resource('users', 'UserController');
+Route::group(array('before' => 'auth'), function()
+//Route::group(array(), function()
+{
 
-Route::resource('accounts', 'AccountController');
-Route::get('accounts_report', 'AccountController@report');
+	Route::resource('accounts', 'AccountController');
+	Route::get('accounts_report', 'AccountController@report');
 
-Route::resource('api/accounts', 'AccountApiController');
+	Route::resource('api/accounts', 'AccountApiController');
 
-Route::resource('transactions', 'TransactionController');
-Route::resource('transactions_report', 'TransactionController@report');
+	Route::resource('transactions', 'TransactionController');
+	Route::resource('transactions_report', 'TransactionController@report');
 
-Route::resource('tickets', 'TicketController');
+	Route::resource('tickets', 'TicketController');
 
-Route::controller('report', 'ReportController');
+	Route::controller('report', 'ReportController');
 
-Route::controller('import', 'ImportController');
+	Route::controller('import', 'ImportController');
+});
 
+	Route::resource('api/users', 'UserApiController');
+	Route::resource('users', 'UserController');
 
+// With this routing, the controller contains methods where the action
+// name is prefixed by HTTP method, eg. getXx
+Route::controller('auth', 'AuthController');
