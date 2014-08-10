@@ -2,32 +2,45 @@ PledgeControl
 =============
 Web application that facilitates pledge control for Church and other charitative organizations.
 
+The application is implemented in PHP using Laravel Framework.
 
-#Installation#
+# Installation #
+
+# Requirements #
+Requirements are:
+- PHP 5.4+
+- MySQL 5.x
+
 
 ##Get it from git##
 If you do not have a git client yet, download and insall one first. You can get the console git client from [github][1].
 
 If you have git, go to the directory where you want to install the application and clone from git repo.
-`git clone https://github.com/ysahnpark/pledgecontrol.git`
+
+  `git clone https://github.com/ysahnpark/pledgecontrol.git`
 
 ## Prepare database ##
 The PledgeControl requires [MySQL 5.x][2].
 Open MySQL console and create a database:
-`CREATE DATABASE pledgecontrol DEFAULT CHARACTER SET utf8;`
+
+  `CREATE DATABASE pledgecontrol DEFAULT CHARACTER SET utf8;`
 
 Then grant privileges to the application user
-`GRANT ALL PRIVILEGES ON pledgecontrol.* to pcapp@localhost IDENTIFIED by 'pcapp';`
+
+  `GRANT ALL PRIVILEGES ON pledgecontrol.* to pcapp@localhost IDENTIFIED by 'pcapp';`
 
 ## Prepare application ##
 From the installation directory run
 `php artisan migrate`
 (If you get error about php not found, then you will need to add the php executable to the path.)
 
-Now the tables in the `pledgecontrol` database should have been created.
+By now, all the required tables should have been successfully created in the `pledgecontrol` database.
 
-now you can start the server by running:
-`php artisan serve`
+The following command will create default users `admin` and `keeper` in the users table.
+  `php artisan db:seed`
+
+Now you can start the server by running:
+  `php artisan serve`
 
 
   [1]: http://git-scm.com/downloads
@@ -37,7 +50,8 @@ now you can start the server by running:
 #Users Guide#
 
 ##Introduction##
-There are three major components: 
+There are four major components: 
+- **User**: Manages the users that can use the system. The user of type `admin` has entire privilege, whereas the user type `keeper` has lesser privileges.
 - **Accounts**: Manages the pledge accounts. A pledge account includes information such as person data, pledge amount, payment period,  etc.
 - **Transaction**: Manages the transactions, i.e. money collection data.
 - **Ticket**: Manages the tickets to handle issues such as request for first payment, notify for overdue, etc.

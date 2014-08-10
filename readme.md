@@ -50,7 +50,8 @@ Now you can start the server by running:
 #Users Guide#
 
 ##Introduction##
-There are three major components: 
+There are four major components: 
+- **User**: Manages the users that can use the system. The user of type `admin` has entire privilege, whereas the user type `keeper` has lesser privileges.
 - **Accounts**: Manages the pledge accounts. A pledge account includes information such as person data, pledge amount, payment period,  etc.
 - **Transaction**: Manages the transactions, i.e. money collection data.
 - **Ticket**: Manages the tickets to handle issues such as request for first payment, notify for overdue, etc.
