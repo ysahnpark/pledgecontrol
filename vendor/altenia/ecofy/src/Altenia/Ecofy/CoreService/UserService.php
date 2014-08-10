@@ -1,13 +1,13 @@
 <?php namespace Altenia\Ecofy\CoreService;
 
-use Altenia\Ecofy\Service\BaseService;
+use Altenia\Ecofy\Service\BaseDataService;
 use Altenia\Ecofy\Service\ValidationException;
 
 /**
  * Service class that provides business logic for User
  */
 /* implements UserProviderInterface */
-class UserService extends BaseService  {
+class UserService extends BaseDataService  {
 
     /**
      * Constructor
@@ -38,13 +38,11 @@ class UserService extends BaseService  {
      * @param int   $page_size    The max number of entries shown per page
      * @return Response
      */
-    public function paginateAccounts($criteria, $sortParams = array(), $page_size = 20)
+    public function paginateUsers($criteria, $sortParams = array(), $page_size = 20)
     {
-        $items = $this->listUsers($criteria, $sortParams, $offset, $limit);
-        $totalItems = $this->countUsers($criteria);
-        // @todo
-        //$paginator = Paginator::make($items, $totalItems, $perPage);
+        return $this->dao->paginate($criteria, $sortParams, $page_size);
     }
+
     /**
      * Returns the count of records satisfying the critieria.
      *
@@ -65,13 +63,11 @@ class UserService extends BaseService  {
      */
     public function createUser($data)
     {
-        $data['id'] = str_replace('@', '_', $data['email']);
+        //$data['id'] = str_replace('@', '_', $data['email']);
 
         if (empty($data['display_name'])) {
             $data['display_name'] = $data['first_name'] . ' ' . $data['last_name'];
         }
-
-        $data['type'] = '';
 
         $validator = User::validator($data);
         if ($validator->passes()) {
@@ -103,7 +99,7 @@ class UserService extends BaseService  {
      */
     public function findUser($criteria)
     {
-        return $dao->find($criteria);
+        return $this->dao->find($criteria);
     }
 
     /**
@@ -137,9 +133,11 @@ class UserService extends BaseService  {
             if (array_key_exists('HTTP_CLIENT_IP', $_SERVER)) {
                 $record->last_session_ip = $_SERVER['HTTP_CLIENT_IP'];
             }
-            $record->password = \Hash::make($data['password']);
+            if (array_key_exists('password', $data)) {
+                $record->password = \Hash::make($data['password']);
+            }
             
-            return $this->dao->update( $pk, $data );
+            return $this->dao->update( $record );
         } else {
             throw new ValidationException($validator);
         }

@@ -10,11 +10,12 @@ class DataFormat {
 	/**
 	 * Formats date
 	 */
-	public static function date($date)
+	public static function date($date, $format = null)
 	{
+		$format = empty($format) ? self::$defaultDateFormat : $format;
 		$formatted = '';
 		if (is_string($date)) {
-			$formatted = date(self::$defaultDateFormat, strtotime($date));
+			$formatted = date($format, strtotime($date));
 		}
 		return $formatted;
 	}

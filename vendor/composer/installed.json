@@ -1742,18 +1742,18 @@
         "source": {
             "type": "git",
             "url": "https://github.com/altenia/ecofy.git",
-            "reference": "9d12454b7b8ad460b363778336aedf963a524552"
+            "reference": "fb17c97bf8af4b51727bcee3939629006e0a1fe2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/altenia/ecofy/zipball/9d12454b7b8ad460b363778336aedf963a524552",
-            "reference": "9d12454b7b8ad460b363778336aedf963a524552",
+            "url": "https://api.github.com/repos/altenia/ecofy/zipball/fb17c97bf8af4b51727bcee3939629006e0a1fe2",
+            "reference": "fb17c97bf8af4b51727bcee3939629006e0a1fe2",
             "shasum": ""
         },
         "require": {
             "laravel/framework": "4.2.*"
         },
-        "time": "2014-08-02 12:35:19",
+        "time": "2014-08-10 00:42:23",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

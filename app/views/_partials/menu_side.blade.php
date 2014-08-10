@@ -10,6 +10,7 @@
 
 <h5>Admin<h5>
 <ul>
+	<li><a href="{{ URL::to(route('users.index')) }}">Users</a></li>
 	<li><a href="{{ URL::to('accounts_report') }}">Accounts Report</a></li>
 	<li><a href="{{ URL::to('report/general') }}">General Report</a></li>
 </ul>

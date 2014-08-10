@@ -1,37 +1,29 @@
 <?php namespace Altenia\Ecofy\Dao;
 
-use Altenia\Ecofy\Support\QueryBuilderMongo;
-use Illuminate\Support\Str;
+use Altenia\Ecofy\Support\QueryBuilderEloquent;
 
 /**
- * Base class for all services
+ * Helper class that provides HTML rendering functionalites.
  */
-class BaseDaoMongo extends BaseDao {
+class BaseDaoArray extends BaseDao {
 
-    protected $db;
-    protected $db_collection;
+    private $records = array();
 
-    /**
-     * Constructor.
-     * Selects the database collection with the name provided.
-     */
-	public function __construct($modelFqn, $collectionName = null)
+	public function __construct($modelFqn, $key)
     {
-        parent::__construct($modelFqn);
-        if ($collectionName === null)
-            $collectionName  = Str::snake($modelFqn);
-        $this->db = new MongoDb();
-        $this->db_collection = $this->db->selectCollection($collectionName);
+    	parent::__construct($modelFqn);
     }
 
-	public function buildQuery($criteria)
-	{
-		if (empty($criteria)) $criteria = array();
-		$queryBuilder = new QueryBuilderMongo();
-        $query = array();
+    public function buildQuery($criteria)
+    {
+    	$modelClassName = $this->modelClassName();
+        if (empty($criteria)) $criteria = array();
+        $queryBuilder = new QueryBuilderEloquent();
+        $query = $modelClassName::query();
+        
         $query = $queryBuilder->buildQuery($criteria, $query);
         return $query; 
-	}
+    }
 
     /**
      * Queries the records.
@@ -45,38 +37,30 @@ class BaseDaoMongo extends BaseDao {
     public function query($criteria, $sortParams = array(), $offset = 0, $limit=100)
     {
         $query = $this->buildQuery($criteria);
-        $cursor = $this->db_collection->find( $query )
-            ->skip($offset)->limit($limit);
+        // @todo - orderBy()->get()
+        $records = $query->skip($offset)->take($limit)->get();
 
-        $records = array();
-        while ($cursor->hasNext())
-        {
-            $doc = $cursor->getNext();
-            $records[] = $this->toModel($doc);
-        }
-        $result = new \Illuminate\Support\Collection($records);
-        
-        return $result;
+        return $records;
     }
 
     /**
      * Returns the count of records satisfying the critieria.
      *
-     * @param array $criteria  Parameters used for querying
+     * @param array $queryParams  Parameters used for querying
      * @return int number of records that satisfied the criteria
      */
     public function count($criteria)
     {
         $query = $this->buildQuery($criteria);
-        $count = $this->db_collection->find( $criteria )->count();
+        $count = $query->count();
         return $count;
     }
 
     /**
-     * Inserts a new record.
+     * Inserts record.
      * Mostly wrapper around insert with pre and post processing.
      *
-     * @param array $data  Parameters used for creating a new record
+     * @param array $record  Model tha has already validated
      * @return mixed  null if successful, validation object validation fails
      */
     public function insert($record)
@@ -87,13 +71,7 @@ class BaseDaoMongo extends BaseDao {
         $record->updated_dt = $dbtime_now;
 
         $this->beforeInsert($record);
-
-        // Convert to array for Mongo to understand
-        $arrModel = $record->toArray();
-        $arrModel['_id'] = new \MongoId();
-        $record->sid = (string)$arrModel['_id'];
-
-        $this->db_collection->insert( $arrModel );
+        $record->save();
 
         return $record;
     }
@@ -101,20 +79,21 @@ class BaseDaoMongo extends BaseDao {
     /**
      * Retrieves a single record.
      *
-     * @param  int $criteria  The primary key for the search
-     * @return AccessControl
+     * @param  int $pk  The primary key for the search
+     * @return Transaction
      */
     public function find($criteria)
     {
-        $doc = $this->db_collection->findOne( $criteria );
+    	$query = $this->buildQuery($criteria);
+        $records = $query->take(2)->get();
 
-        $record = null;
-        if (!empty($doc))
-        {
-            $record = $this->toModel($doc);
+        if ($records->count() > 1) {
+        	throw new \Exception("More than one entry found");
+        } else if ($records->count() !== 1) {
+        	return null;
         }
 
-        return $record;
+        return $records->first();
     }
 
     /**
@@ -125,8 +104,10 @@ class BaseDaoMongo extends BaseDao {
      */
     public function findByPK($pk)
     {
-        $criteria = array( '_id' => new \MongoId($pk) );
-        return $this->find($criteria);
+    	$modelClassName = $this->modelClassName();
+        $record = $modelClassName::find($pk);
+
+        return $record;
     }
 
     /**
@@ -143,11 +124,7 @@ class BaseDaoMongo extends BaseDao {
 
         $this->beforeUpdate($record);
 
-        // Convert to array for Mongo to understand
-        $arrModel = $record->toArray();
-        $criteria = array( '_id' => new \MongoId($pk) );
-        $this->db_collection->update( $criteria, $arrModel );
-
+        $record->save();
         return $record;
     }
 
@@ -165,6 +142,7 @@ class BaseDaoMongo extends BaseDao {
         return $this->update($record);
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
@@ -173,29 +151,26 @@ class BaseDaoMongo extends BaseDao {
      */
     public function delete($pk)
     {
-        $record = $this->findByPK($pk);
+        $modelClassName = $this->modelClassName();
+
+        $record = $modelClassName::find($pk);
         if (!empty($record)) {
-            $criteria = array( '_id' => new \MongoId($pk) );
-            $this->db_collection->remove( $criteria );
+            $record->delete();
             return $record;
         }
         return null;
     }
 
-    /**
-     * Returns the Laravel model object
-     */
-    protected function toModel($doc)
-    {
-        $model = $this->newModel();
-        $model->sid = (string)$doc['_id'];
-        $model->fill($doc);
-        return $model;
-    }
 
+    /**
+     * @param $date Either null or string in iso format
+     */
     protected function getDateTime($time = null)
     {
-        return \MongoDate($time);
-    }
+        $format = 'Y-m-d H:i:s';
+        $time = empty($time) ? new \DateTime : DateTime::createFromFormat($format, $time);
+        $time_str = $time->format('Y-m-d H:i:s');
 
+        return $time_str;
+    }
 }

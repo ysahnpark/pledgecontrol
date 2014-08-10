@@ -55,6 +55,17 @@ class BaseDaoEloquent extends BaseDao {
     }
 
     /**
+     * Pagination
+     * @param int   $limit        Maximum number of records to retrieve
+     */
+    public function paginate($criteria, $sortParams = array(), $page_size)
+    {
+        $query = $this->buildQuery($criteria);
+        $records = $query->paginate($page_size);
+        return $records;
+    }
+
+    /**
      * Inserts record.
      * Mostly wrapper around insert with pre and post processing.
      *
@@ -83,15 +94,15 @@ class BaseDaoEloquent extends BaseDao {
     public function find($criteria)
     {
     	$query = $this->buildQuery($criteria);
-        $records = $query->skip($offset)->take(2)->get();
+        $records = $query->take(2)->get();
 
         if ($records->count() > 1) {
-        	throw new Exception("More than one entry found");
-        } else if ($records->count() === 1) {
+        	throw new \Exception("More than one entry found");
+        } else if ($records->count() !== 1) {
         	return null;
         }
 
-        return $record.first();
+        return $records->first();
     }
 
     /**
@@ -109,22 +120,35 @@ class BaseDaoEloquent extends BaseDao {
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource.
      *
      * @param  int   $pk    The primary key of the record to update
      * @param  array $data  The data of the update
      * @return mixed Returns the newely updated record
      */
-    public function update($pk, $data)
+    public function update($record)
     {
-        $record = $this->find($pk);
-        $record->fill($data);
-
         $record->updated_dt = $this->getDateTime();
         $record->update_counter++;
 
+        $this->beforeUpdate($record);
+
         $record->save();
         return $record;
+    }
+
+    /**
+     * Update the fields.
+     *
+     * @param  int   $pk    The primary key of the record to update
+     * @param  array $data  Fields to update
+     * @return mixed Returns the newely updated record
+     */
+    public function updateFields($pk, $data)
+    {
+        $record = $this->findByPK($pk);
+        $record->fill($data);
+        return $this->update($record);
     }
 
 

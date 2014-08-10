@@ -16,6 +16,9 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
+Route::resource('api/users', 'UserApiController');
+Route::resource('users', 'UserController');
+
 Route::resource('accounts', 'AccountController');
 Route::get('accounts_report', 'AccountController@report');
 
