@@ -44,7 +44,6 @@
         <td>{{ \DocuFlow\Helper\DfFormat::currency($report_data['totals']['TotalPledgeAmount']) }}</td>
         <td>%Accumulated / Total</td>
         <?php
-
           $accumOverTotal = $report_data['totals']['TotalPledgeAmount'] > 0 ? 
             $report_data['totals']['TotalPaidAmount'] / $report_data['totals']['TotalPledgeAmount'] * 100 : 'N/A'; 
         ?>
@@ -60,10 +59,20 @@
         ?>
         <td>{{ $accumOverExpected }} %</td>
       </tr>
+      <?php $notCollected = $report_data['totals']['TotalAmountExpectedNow'] - $report_data['totals']['TotalPaidAmount']; 
+        $notCollectedOverExpected = $report_data['totals']['TotalAmountExpectedNow'] > 0 ?
+            $notCollected / $report_data['totals']['TotalAmountExpectedNow'] * 100 : 'N/A'; 
+      ?>
       <tr>
         <td>Expected</td>
         <td>{{ \DocuFlow\Helper\DfFormat::currency($report_data['totals']['TotalAmountExpectedNow']) }}</td>
         <td>%Not collected / Expected</td>
+        <td>{{ $notCollectedOverExpected }} % </td>
+      </tr>
+      <tr>
+        <td>Not collected</td>
+        <td>{{ \DocuFlow\Helper\DfFormat::currency($notCollected) }}</td>
+        <td></td>
         <td></td>
       </tr>
     </tbody>

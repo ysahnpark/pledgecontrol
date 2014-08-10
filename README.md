@@ -37,9 +37,11 @@ From the installation directory run
 By now, all the required tables should have been successfully created in the `pledgecontrol` database.
 
 The following command will create default users `admin` and `keeper` in the users table.
+
   `php artisan db:seed`
 
 Now you can start the server by running:
+
   `php artisan serve`
 
 

@@ -1,0 +1,11 @@
+Report Requirements:
+1. 현재까지의 약정 총액
+2. 현재까지의 약정 참여자수 및 그의 % of registered members(175)
+3. 현재까지 약정참여자수의 monthly trend
+4. 현재까지의 수금총액과 그의 % of 총 약정액
+5. 현재까지의 수금액과 기대액의 차이
+6. 현재까지의 총 미납액
+7. 미납액의 monthly trend
+8. 약정액 category 별로본 미납분포
+9. 감사편지 발송까지 날수 기간별  분포,  약정  7일 이내 발송 compliance %
+10.   첫 미납편지 발송까지 날수 기간별  분포, 미납40일 이내 발송 compliance %
