@@ -44,6 +44,11 @@ Now you can start the server by running:
 
   `php artisan serve`
 
+And then run the browser and open the page 
+
+  `http://localhost:8000/accounts`
+
+When asked for sign-in, enter admin/admin.
 
   [1]: http://git-scm.com/downloads
   [2]: http://www.mysql.com/
